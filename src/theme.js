@@ -10,27 +10,27 @@ export const roboto = Roboto({
 
 // Create a theme instance.
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#4056A1",
-    },
-    secondary: {
-      main: "#D79922",
-    },
-    error: {
-      main: "#F13C20",
-    },
-    info: {
-      main: "#C5CBE3",
-      contrastText: "#EFE2BA",
-    },
-    background: {
-      default: "#E9EEEE",
-    },
-  },
-  typography: {
-    fontFamily: roboto.style.fontFamily,
-  },
+  // palette: {
+  //   primary: {
+  //     main: "#4056A1",
+  //   },
+  //   secondary: {
+  //     main: "#D79922",
+  //   },
+  //   error: {
+  //     main: "#F13C20",
+  //   },
+  //   info: {
+  //     main: "#C5CBE3",
+  //     contrastText: "#EFE2BA",
+  //   },
+  //   background: {
+  //     default: "#E9EEEE",
+  //   },
+  // },
+  // typography: {
+  //   fontFamily: roboto.style.fontFamily,
+  // },
 });
 
 export default theme;
