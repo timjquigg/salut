@@ -1,4 +1,4 @@
-import { Roboto } from "@next/font/google";
+import { Roboto, Source_Serif_4, Open_Sans } from "@next/font/google";
 import { createTheme } from "@mui/material/styles";
 
 export const roboto = Roboto({
@@ -8,29 +8,45 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
+export const Source_Serif = Source_Serif_4({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const serif = Source_Serif.style.fontFamily
+
+export const Open_sans = Open_Sans({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const sans = Open_sans.style.fontFamily
+
 // Create a theme instance.
 const theme = createTheme({
-  // palette: {
-  //   primary: {
-  //     main: "#4056A1",
-  //   },
-  //   secondary: {
-  //     main: "#D79922",
-  //   },
-  //   error: {
-  //     main: "#F13C20",
-  //   },
-  //   info: {
-  //     main: "#C5CBE3",
-  //     contrastText: "#EFE2BA",
-  //   },
-  //   background: {
-  //     default: "#E9EEEE",
-  //   },
-  // },
-  // typography: {
-  //   fontFamily: roboto.style.fontFamily,
-  // },
+  palette: {
+    primary: {
+      main: "#B34B01",
+    },
+    // secondary: {
+    //   main: "#D79922",
+    // },
+    // error: {
+    //   main: "#F13C20",
+    // },
+    // info: {
+    //   main: "#C5CBE3",
+    //   contrastText: "#EFE2BA",
+    // },
+    // background: {
+    //   default: "#E9EEEE",
+    // },
+  },
+  typography: {
+    fontFamily: [ serif, sans ]
+  },
 });
 
 export default theme;
