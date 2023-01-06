@@ -1,11 +1,139 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String      @id @default(cuid())
+  name          String?
+  email         String?     @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  favorites     Favorite[]
+  inventory     Inventory[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Favorite {
+  id         String   @id @default(uuid())
+  User       User     @relation(fields: [userId], references: [id])
+  userId     String
+  cocktail   Cocktail @relation(fields: [cocktailId], references: [id])
+  cocktailId String
+  category   String?
+}
+
+model Inventory {
+  id             String     @id @default(uuid())
+  User           User       @relation(fields: [userId], references: [id])
+  userId         String
+  ingredient     Ingredient @relation(fields: [nameIngredient], references: [strIngredient])
+  nameIngredient String     @unique
+}
+
+model Ingredient {
+  id             String      @id @default(uuid())
+  strIngredient  String      @unique
+  strDescription String?
+  strType        String?
+  strAlcohol     String?
+  strABV         String?
+  inventory      Inventory[]
+}
+
+model Cocktail {
+  id                          String     @id @default(uuid())
+  strDrink                    String     @unique
+  strDrinkAlternate           String?
+  strTags                     String?
+  strVideo                    String?
+  strCategory                 String?
+  strIBA                      String?
+  strAlcoholic                String?
+  strGlass                    String?
+  strInstructions             String?
+  strInstructionsES           String?
+  strInstructionsDE           String?
+  strInstructionsFR           String?
+  strInstructionsIT           String?
+  strDrinkThumb               String?
+  strIngredient1              String?
+  strIngredient2              String?
+  strIngredient3              String?
+  strIngredient4              String?
+  strIngredient5              String?
+  strIngredient6              String?
+  strIngredient7              String?
+  strIngredient8              String?
+  strIngredient9              String?
+  strIngredient10             String?
+  strIngredient11             String?
+  strIngredient12             String?
+  strIngredient13             String?
+  strIngredient14             String?
+  strIngredient15             String?
+  strMeasure1                 String?
+  strMeasure2                 String?
+  strMeasure3                 String?
+  strMeasure4                 String?
+  strMeasure5                 String?
+  strMeasure6                 String?
+  strMeasure7                 String?
+  strMeasure8                 String?
+  strMeasure9                 String?
+  strMeasure10                String?
+  strMeasure11                String?
+  strMeasure12                String?
+  strMeasure13                String?
+  strMeasure14                String?
+  strMeasure15                String?
+  strImageSource              String?
+  strImageAttribution         String?
+  strCreativeCommonsConfirmed String?
+  dateModified                DateTime   @updatedAt
+  Favorite                    Favorite[]
 }
