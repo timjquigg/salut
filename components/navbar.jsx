@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import theme from '../src/theme';
 import { NextLinkComposed } from '../src/Link';
 
-const navItems = ['Search Cocktails', 'About', 'Sign up', 'Sign in'];
+const navItems = [['Search Cocktails', '/'], ['About', '/'], ['Sign up', '/'], ['Sign in', '/']];
 
 
 function Navbar() {
@@ -45,17 +45,17 @@ function Navbar() {
             <Button
               component={NextLinkComposed}
               to={{
-                pathname: '/about',
+                pathname: item[1],
                 // query: { name: 'test' },
               }} 
-              key={item} 
+              key={item[0]} 
               sx={{ 
                 color: '#fff', 
                 marginRight: '20px', 
                 fontSize: 20, 
                 fontFamily: theme.typography.fontFamily[1] 
               }}>
-              {item}
+              {item[0]}
             </Button>
           ))}
         </Box>
