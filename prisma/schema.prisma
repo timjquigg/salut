@@ -62,7 +62,7 @@ model Favorite {
   id         String   @id @default(uuid())
   User       User     @relation(fields: [userId], references: [id])
   userId     String
-  cocktail   Cocktail @relation(fields: [cocktailId], references: [id])
+  cocktail   Cocktail @relation(fields: [cocktailId], references: [idDrink])
   cocktailId String
   category   String?
 }
@@ -76,7 +76,7 @@ model Inventory {
 }
 
 model Ingredient {
-  id             String      @id @default(uuid())
+  idIngredient   String      @id @default(uuid())
   strIngredient  String      @unique
   strDescription String?
   strType        String?
@@ -86,7 +86,7 @@ model Ingredient {
 }
 
 model Cocktail {
-  id                          String     @id @default(uuid())
+  idDrink                     String     @id @default(uuid())
   strDrink                    String     @unique
   strDrinkAlternate           String?
   strTags                     String?
@@ -100,6 +100,8 @@ model Cocktail {
   strInstructionsDE           String?
   strInstructionsFR           String?
   strInstructionsIT           String?
+  strInstructionsZHHANS       String?
+  strInstructionsZHHANT       String?
   strDrinkThumb               String?
   strIngredient1              String?
   strIngredient2              String?
@@ -134,6 +136,6 @@ model Cocktail {
   strImageSource              String?
   strImageAttribution         String?
   strCreativeCommonsConfirmed String?
-  dateModified                DateTime   @updatedAt
+  dateModified                String?
   Favorite                    Favorite[]
 }

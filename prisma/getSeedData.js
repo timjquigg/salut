@@ -69,17 +69,19 @@ async function getIngredients() {
   return detailedIngredients;
 }
 
-// getDrinks().then((drinks) => {
-//   // We now have every cocktail
+getDrinks().then((drinks) => {
+  // We now have every cocktail
 
-//   fs.writeFile(`.\drinksData.js`, JSON.stringify(drinks)).then(() => {
-//     console.log("Successfully wrote the drinks file");
-//   });
-// });
+  fs.writeFile(`.\\drinksData.json`, JSON.stringify(drinks)).then(() => {
+    console.log("Successfully wrote the drinks file");
+  });
+});
 
 getIngredients().then((ingredients) => {
   // We now have all ingredients
-  fs.writeFile(`.\ingredientData.js`, JSON.stringify(ingredients)).then(() => {
-    console.log("Successfully wrote the ingredients file");
-  });
+  fs.writeFile(`.\\ingredientData.json`, JSON.stringify(ingredients)).then(
+    () => {
+      console.log("Successfully wrote the ingredients file");
+    }
+  );
 });
