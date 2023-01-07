@@ -22,11 +22,11 @@ export default function MyApp(props) {
         <title>Salut!</title>
       </Head>
       <ThemeProvider theme={theme}>
+        {/* <Layout> */}
         <CssBaseline />
-        <Layout>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <Component {...pageProps} />
-        </Layout>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <Component {...pageProps} />
+        {/* </Layout> */}
       </ThemeProvider>
     </CacheProvider>
   );

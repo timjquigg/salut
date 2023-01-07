@@ -1,20 +1,26 @@
-import { getCocktailName } from "../../lib/search";
+import { getCocktail } from "../../lib/search";
 import { useRouter } from "next/router";
-import { PrismaClient } from "@prisma/client";
+import Image from "next/image";
 
 const result = (props) => {
-  console.log(props.drink);
+  console.log(props);
   return (
     <>
       <p>{props.drink[0].strDrink}</p>
       <p>{props.drink[0].strCategory}</p>
+      <Image
+        src={props.drink[0].strDrinkThumb}
+        alt={props.drink[0].strDrink}
+        width="200"
+        height="200"
+      />
     </>
   );
 };
 
 export async function getServerSideProps(context) {
   const keyword = context.query.keyword;
-  const data = await getCocktailName(keyword[0]);
+  const data = await getCocktail(keyword);
   return {
     props: {
       drink: data,
