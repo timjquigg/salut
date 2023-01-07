@@ -1,4 +1,4 @@
-# Sault!
+# Salut!
 
 ## 1. Project Planning
 
