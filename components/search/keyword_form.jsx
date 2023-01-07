@@ -1,29 +1,31 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import SearchContainer from "./search_container";
 
 const KeywordForm = (props) => {
   return (
     <>
-      <Box
+      <TextField
+        id="outlined-basic"
+        label="Search by Keyword"
+        variant="outlined"
+        value={props.enteredSearch}
+        onChange={props.changeHandler}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          p: 2,
+          width: "75%",
+        }}
+      />
+      <Button
+        variant="outlined"
+        onClick={props.submitHandler}
+        sx={{
+          width: "25%",
+          m: 2,
         }}
       >
-        <TextField
-          id="outlined-basic"
-          label="Search for a Cocktail"
-          variant="outlined"
-          value={props.enteredSearch}
-          onChange={props.changeHandler}
-        />
-        <Button variant="outlined" onClick={props.submitHandler}>
-          Submit
-        </Button>
-      </Box>
+        Submit
+      </Button>
     </>
   );
 };
