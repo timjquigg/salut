@@ -97,7 +97,7 @@ function StyledAvatar(props) {
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
-              Logout
+              <ListItemText>Logout</ListItemText>
             </IconButton>
           </MenuItem>
         </Menu>

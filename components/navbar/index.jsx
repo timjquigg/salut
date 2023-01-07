@@ -1,16 +1,8 @@
 import theme from "../../src/theme";
 import { NextLinkComposed } from "../../src/Link";
 import { NavButton } from "./navButton";
-import { useSession, signIn, signOut } from "next-auth/react";
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  ButtonGroup,
-  Avatar,
-} from "@mui/material";
+import { useSession, signIn } from "next-auth/react";
+import { Box, AppBar, Toolbar, Button, ButtonGroup } from "@mui/material";
 import StyledAvatar from "./styledAvatar";
 
 function Navbar() {
@@ -70,7 +62,6 @@ function Navbar() {
               >
                 Sign In
               </NavButton>
-              {/* <NavButton onClick={() => signIn()}>Sign Up</NavButton> */}
             </>
           )}
         </ButtonGroup>
