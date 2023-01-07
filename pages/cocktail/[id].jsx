@@ -80,7 +80,7 @@ function Details(props) {
       {status === "authenticated" && (
         <Box>
           <ToggleButton
-            sx={{color: 'red'}}
+            color='primary'
             value="check"
             selected={selected}
             onChange={() => {
