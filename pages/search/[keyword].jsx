@@ -1,7 +1,7 @@
 import { getCocktail, getAllIngredients } from "../../lib/search";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import useSearch from "../../.next/custom_hook/useSearch";
+import useSearch from "../../custom_hook/useSearch";
 import KeywordForm from "../../components/search/keyword_form";
 import FilterForm from "../../components/search/filter_form";
 import SearchContainer from "../../components/search/search_container";
