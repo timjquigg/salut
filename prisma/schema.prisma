@@ -65,6 +65,8 @@ model Favorite {
   cocktail   Cocktail @relation(fields: [cocktailId], references: [idDrink])
   cocktailId String
   category   String?
+
+  @@unique([userId, cocktailId])
 }
 
 model Inventory {

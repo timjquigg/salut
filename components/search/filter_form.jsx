@@ -1,6 +1,8 @@
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import SearchContainer from "./search_container";
 
 const FilterForm = (props) => {
   return (
@@ -14,15 +16,25 @@ const FilterForm = (props) => {
         inputValue={props.inputFilterKeywords}
         onChange={props.onChange}
         onInputChange={props.changeInputFilterHandler}
+        sx={{
+          width: "75%",
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="filterSelectedOptions"
+            label="Search by Filter"
             // placeholder="Favorites"
           />
         )}
       />
-      <Button variant="outlined" onClick={props.onClick}>
+      <Button
+        variant="outlined"
+        onClick={props.onClick}
+        sx={{
+          width: "25%",
+          mt: 2,
+        }}
+      >
         Submit
       </Button>
     </>
