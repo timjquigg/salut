@@ -50,7 +50,11 @@ const Search = (props) => {
     <Box
       component="form"
       sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        p: 2,
+        mt: 8,
       }}
       noValidate
       autoComplete="off"
@@ -61,16 +65,6 @@ const Search = (props) => {
         submitHandler={submitHandler}
       />
 
-      {/* <TextField
-        id="outlined-basic"
-        label="Search for a Cocktail"
-        variant="outlined"
-        value={enteredSearch}
-        onChange={changeHandler}
-      />
-      <Button variant="outlined" onClick={submitHandler}>
-        Submit
-      </Button> */}
       <FilterForm
         options={props.ingredients}
         filterKeywords={filterKeywords}
@@ -79,27 +73,6 @@ const Search = (props) => {
         onInputChange={changeInputFilterHandler}
         onClick={submitFilterHandler}
       />
-      {/* <Autocomplete
-        multiple
-        id="tags-outlined"
-        options={props.ingredients}
-        getOptionLabel={(option) => option.strIngredient}
-        value={filterKeywords}
-        inputValue={inputFilterKeywords}
-        onChange={changeFilterHandler}
-        onInputChange={changeInputFilterHandler}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="filterSelectedOptions"
-            // placeholder="Favorites"
-          />
-        )}
-      />
-
-      <Button variant="outlined" onClick={submitFilterHandler}>
-        Submit
-      </Button> */}
     </Box>
   );
 };
