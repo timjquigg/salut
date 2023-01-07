@@ -24,7 +24,7 @@ const KeywordForm = (props) => {
           m: 2,
         }}
       >
-        Submit
+        Search by Keyword
       </Button>
     </>
   );
