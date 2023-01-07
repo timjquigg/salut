@@ -20,7 +20,7 @@ function Navbar() {
       sx={{
         backgroundColor: "transparent",
         boxShadow: "none",
-        marginTop: "10px",
+        paddingTop: "10px",
       }}
     >
       <Toolbar>
