@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
   ButtonGroup,
+  Avatar,
 } from "@mui/material";
 
 function Navbar() {
@@ -53,23 +54,19 @@ function Navbar() {
           </NavButton>
           {status === "authenticated" && (
             <>
-              <Typography
-                variant="body"
-                sx={{
-                  color: theme.palette.primary.contrastText,
-                  marginRight: "20px",
-                  fontSize: 20,
-                  fontFamily: theme.typography.fontFamily[1],
-                }}
-              >
-                Logged in as {session.user.email}
-              </Typography>
               <NavButton onClick={() => signOut()}>Sign Out</NavButton>
+              <NavButton component={NextLinkComposed} path="/user">
+                <Avatar alt={session.user.name} src={session.user.image} />
+              </NavButton>
             </>
           )}
           {status === "unauthenticated" && (
             <>
-              <NavButton onClick={() => signIn()}>Sign In</NavButton>
+              <NavButton
+                onClick={() => signIn(undefined, { callbackUrl: "/auth" })}
+              >
+                Sign In
+              </NavButton>
               <NavButton onClick={() => signIn()}>Sign Up</NavButton>
             </>
           )}
