@@ -4,6 +4,7 @@ import { getAllIngredients } from "../../lib/search";
 import Box from "@mui/material/Box";
 import KeywordForm from "../../components/search/keyword_form";
 import FilterForm from "../../components/search/filter_form";
+import SearchContainer from "../../components/search/search_container";
 
 const Search = (props) => {
   const router = useRouter();
@@ -47,8 +48,7 @@ const Search = (props) => {
   };
 
   return (
-    <Box
-      component="form"
+    <SearchContainer
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -56,8 +56,6 @@ const Search = (props) => {
         p: 2,
         mt: 8,
       }}
-      noValidate
-      autoComplete="off"
     >
       <KeywordForm
         enteredSearch={enteredSearch}
@@ -73,7 +71,7 @@ const Search = (props) => {
         onInputChange={changeInputFilterHandler}
         onClick={submitFilterHandler}
       />
-    </Box>
+    </SearchContainer>
   );
 };
 
