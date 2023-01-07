@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 function Favorites() {
-  return (
-    <div>Favorites</div>
-  )
+  return <div>Favorites</div>;
 }
 
-export default Favorites
+Favorites.auth = true;
+
+export default Favorites;
