@@ -2,22 +2,11 @@ import React from 'react'
 import { getCocktailDetails } from '../../lib/details';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
+import { useSession } from 'next-auth/react';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import { Button } from '@mui/material';
+import { useRouter } from 'next/router';
 
-// export const getStaticPaths = async () => {
-//   const res = await fetch('')
-//   const data = await res.json();
-
-//   const paths = data.map(cocktail => {
-//     return {
-//       params: { id: cocktail.id.toString() }
-//     }
-//   })
-
-//   return {
-//     paths: paths,
-//     fallback: false
-//   }
-// }
 
 export async function getServerSideProps(context) {
   const id = context.query.id;
@@ -29,7 +18,12 @@ export async function getServerSideProps(context) {
   };
 }
 
+
+
 function Details(props) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  // console.log('id:', router.query.id)
 
   const cocktailName = props.data.strDrink;
   const thumb = props.data.strDrinkThumb;
@@ -39,7 +33,7 @@ function Details(props) {
     const output = [];
     const data = props.data
     let ingKeys = Object.keys(data).filter(key => key.includes(str));
-    console.log('ingKeys:', ingKeys)
+    
     for (let key of ingKeys) {
       if (data[key] !== null) {
         output.push(data[key])
@@ -51,7 +45,14 @@ function Details(props) {
   const ingredients = getIngredients('strIngredient')
   const measurement = getIngredients('strMeasure')
 
-  console.log('keys:', props.data)
+  const addFavorite = async (userId, cocktailId) => {
+    const response = await fetch('/api/postFavourite', {
+      method: "POST",
+      body: [userId, cocktailId]
+    })
+  }
+
+  // console.log(props.data)
   return (
     <Box sx={{ marginTop: '100px'}}>
       <h1>{ cocktailName }</h1>
@@ -61,6 +62,11 @@ function Details(props) {
         width={500}
         height={500}
       />
+      {/* {status === "authenticated" && ( */}
+      <Box>
+        <Button variant="contained" startIcon={<FavoriteBorder />} onClick={() => addFavorite(session.user.id, router.query.id)}>Favorite</Button>
+      </Box>
+      {/* )} */}
       <Box sx={{ display: 'flex', gap: '10px'}}>
         <Box>
           {ingredients.map(ingredient => (
