@@ -1,18 +1,26 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { getAllIngredients } from "../../lib/search";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-// import main from "../../lib/search";
+import KeywordForm from "../../components/search/keyword_form";
+import FilterForm from "../../components/search/filter_form";
 
-const Search = () => {
+const Search = (props) => {
   const router = useRouter();
   const [enteredSearch, setEnteredSearch] = useState("");
-  const [isDataPresent, setIsDataPresent] = useState(false);
+  const [filterKeywords, setFilterKeywords] = useState([]);
+  const [inputFilterKeywords, setInputFilterKeywords] = useState();
+
+  const pathFormatter = (filtersArr) => {
+    let url = "search";
+    filtersArr.forEach((filter) => {
+      url += `/${filter}`;
+    });
+    return url;
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(enteredSearch);
     router.push(`search/${enteredSearch}`);
   };
 
@@ -21,67 +29,61 @@ const Search = () => {
     setEnteredSearch(event.target.value);
   };
 
+  const changeFilterHandler = (event, newValue) => {
+    setFilterKeywords(newValue);
+  };
+
+  const changeInputFilterHandler = (event, newValue) => {
+    console.log(newValue.strIngredient);
+    setInputFilterKeywords(newValue);
+  };
+
+  const submitFilterHandler = (event) => {
+    event.preventDefault();
+    const formatValue = filterKeywords.map((el) => el.strIngredient);
+    console.log("filtered:", filterKeywords);
+    console.log(pathFormatter(formatValue));
+    router.push(pathFormatter(formatValue));
+  };
+
   return (
     <Box
       component="form"
       sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        p: 2,
+        mt: 8,
       }}
       noValidate
       autoComplete="off"
     >
-      <TextField
-        id="outlined-basic"
-        label="Search for a Cocktail"
-        variant="outlined"
-        value={enteredSearch}
-        onChange={changeHandler}
+      <KeywordForm
+        enteredSearch={enteredSearch}
+        changeHandler={changeHandler}
+        submitHandler={submitHandler}
       />
-      <Button variant="outlined" onClick={submitHandler}>
-        Submit
-      </Button>
+
+      <FilterForm
+        options={props.ingredients}
+        filterKeywords={filterKeywords}
+        inputFilterKeywords={inputFilterKeywords}
+        onChange={changeFilterHandler}
+        onInputChange={changeInputFilterHandler}
+        onClick={submitFilterHandler}
+      />
     </Box>
   );
 };
 
-// export function getServerSideProps(context) {
-//   main();
-//   return {
-//     props: {
-//       test: "test",
-//     },
-//   };
-// }
-
-// export async function getStaticProps(context) {
-//   const meetupId = context.params.meetupId;
-
-//   const client = await MongoClient.connect(
-//     "mongodb+srv://kiko:foiegras25@cluster0.a7gxmqk.mongodb.net/meetups?retryWrites=true&w=majority"
-//   );
-//   const db = client.db();
-
-//   const meetupsCollection = db.collection("meetups");
-
-//   const selectedMeetups = await meetupsCollection.findOne({
-//     _id: ObjectId(meetupId),
-//   });
-
-//   client.close();
-
-//   // console.log(meetupId);
-
-//   return {
-//     props: {
-//       meetupData: {
-//         id: selectedMeetups._id.toString(),
-//         title: selectedMeetups.title,
-//         address: selectedMeetups.address,
-//         image: selectedMeetups.image,
-//         description: selectedMeetups.description,
-//       },
-//     },
-//   };
-// }
+export async function getServerSideProps(context) {
+  const data = await getAllIngredients();
+  return {
+    props: {
+      ingredients: data,
+    },
+  };
+}
 
 export default Search;
