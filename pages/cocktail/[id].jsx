@@ -1,19 +1,26 @@
-import React from 'react'
-import { getCocktailDetails } from '../../lib/details';
-import Image from 'next/image';
-import Box from '@mui/material/Box';
-import { useSession } from 'next-auth/react';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import { Button } from '@mui/material';
-import { useRouter } from 'next/router';
-
+import { useState } from "react";
+import { getCocktailDetails } from "../../lib/details";
+import { getFavoriteId } from "../../lib/favourite";
+import Image from "next/image";
+import Box from "@mui/material/Box";
+import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import { Button } from "@mui/material";
+import { useRouter } from "next/router";
+import ToggleButton from '@mui/material/ToggleButton';
+import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 export async function getServerSideProps(context) {
-  const id = context.query.id;
-  const data = await getCocktailDetails(id);
+  const cocktailId = context.query.id;
+  const sessionToken = context.req.cookies['next-auth.session-token']
+  const data = await getCocktailDetails(cocktailId);
+  const favoriteId = await getFavoriteId(sessionToken, cocktailId)
+  console.log(context.req.cookies['next-auth.session-token'])
   return {
     props: {
       data,
+      favoriteId
     },
   };
 }
@@ -21,6 +28,7 @@ export async function getServerSideProps(context) {
 
 
 function Details(props) {
+  const [selected, setSelected] = useState(props.favoriteId ? true : false);
   const { data: session, status } = useSession();
   const router = useRouter();
   // console.log('id:', router.query.id)
@@ -31,58 +39,87 @@ function Details(props) {
 
   const getIngredients = (str) => {
     const output = [];
-    const data = props.data
-    let ingKeys = Object.keys(data).filter(key => key.includes(str));
-    
+    const data = props.data;
+    let ingKeys = Object.keys(data).filter((key) => key.includes(str));
+
     for (let key of ingKeys) {
       if (data[key] !== null) {
-        output.push(data[key])
+        output.push(data[key]);
       }
     }
     return output;
-  }
+  };
 
-  const ingredients = getIngredients('strIngredient')
-  const measurement = getIngredients('strMeasure')
+  const ingredients = getIngredients("strIngredient");
+  const measurement = getIngredients("strMeasure");
 
   const addFavorite = async (userId, cocktailId) => {
-    const response = await fetch('/api/postFavourite', {
+    const response = await fetch("/api/postFavourite", {
       method: "POST",
-      body: [userId, cocktailId]
-    })
-  }
+      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const removeFavorite = async (userId, cocktailId) => {
+    const response = await fetch("/api/removeFavourite", {
+      method: "DELETE",
+      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   // console.log(props.data)
   return (
     <Box sx={{ marginTop: '104px'}}>
       <h1>{ cocktailName }</h1>
+      {status === "authenticated" && (
+        <Box>
+          <ToggleButton
+            sx={{color: 'red'}}
+            value="check"
+            selected={selected}
+            onChange={() => {
+              setSelected(!selected);
+            }}
+            onClick={() => {
+              if (!selected) {
+                addFavorite(session.user.id, router.query.id)
+              } else {
+                removeFavorite(session.user.id, router.query.id)
+              }
+            }}
+          >
+            <FavoriteBorder />
+          </ToggleButton>
+        </Box>
+      )}
       <Image 
         src={thumb}
         alt="Picture of the author"
         width={500}
         height={500}
       />
-      {status === "authenticated" && (
-      <Box>
-        <Button variant="contained" startIcon={<FavoriteBorder />} onClick={() => addFavorite(session.user.id, router.query.id)}>Favorite</Button>
-      </Box>
-      )}
       <Box sx={{ display: 'flex', gap: '10px'}}>
         <Box>
-          {ingredients.map(ingredient => (
+          {ingredients.map((ingredient) => (
             <p key={ingredient}>{ingredient}</p>
           ))}
         </Box>
         <Box>
-          {measurement.map(m => (
+          {measurement.map((m) => (
             <p key={m}>{m}</p>
           ))}
         </Box>
       </Box>
 
-      <p>{ instructions }</p>
+      <p>{instructions}</p>
     </Box>
-  )
+  );
 }
 
-export default Details
+export default Details;
