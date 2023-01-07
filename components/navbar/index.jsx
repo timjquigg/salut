@@ -1,16 +1,9 @@
 import theme from "../../src/theme";
 import { NextLinkComposed } from "../../src/Link";
 import { NavButton } from "./navButton";
-import { useSession, signIn, signOut } from "next-auth/react";
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  ButtonGroup,
-  Avatar,
-} from "@mui/material";
+import { useSession, signIn } from "next-auth/react";
+import { Box, AppBar, Toolbar, Button, ButtonGroup } from "@mui/material";
+import StyledAvatar from "./styledAvatar";
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -19,7 +12,7 @@ function Navbar() {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "transparent",
+        backgroundColor: "black",
         boxShadow: "none",
         paddingTop: "10px",
       }}
@@ -54,10 +47,12 @@ function Navbar() {
           </NavButton>
           {status === "authenticated" && (
             <>
-              <NavButton onClick={() => signOut()}>Sign Out</NavButton>
-              <NavButton component={NextLinkComposed} path="/user">
-                <Avatar alt={session.user.name} src={session.user.image} />
-              </NavButton>
+              <StyledAvatar
+                component={NextLinkComposed}
+                path="/user"
+                name={session.user.name}
+                image={session.user.image}
+              />
             </>
           )}
           {status === "unauthenticated" && (
@@ -67,7 +62,6 @@ function Navbar() {
               >
                 Sign In
               </NavButton>
-              <NavButton onClick={() => signIn()}>Sign Up</NavButton>
             </>
           )}
         </ButtonGroup>
