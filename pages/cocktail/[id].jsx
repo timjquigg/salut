@@ -54,7 +54,7 @@ function Details(props) {
 
   // console.log(props.data)
   return (
-    <Box sx={{ marginTop: '100px'}}>
+    <Box sx={{ marginTop: '104px'}}>
       <h1>{ cocktailName }</h1>
       <Image 
         src={thumb}
@@ -62,11 +62,11 @@ function Details(props) {
         width={500}
         height={500}
       />
-      {/* {status === "authenticated" && ( */}
+      {status === "authenticated" && (
       <Box>
         <Button variant="contained" startIcon={<FavoriteBorder />} onClick={() => addFavorite(session.user.id, router.query.id)}>Favorite</Button>
       </Box>
-      {/* )} */}
+      )}
       <Box sx={{ display: 'flex', gap: '10px'}}>
         <Box>
           {ingredients.map(ingredient => (
