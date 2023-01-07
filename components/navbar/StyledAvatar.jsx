@@ -2,7 +2,13 @@ import { useState } from "react";
 import { NextLinkComposed } from "../../src/Link";
 import { signOut } from "next-auth/react";
 
-import { Logout, Bookmarks, Liquor, Dashboard } from "@mui/icons-material";
+import {
+  Logout,
+  Bookmarks,
+  Liquor,
+  Dashboard,
+  Home,
+} from "@mui/icons-material";
 
 import {
   Avatar,
@@ -50,6 +56,19 @@ function StyledAvatar(props) {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
+          <MenuItem>
+            <IconButton
+              component={NextLinkComposed}
+              to={{
+                pathname: "/",
+              }}
+            >
+              <ListItemIcon>
+                <Home fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Home</ListItemText>
+            </IconButton>
+          </MenuItem>
           <MenuItem>
             <IconButton
               component={NextLinkComposed}
