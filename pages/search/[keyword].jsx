@@ -1,25 +1,58 @@
-import { getCocktail } from "../../lib/search";
+import { getCocktail, getAllIngredients } from "../../lib/search";
 import * as React from "react";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Box from "@mui/material/Box";
+import useSearch from "../../.next/custom_hook/useSearch";
+import KeywordForm from "../../components/search/keyword_form";
+import FilterForm from "../../components/search/filter_form";
+import SearchContainer from "../../components/search/search_container";
+import ResultList from "../../components/search/result_list";
 
-const result = (props) => {
+const Result = (props) => {
   console.log(props);
+  const {
+    enteredSearch,
+    changeHandler,
+    submitHandler,
+    filterKeywords,
+    inputFilterKeywords,
+    changeFilterHandler,
+    changeInputFilterHandler,
+    submitFilterHandler,
+  } = useSearch();
 
-  const DUMMY = [
-    props.drink[0],
-    props.drink[1],
-    props.drink[2],
-    props.drink[3],
-    props.drink[4],
-    props.drink[5],
-  ];
+  // USE TO FIX LAYOUT
+  // const DUMMY = [
+  //   props.drink[0],
+  //   props.drink[1],
+  //   props.drink[2],
+  //   props.drink[3],
+  // ];
+
   return (
     <>
+      <SearchContainer
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          p: 2,
+        }}
+      >
+        <KeywordForm
+          enteredSearch={enteredSearch}
+          changeHandler={changeHandler}
+          submitHandler={submitHandler}
+        />
+
+        <FilterForm
+          options={props.ingredients}
+          filterKeywords={filterKeywords}
+          inputFilterKeywords={inputFilterKeywords}
+          onChange={changeFilterHandler}
+          onInputChange={changeInputFilterHandler}
+          onClick={submitFilterHandler}
+        />
+      </SearchContainer>
       <Box
         noValidate
         component="form"
@@ -29,46 +62,25 @@ const result = (props) => {
           justifyContent: "center",
           alignItems: "center",
           p: 2,
-          mt: 8,
           position: "relative",
         }}
       >
-        <ImageList sx={{ width: 1000, height: 1000, mt: "104px" }} cols={3}>
-          {DUMMY.map((item) => (
-            <ImageListItem key={item.idDrink}>
-              <img
-                src={`${item.strDrinkThumb}?w=150&fit=crop&auto=format`}
-                // srcSet={`${item.strDrinkThumb}?w=150&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.strDrink}
-                loading="lazy"
-              />
-              <ImageListItemBar
-                title={item.strDrink}
-                subtitle={item.strCategory}
-                actionIcon={
-                  <IconButton
-                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                    aria-label={`info about ${item.title}`}
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
-                }
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
+        <p>{`${props.drink.length} Results`}</p>
+        <ResultList drink={props.drink} />
       </Box>
     </>
   );
 };
 
 export async function getServerSideProps(context) {
+  const ingredientData = await getAllIngredients();
   const keyword = context.query.keyword;
   const data = await getCocktail(keyword);
   return {
     props: {
       drink: data,
+      ingredients: ingredientData,
     },
   };
 }
-export default result;
+export default Result;

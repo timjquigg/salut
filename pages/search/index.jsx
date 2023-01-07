@@ -1,51 +1,60 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
 import { getAllIngredients } from "../../lib/search";
-import Box from "@mui/material/Box";
 import KeywordForm from "../../components/search/keyword_form";
 import FilterForm from "../../components/search/filter_form";
 import SearchContainer from "../../components/search/search_container";
+import useSearch from "../../.next/custom_hook/useSearch";
 
 const Search = (props) => {
-  const router = useRouter();
-  const [enteredSearch, setEnteredSearch] = useState("");
-  const [filterKeywords, setFilterKeywords] = useState([]);
-  const [inputFilterKeywords, setInputFilterKeywords] = useState();
+  const {
+    enteredSearch,
+    changeHandler,
+    submitHandler,
+    filterKeywords,
+    inputFilterKeywords,
+    changeFilterHandler,
+    changeInputFilterHandler,
+    submitFilterHandler,
+  } = useSearch();
 
-  const pathFormatter = (filtersArr) => {
-    let url = "search";
-    filtersArr.forEach((filter) => {
-      url += `/${filter}`;
-    });
-    return url;
-  };
+  // const router = useRouter();
+  // const [enteredSearch, setEnteredSearch] = useState("");
+  // const [filterKeywords, setFilterKeywords] = useState([]);
+  // const [inputFilterKeywords, setInputFilterKeywords] = useState();
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    router.push(`search/${enteredSearch}`);
-  };
+  // const pathFormatter = (filtersArr) => {
+  //   let url = "search";
+  //   filtersArr.forEach((filter) => {
+  //     url += `/${filter}`;
+  //   });
+  //   return url;
+  // };
 
-  const changeHandler = (event) => {
-    event.preventDefault();
-    setEnteredSearch(event.target.value);
-  };
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+  //   router.push(`search/${enteredSearch}`);
+  // };
 
-  const changeFilterHandler = (event, newValue) => {
-    setFilterKeywords(newValue);
-  };
+  // const changeHandler = (event) => {
+  //   event.preventDefault();
+  //   setEnteredSearch(event.target.value);
+  // };
 
-  const changeInputFilterHandler = (event, newValue) => {
-    console.log(newValue.strIngredient);
-    setInputFilterKeywords(newValue);
-  };
+  // const changeFilterHandler = (event, newValue) => {
+  //   setFilterKeywords(newValue);
+  // };
 
-  const submitFilterHandler = (event) => {
-    event.preventDefault();
-    const formatValue = filterKeywords.map((el) => el.strIngredient);
-    console.log("filtered:", filterKeywords);
-    console.log(pathFormatter(formatValue));
-    router.push(pathFormatter(formatValue));
-  };
+  // const changeInputFilterHandler = (event, newValue) => {
+  //   console.log(newValue.strIngredient);
+  //   setInputFilterKeywords(newValue);
+  // };
+
+  // const submitFilterHandler = (event) => {
+  //   event.preventDefault();
+  //   const formatValue = filterKeywords.map((el) => el.strIngredient);
+  //   console.log("filtered:", filterKeywords);
+  //   console.log(pathFormatter(formatValue));
+  //   router.push(pathFormatter(formatValue));
+  // };
 
   return (
     <SearchContainer
