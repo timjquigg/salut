@@ -7,7 +7,6 @@ export function NavButton(props) {
       component={props.component}
       to={{
         pathname: props.path,
-        // query: { name: 'test' },
       }}
       onClick={props.onClick}
       sx={{
