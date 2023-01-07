@@ -63,7 +63,7 @@ function Navbar() {
           {status === "unauthenticated" && (
             <>
               <NavButton
-                onClick={() => signIn(undefined, { callbackUrl: "/auth" })}
+                onClick={() => signIn(undefined, { callbackUrl: "/user" })}
               >
                 Sign In
               </NavButton>
