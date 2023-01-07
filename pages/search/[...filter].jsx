@@ -1,5 +1,4 @@
 import { getFilterCocktailsStrict } from "../../lib/search";
-import { useRouter } from "next/router";
 import { getAllIngredients } from "../../lib/search";
 import KeywordForm from "../../components/search/keyword_form";
 import FilterForm from "../../components/search/filter_form";
@@ -7,10 +6,12 @@ import SearchContainer from "../../components/search/search_container";
 import Box from "@mui/material/Box";
 import ResultList from "../../components/search/result_list";
 import useSearch from "../../custom_hook/useSearch";
+import { useSession } from "next-auth/react";
 
 const Result = (props) => {
-  console.log(props);
-  const router = useRouter();
+  const { data: session } = useSession();
+  console.log("session:", session);
+  // console.log(props);
   const {
     enteredSearch,
     changeHandler,
