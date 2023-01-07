@@ -2,7 +2,7 @@ import { getAllIngredients } from "../../lib/search";
 import KeywordForm from "../../components/search/keyword_form";
 import FilterForm from "../../components/search/filter_form";
 import SearchContainer from "../../components/search/search_container";
-import useSearch from "../../.next/custom_hook/useSearch";
+import useSearch from "../../custom_hook/useSearch";
 
 const Search = (props) => {
   const {
