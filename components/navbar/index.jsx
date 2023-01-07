@@ -11,6 +11,7 @@ import {
   ButtonGroup,
   Avatar,
 } from "@mui/material";
+import StyledAvatar from "./styledAvatar";
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -54,10 +55,12 @@ function Navbar() {
           </NavButton>
           {status === "authenticated" && (
             <>
-              <NavButton onClick={() => signOut()}>Sign Out</NavButton>
-              <NavButton component={NextLinkComposed} path="/user">
-                <Avatar alt={session.user.name} src={session.user.image} />
-              </NavButton>
+              <StyledAvatar
+                component={NextLinkComposed}
+                path="/user"
+                name={session.user.name}
+                image={session.user.image}
+              />
             </>
           )}
           {status === "unauthenticated" && (
@@ -67,7 +70,7 @@ function Navbar() {
               >
                 Sign In
               </NavButton>
-              <NavButton onClick={() => signIn()}>Sign Up</NavButton>
+              {/* <NavButton onClick={() => signIn()}>Sign Up</NavButton> */}
             </>
           )}
         </ButtonGroup>
