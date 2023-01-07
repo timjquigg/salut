@@ -35,7 +35,7 @@ const FilterForm = (props) => {
           mt: 2,
         }}
       >
-        Submit
+        Filter Cocktails
       </Button>
     </>
   );
