@@ -1,7 +1,7 @@
 import theme from "../../src/theme";
 import { NextLinkComposed } from "../../src/Link";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { NavButton } from "./navButton";
+import { useSession, signIn, signOut } from "next-auth/react";
 import {
   Box,
   AppBar,
