@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 async function Handler(req, res) {
   if (req.method === "POST") {
     console.log('req.body', req.body);
-    const favorite = await prisma.favorite.create({
+    await prisma.favorite.create({
       data: {
         userId: req.body[0],
         cocktailId: req.body[1],

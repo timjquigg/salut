@@ -1,6 +1,5 @@
 import React from 'react'
 import { getCocktailDetails } from '../../lib/details';
-// import { addFavorite } from '../api/postFavourite';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import { useSession } from 'next-auth/react';
