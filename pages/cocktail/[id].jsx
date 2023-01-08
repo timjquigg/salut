@@ -10,6 +10,9 @@ import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import ToggleButton from '@mui/material/ToggleButton';
 import theme from "../../src/theme";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import CopyToClipboardButton from "../../components/copyUrl";
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
@@ -122,9 +125,9 @@ function Details(props) {
                   }}
                 >
                   {selected ? (
-                    <Favorite />
+                    <Favorite sx={{ color: "red" }}/>
                   ) : (
-                    <FavoriteBorder />
+                    <FavoriteBorder sx={{ color: "red" }}/>
                   )}
                 </ToggleButton>
               </Box>
@@ -148,6 +151,21 @@ function Details(props) {
           <Box sx={{marginTop: '1rem'}}>
             <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Directions</Typography>
             <p>{instructions}</p>
+          </Box>
+          <Box sx={{display: 'flex'}}>
+            <CopyToClipboardButton />
+            <Button title="Share on facebook"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com" target="_blank"
+                    rel="noreferrer"
+                    >
+              <FacebookIcon sx={{fill: theme.palette.primary.contrastText}}/>
+            </Button>
+            <Button title="Share on Twitter"
+                    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com" target="_blank"
+                    rel="noreferrer"
+                    >
+              <TwitterIcon sx={{fill: theme.palette.primary.contrastText}}/>
+            </Button>
           </Box>
         </Box>
       </Box>
