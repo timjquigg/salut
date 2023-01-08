@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState } from "react";
 import { getCocktailDetails } from "../../lib/details";
 import { getFavoriteId } from "../../lib/favourite";
@@ -13,6 +14,10 @@ import theme from "../../src/theme";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import CopyToClipboardButton from "../../components/copyUrl";
+import AddIcon from '@mui/icons-material/Add';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
@@ -95,7 +100,7 @@ function Details(props) {
         border: '5px double #C8963E',
       }}>
         
-        <Box sx={{width: '100%', display: 'flex', }}>
+        <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}}>
           <Image 
             src={thumb}
             alt="Picture of the author"
@@ -103,6 +108,19 @@ function Details(props) {
             height={500}
             layout="responsive"
           />
+          <PopupState variant="popover" popupId="demo-popup-menu">
+            {(popupState) => (
+              <React.Fragment>
+                <Button variant="outlined" {...bindTrigger(popupState)} sx={{width: '200px'}}>
+                  add category
+                  <AddIcon />
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem onClick={popupState.close}>Category 1</MenuItem>
+                </Menu>
+              </React.Fragment>
+            )}
+          </PopupState>
         </Box>
         <Box sx={{width:'100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start'}}>
           <Box sx={{display: 'flex', alignItems: 'center', gap: '15px'}}>
