@@ -4,12 +4,10 @@ import { getFavoriteId } from "../../lib/favourite";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import { useSession } from "next-auth/react";
-import { getSession } from "next-auth/react";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
 import ToggleButton from '@mui/material/ToggleButton';
-import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
@@ -106,13 +104,13 @@ function Details(props) {
       />
       <Box sx={{ display: 'flex', gap: '10px'}}>
         <Box>
-          {ingredients.map((ingredient) => (
-            <p key={ingredient}>{ingredient}</p>
+          {ingredients.map((ingredient, i) => (
+            <p key={i}>{ingredient}</p>
           ))}
         </Box>
         <Box>
-          {measurement.map((m) => (
-            <p key={m}>{m}</p>
+          {measurement.map((m, i) => (
+            <p key={i}>{m}</p>
           ))}
         </Box>
       </Box>

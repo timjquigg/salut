@@ -5,7 +5,12 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
+import { Box } from "@mui/material";
 import { getFavorites } from "../../lib/favourite";
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 const Favourites = (props) => {
 
@@ -38,11 +43,25 @@ const Favourites = (props) => {
     </ImageListItem>
   ));
   return (
-    <>
-      <ImageList sx={{ width: 1000, height: 1000 }} cols={3}>
-        {results}
-      </ImageList>
-    </>
+    <Box sx={{marginTop: '104px'}}>
+      <PopupState variant="popover" popupId="demo-popup-menu">
+        {(popupState) => (
+          <React.Fragment>
+            <Button variant="contained" {...bindTrigger(popupState)} sx={{marginLeft:'100px'}}>
+              All Favourites
+            </Button>
+            <Menu {...bindMenu(popupState)}>
+              <MenuItem onClick={popupState.close}>Category 1</MenuItem>
+            </Menu>
+          </React.Fragment>
+        )}
+      </PopupState>
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <ImageList sx={{ width: 1000, height: 1000, }} cols={3} >
+          {results}
+        </ImageList>
+      </Box>
+    </ Box>
   );
 };
 
