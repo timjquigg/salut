@@ -1,4 +1,4 @@
-import { Roboto, Source_Serif_4, Open_Sans } from "@next/font/google";
+import { Roboto, Source_Serif_4, Open_Sans, Poppins } from "@next/font/google";
 import { createTheme } from "@mui/material/styles";
 
 export const roboto = Roboto({
@@ -22,13 +22,19 @@ export const Open_sans = Open_Sans({
   display: "swap",
 });
 
-const sans = Open_sans.style.fontFamily
+export const Poppin = Poppins({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const sans = Poppin.style.fontFamily
 
 // Create a theme instance.
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#B34B01",
+      main: "#FC8C23",
     },
     // secondary: {
     //   main: "#D79922",
