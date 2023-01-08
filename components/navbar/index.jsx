@@ -12,7 +12,7 @@ function Navbar() {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "black",
+        backgroundColor: "transparent",
         boxShadow: "none",
         paddingTop: "10px",
       }}
@@ -22,7 +22,7 @@ function Navbar() {
           component="div"
           sx={{
             flexGrow: 1,
-            color: theme.palette.primary.main,
+            // color: theme.palette.primary.main,
             marginLeft: "20px",
           }}
         >
