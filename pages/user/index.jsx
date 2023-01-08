@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
 
 function Item(props) {
   return (
-    <Paper
+    <Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -39,7 +39,7 @@ function Item(props) {
       />
 
       <Button className="CheckButton">See the recipe</Button>
-    </Paper>
+    </Box>
   );
 }
 

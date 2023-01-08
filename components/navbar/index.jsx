@@ -15,7 +15,6 @@ function Navbar() {
         backgroundColor: "transparent",
         boxShadow: "none",
         paddingTop: "10px",
-        color: 'black'
       }}
     >
       <Toolbar>
