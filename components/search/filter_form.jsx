@@ -17,7 +17,7 @@ const FilterForm = (props) => {
         onChange={props.onChange}
         onInputChange={props.changeInputFilterHandler}
         sx={{
-          width: "75%",
+          width: "55%",
         }}
         renderInput={(params) => (
           <TextField
@@ -28,11 +28,11 @@ const FilterForm = (props) => {
         )}
       />
       <Button
-        variant="outlined"
+        variant="contained"
         onClick={props.onClick}
         sx={{
-          width: "25%",
-          mt: 2,
+          width: "15%",
+          m: 2,
         }}
       >
         Filter Cocktails

@@ -11,7 +11,7 @@ const SearchContainer = (props) => {
         justifyContent: "center",
         alignItems: "center",
         p: 2,
-        mt: 8,
+        mt: props.marginTop || 15,
       }}
     >
       {props.children}
