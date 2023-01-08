@@ -53,8 +53,8 @@ const ResultList = (props) => {
       } out of ${props.drink.length} Results`}</p>
       <ImageList
         sx={{
-          width: props.drink.length >= 3 ? 1375 : props.drink.length * 435,
-          height: props.drink.length > 3 ? 1500 : 450,
+          width: props.drink.length > 3 ? 1375 : props.drink.length * 450,
+          height: props.drink.length > 3 ? 1000 : 470,
 
           p: 3,
         }}
