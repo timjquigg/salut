@@ -6,6 +6,7 @@ const useSearch = () => {
   const [enteredSearch, setEnteredSearch] = useState("");
   const [filterKeywords, setFilterKeywords] = useState([]);
   const [inputFilterKeywords, setInputFilterKeywords] = useState();
+  const [itemDisplay, setItemDisplay] = useState(12);
 
   const pathFormatter = (filtersArr) => {
     let url = "/search";
@@ -17,6 +18,8 @@ const useSearch = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    setEnteredSearch("");
+    setItemDisplay(12);
     router.push(`/search/${enteredSearch}`);
   };
 
@@ -37,9 +40,32 @@ const useSearch = () => {
   const submitFilterHandler = (event) => {
     event.preventDefault();
     const formatValue = filterKeywords.map((el) => el.strIngredient);
-    console.log("filtered:", filterKeywords);
-    console.log(pathFormatter(formatValue));
+    setItemDisplay(12);
     router.push(pathFormatter(formatValue));
+  };
+
+  const seeMoreHandler = () => {
+    setItemDisplay((prev) => prev + 12);
+  };
+
+  const addFavorite = async (userId, cocktailId) => {
+    const response = await fetch("/api/postFavourite", {
+      method: "POST",
+      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const removeFavorite = async (userId, cocktailId) => {
+    const response = await fetch("/api/removeFavourite", {
+      method: "DELETE",
+      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   return {
@@ -51,6 +77,10 @@ const useSearch = () => {
     changeFilterHandler,
     changeInputFilterHandler,
     submitFilterHandler,
+    seeMoreHandler,
+    itemDisplay,
+    addFavorite,
+    removeFavorite,
   };
 };
 

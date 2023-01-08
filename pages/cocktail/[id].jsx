@@ -9,6 +9,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
+
 import ToggleButton from '@mui/material/ToggleButton';
 import theme from "../../src/theme";
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -19,16 +20,17 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
-  const sessionToken = context.req.cookies['next-auth.session-token']
+  const sessionToken = context.req.cookies["next-auth.session-token"];
   const data = await getCocktailDetails(cocktailId);
-  const favoriteId = await getFavoriteId(sessionToken, cocktailId)
-  console.log(context.req.cookies['next-auth.session-token'])
+  const favoriteId = await getFavoriteId(sessionToken, cocktailId);
+  console.log(context.req.cookies["next-auth.session-token"]);
   return {
     props: {
       data,
-      favoriteId
+      favoriteId,
     },
   };
 }
@@ -84,6 +86,7 @@ function Details(props) {
   // rocky wall https://www.transparenttextures.com/patterns/rocky-wall.png
   // splash https://www.transparenttextures.com/patterns/stardust.png
   return (
+
     <Box sx={{minHeight: '100vh', backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")', paddingTop: '10vh' }}>
       <Box sx={{
         color: theme.palette.primary.contrastText,

@@ -13,18 +13,18 @@ const KeywordForm = (props) => {
         value={props.enteredSearch}
         onChange={props.changeHandler}
         sx={{
-          width: "75%",
+          width: "55%",
         }}
       />
       <Button
-        variant="outlined"
+        variant="contained"
         onClick={props.submitHandler}
         sx={{
-          width: "25%",
+          width: "15%",
           m: 2,
         }}
       >
-        Search by Keyword
+        Search Cocktail
       </Button>
     </>
   );

@@ -3,8 +3,13 @@ import KeywordForm from "../../components/search/keyword_form";
 import FilterForm from "../../components/search/filter_form";
 import SearchContainer from "../../components/search/search_container";
 import useSearch from "../../custom_hook/useSearch";
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import Image from "next/image";
+import Box from "@mui/material/Box";
 
 const Search = (props) => {
+  const [filterForm, setFilterForm] = useState(true);
   const {
     enteredSearch,
     changeHandler,
@@ -16,70 +21,49 @@ const Search = (props) => {
     submitFilterHandler,
   } = useSearch();
 
-  // const router = useRouter();
-  // const [enteredSearch, setEnteredSearch] = useState("");
-  // const [filterKeywords, setFilterKeywords] = useState([]);
-  // const [inputFilterKeywords, setInputFilterKeywords] = useState();
-
-  // const pathFormatter = (filtersArr) => {
-  //   let url = "search";
-  //   filtersArr.forEach((filter) => {
-  //     url += `/${filter}`;
-  //   });
-  //   return url;
-  // };
-
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  //   router.push(`search/${enteredSearch}`);
-  // };
-
-  // const changeHandler = (event) => {
-  //   event.preventDefault();
-  //   setEnteredSearch(event.target.value);
-  // };
-
-  // const changeFilterHandler = (event, newValue) => {
-  //   setFilterKeywords(newValue);
-  // };
-
-  // const changeInputFilterHandler = (event, newValue) => {
-  //   console.log(newValue.strIngredient);
-  //   setInputFilterKeywords(newValue);
-  // };
-
-  // const submitFilterHandler = (event) => {
-  //   event.preventDefault();
-  //   const formatValue = filterKeywords.map((el) => el.strIngredient);
-  //   console.log("filtered:", filterKeywords);
-  //   console.log(pathFormatter(formatValue));
-  //   router.push(pathFormatter(formatValue));
-  // };
-
   return (
-    <SearchContainer
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        p: 2,
-        mt: 8,
-      }}
-    >
-      <KeywordForm
-        enteredSearch={enteredSearch}
-        changeHandler={changeHandler}
-        submitHandler={submitHandler}
-      />
+    <SearchContainer marginTop={39}>
+      <Box
+        sx={{
+          p: 2.5,
+        }}
+      >
+        <Image
+          src={"/salut_logo.png"}
+          alt="logo"
+          width="330"
+          height="90"
+          quality={100}
+        />
+      </Box>
 
-      <FilterForm
-        options={props.ingredients}
-        filterKeywords={filterKeywords}
-        inputFilterKeywords={inputFilterKeywords}
-        onChange={changeFilterHandler}
-        onInputChange={changeInputFilterHandler}
-        onClick={submitFilterHandler}
-      />
+      {filterForm ? (
+        <FilterForm
+          options={props.ingredients}
+          filterKeywords={filterKeywords}
+          inputFilterKeywords={inputFilterKeywords}
+          onChange={changeFilterHandler}
+          onInputChange={changeInputFilterHandler}
+          onClick={submitFilterHandler}
+        />
+      ) : (
+        <KeywordForm
+          enteredSearch={enteredSearch}
+          changeHandler={changeHandler}
+          submitHandler={submitHandler}
+        />
+      )}
+
+      <Button
+        variant="contained"
+        onClick={() => setFilterForm((prev) => !prev)}
+        sx={{
+          width: "12%",
+          mt: 2,
+        }}
+      >
+        Search by {filterForm ? "Keyword" : "Filter"}
+      </Button>
     </SearchContainer>
   );
 };
