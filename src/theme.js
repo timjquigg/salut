@@ -1,4 +1,4 @@
-import { Roboto, Source_Serif_4, Open_Sans, Poppins } from "@next/font/google";
+import { Roboto, Source_Serif_4, Open_Sans, Poppins,Chonburi } from "@next/font/google";
 import { createTheme } from "@mui/material/styles";
 
 export const roboto = Roboto({
@@ -14,7 +14,13 @@ export const Source_Serif = Source_Serif_4({
   display: "swap",
 });
 
-const serif = Source_Serif.style.fontFamily
+export const Cho = Chonburi({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const serif = Cho.style.fontFamily
 
 export const Open_sans = Open_Sans({
   weight: ["300", "400", "500", "600", "700"],
@@ -34,11 +40,12 @@ const sans = Poppin.style.fontFamily
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#FC8C23",
+      main: "#f57c21",
+      contrastText: "#022140"
     },
-    // secondary: {
-    //   main: "#D79922",
-    // },
+    secondary: {
+      main: "#ee6d1f",
+    },
     // error: {
     //   main: "#F13C20",
     // },
