@@ -6,34 +6,23 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import Tooltip from "@mui/joy/Tooltip";
+import { Button } from "@mui/material";
+import { useState, useEffect } from "react";
+import FavIcon from "./favButton";
 
 const ResultList = (props) => {
-  const results = props.drink.map((item) => (
+  console.log(props);
+  let results = props.drink.slice(0, props.itemDisplay).map((item) => (
     <ImageListItem key={item.idDrink}>
-      <IconButton
-        onClick={(event) => console.log("apple")}
-        sx={{
-          position: "absolute",
-          top: "5px",
-          right: "5px",
-        }}
-      >
-        <FavoriteBorderIcon
-          sx={{
-            fontSize: 35,
-            color: "disabled",
-            fontWeight: 0.5,
-          }}
-        />
-        <FavoriteIcon
-          sx={{
-            fontSize: 35,
-            color: "red",
-            fontWeight: 0.5,
-          }}
-        />
-      </IconButton>
+      <FavIcon
+        addFavorite={(event) =>
+          props.addFavorite(props.session.user.id, item.idDrink)
+        }
+        removeFavorite={(event) =>
+          props.removeFavorite(props.session.user.id, item.idDrink)
+        }
+        isFavorite={props.favorites.includes(item.idDrink)}
+      />
       <img
         src={`${item.strDrinkThumb}?w=150&fit=crop`}
         alt={item.strDrink}
@@ -44,11 +33,19 @@ const ResultList = (props) => {
       </Link>
     </ImageListItem>
   ));
+
   return (
     <>
       <ImageList sx={{ width: 1000, height: 1000 }} cols={3}>
         {results}
       </ImageList>
+      {props.drink.length > 13 ? (
+        <Button variant="outlined" size="medium" onClick={props.seeMoreHandler}>
+          See More
+        </Button>
+      ) : (
+        ""
+      )}
     </>
   );
 };

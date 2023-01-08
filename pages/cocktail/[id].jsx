@@ -8,24 +8,22 @@ import { getSession } from "next-auth/react";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
-import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButton from "@mui/material/ToggleButton";
 import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
-  const sessionToken = context.req.cookies['next-auth.session-token']
+  const sessionToken = context.req.cookies["next-auth.session-token"];
   const data = await getCocktailDetails(cocktailId);
-  const favoriteId = await getFavoriteId(sessionToken, cocktailId)
-  console.log(context.req.cookies['next-auth.session-token'])
+  const favoriteId = await getFavoriteId(sessionToken, cocktailId);
+  console.log(context.req.cookies["next-auth.session-token"]);
   return {
     props: {
       data,
-      favoriteId
+      favoriteId,
     },
   };
 }
-
-
 
 function Details(props) {
   const [selected, setSelected] = useState(props.favoriteId ? true : false);
@@ -75,12 +73,12 @@ function Details(props) {
 
   // console.log(props.data)
   return (
-    <Box sx={{ marginTop: '104px'}}>
-      <h1>{ cocktailName }</h1>
+    <Box sx={{ marginTop: "104px" }}>
+      <h1>{cocktailName}</h1>
       {status === "authenticated" && (
         <Box>
           <ToggleButton
-            color='primary'
+            color="primary"
             value="check"
             selected={selected}
             onChange={() => {
@@ -88,9 +86,9 @@ function Details(props) {
             }}
             onClick={() => {
               if (!selected) {
-                addFavorite(session.user.id, router.query.id)
+                addFavorite(session.user.id, router.query.id);
               } else {
-                removeFavorite(session.user.id, router.query.id)
+                removeFavorite(session.user.id, router.query.id);
               }
             }}
           >
@@ -98,21 +96,16 @@ function Details(props) {
           </ToggleButton>
         </Box>
       )}
-      <Image 
-        src={thumb}
-        alt="Picture of the author"
-        width={500}
-        height={500}
-      />
-      <Box sx={{ display: 'flex', gap: '10px'}}>
+      <Image src={thumb} alt="Picture of the author" width={500} height={500} />
+      <Box sx={{ display: "flex", gap: "10px" }}>
         <Box>
           {ingredients.map((ingredient) => (
             <p key={ingredient}>{ingredient}</p>
           ))}
         </Box>
         <Box>
-          {measurement.map((m) => (
-            <p key={m}>{m}</p>
+          {measurement.map((m, i) => (
+            <p key={i}>{m}</p>
           ))}
         </Box>
       </Box>
