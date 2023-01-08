@@ -2,7 +2,6 @@ import { useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ToggleButton from "@mui/material/ToggleButton";
-import { red } from "@mui/material/colors";
 
 const FavIcon = (props) => {
   const [selected, setSelected] = useState(props.isFavorite);
@@ -17,7 +16,6 @@ const FavIcon = (props) => {
         top: "5px",
         right: "5px",
       }}
-      value="check"
       selected={selected}
       onChange={() => {
         setSelected(!selected);
@@ -31,9 +29,9 @@ const FavIcon = (props) => {
       }}
     >
       {selected ? (
-        <FavoriteIcon sx={{ color: "red" }} />
+        <FavoriteIcon sx={{ color: "red", fontSize: 45 }} />
       ) : (
-        <FavoriteBorderIcon />
+        <FavoriteBorderIcon sx={{ fontSize: 45 }} />
       )}
     </ToggleButton>
   );

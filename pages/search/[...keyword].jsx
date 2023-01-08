@@ -1,6 +1,10 @@
-import { getCocktail, getAllIngredients } from "../../lib/search";
+import {
+  getCocktail,
+  getAllIngredients,
+  getFilterCocktailsStrict,
+} from "../../lib/search";
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import useSearch from "../../custom_hook/useSearch";
 import KeywordForm from "../../components/search/keyword_form";
@@ -9,11 +13,13 @@ import SearchContainer from "../../components/search/search_container";
 import ResultList from "../../components/search/result_list";
 import { useSession } from "next-auth/react";
 import { getFavoriteByUser } from "../../lib/favourite";
+import Button from "@mui/material/Button";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 
 const Result = (props) => {
-  console.log(props.favorites);
-
   const { data: session, status } = useSession();
+  const [filterForm, setFilterForm] = useState(true);
   const {
     enteredSearch,
     changeHandler,
@@ -25,35 +31,9 @@ const Result = (props) => {
     submitFilterHandler,
     itemDisplay,
     seeMoreHandler,
+    addFavorite,
+    removeFavorite,
   } = useSearch();
-
-  const addFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/postFavourite", {
-      method: "POST",
-      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
-  const removeFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/removeFavourite", {
-      method: "DELETE",
-      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
-  // USE TO FIX LAYOUT
-  // const DUMMY = [
-  //   props.drink[0],
-  //   props.drink[1],
-  //   props.drink[2],
-  //   props.drink[3],
-  // ];
 
   return (
     <>
@@ -65,24 +45,37 @@ const Result = (props) => {
           p: 2,
         }}
       >
-        <KeywordForm
-          enteredSearch={enteredSearch}
-          changeHandler={changeHandler}
-          submitHandler={submitHandler}
-        />
+        {filterForm ? (
+          <FilterForm
+            options={props.ingredients}
+            filterKeywords={filterKeywords}
+            inputFilterKeywords={inputFilterKeywords}
+            onChange={changeFilterHandler}
+            onInputChange={changeInputFilterHandler}
+            onClick={submitFilterHandler}
+          />
+        ) : (
+          <KeywordForm
+            enteredSearch={enteredSearch}
+            changeHandler={changeHandler}
+            submitHandler={submitHandler}
+          />
+        )}
 
-        <FilterForm
-          options={props.ingredients}
-          filterKeywords={filterKeywords}
-          inputFilterKeywords={inputFilterKeywords}
-          onChange={changeFilterHandler}
-          onInputChange={changeInputFilterHandler}
-          onClick={submitFilterHandler}
-        />
+        <Button
+          variant="contained"
+          onClick={() => setFilterForm((prev) => !prev)}
+          sx={{
+            width: "12%",
+            mt: 2,
+          }}
+        >
+          Search by {filterForm ? "Keyword" : "Filter"}
+        </Button>
       </SearchContainer>
       <Box
         noValidate
-        component="form"
+        component="div"
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -92,7 +85,6 @@ const Result = (props) => {
           position: "relative",
         }}
       >
-        <p>{`${props.drink.length} Results`}</p>
         <ResultList
           drink={props.drink}
           addFavorite={addFavorite}
@@ -111,14 +103,30 @@ const Result = (props) => {
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
   const keyword = context.query.keyword;
-  const userFavorites = await getFavoriteByUser(sessionToken);
+  let data;
+  if (keyword.length > 1) {
+    const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
+    data = await getFilterCocktailsStrict(filterKeywords);
+  } else {
+    data = await getCocktail(keyword[0]);
+  }
   const ingredientData = await getAllIngredients();
-  const data = await getCocktail(keyword);
+
+  if (sessionToken) {
+    const userFavorites = await getFavoriteByUser(sessionToken);
+    return {
+      props: {
+        drink: data,
+        ingredients: ingredientData,
+        favorites: userFavorites,
+      },
+    };
+  }
+
   return {
     props: {
       drink: data,
       ingredients: ingredientData,
-      favorites: userFavorites,
     },
   };
 }
