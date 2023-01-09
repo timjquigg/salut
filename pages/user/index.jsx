@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Paper, Button } from "@mui/material";
-import { getRandomCocktails } from "../../lib/carousel";
+import { getPopularCocktails } from "../../lib/carousel";
 import Image from "next/image";
 import { NextLinkComposed } from "../../src/Link";
 import Typography from "@mui/material/Typography";
@@ -14,7 +14,8 @@ import 'react-multi-carousel/lib/styles.css';
 // import { authOptions } from "../api/auth/[...nextauth]";
 
 export async function getServerSideProps(context) {
-  const data = await getRandomCocktails();
+  const data = await getPopularCocktails();
+  // console.log('data:', data)
   return {
     props: {
       data,
@@ -23,7 +24,7 @@ export async function getServerSideProps(context) {
 }
 
 function Item(props) {
-
+// console.log(props.item.strDrinkThumb)
   return (
     <Box
       sx={{
@@ -73,7 +74,7 @@ function User(props) {
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={{ textAlign: "center", width: "100%" }}>
             <Typography sx={{ fontSize: "30px", fontFamily: theme.typography.fontFamily[0], color: "#022140", marginBottom: '30px' }}>
-              Cocktails of the day
+              Popular Cocktails
             </Typography>
             <Carousel responsive={responsive}>
               {items.map((item, i) => (

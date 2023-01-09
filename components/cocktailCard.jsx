@@ -7,6 +7,15 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import { NextLinkComposed } from '../src/Link';
 
 export default function CocktailCard(props) {
+  // console.log(props.cocktailImage)
+  const imagePath = id => {
+    if (id.includes('/public')) {
+      const newId = id.replace('/public', '')
+      return newId;
+    }
+    return id
+  }
+  // console.log('did this work?:', imagePath(props.cocktailImage))
   return (
     <Card sx={{margin: '30px', boxShadow: 'none'}}>
       <Button 
@@ -18,7 +27,7 @@ export default function CocktailCard(props) {
         <CardMedia
           component="img"
           height="500"
-          image={props.cocktailImage}
+          src={imagePath(props.cocktailImage)}
           alt=""
           sx={{borderRadius: '5px'}}
         />
