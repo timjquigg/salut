@@ -5,12 +5,14 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { getFavorites } from "../../lib/favourite";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import theme from "../../src/theme";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const Favourites = (props) => {
 
@@ -44,11 +46,13 @@ const Favourites = (props) => {
   ));
   return (
     <Box sx={{marginTop: '104px'}}>
+      <Box sx={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Typography sx={{fontFamily: theme.typography.fontFamily[0], fontSize: '40px'}}>My Favourite Recipes</Typography>
       <PopupState variant="popover" popupId="demo-popup-menu">
         {(popupState) => (
           <React.Fragment>
-            <Button variant="contained" {...bindTrigger(popupState)} sx={{marginLeft:'100px'}}>
-              All Favourites
+            <Button variant="outlined" {...bindTrigger(popupState)}>
+              categories
             </Button>
             <Menu {...bindMenu(popupState)}>
               <MenuItem onClick={popupState.close}>Category 1</MenuItem>
@@ -56,6 +60,7 @@ const Favourites = (props) => {
           </React.Fragment>
         )}
       </PopupState>
+      </Box>
       <Box sx={{display: 'flex', justifyContent: 'center'}}>
         <ImageList sx={{ width: 1000, height: 1000, }} cols={3} >
           {results}
