@@ -7,6 +7,8 @@ import Image from "next/image";
 import { NextLinkComposed } from "../../src/Link";
 import Typography from "@mui/material/Typography";
 import { useSession } from "next-auth/react";
+import CocktailCard from "../../components/cocktailCard";
+import theme from "../../src/theme";
 // import { unstable_getServerSession } from "next-auth/next";
 // import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -29,16 +31,21 @@ function Item(props) {
         alignItems: "center",
       }}
     >
-      <h2>{props.item.strDrink}</h2>
+      {/* <h2>{props.item.strDrink}</h2> */}
       {/* <p>{props.item.description}</p> */}
-      <Image
+      {/* <Image
         src={props.item.strDrinkThumb}
         alt="Picture of the author"
         width={500}
         height={500}
+      /> */}
+      <CocktailCard 
+        cocktailImage={props.item.strDrinkThumb} 
+        cocktailName={props.item.strDrink} 
+        instructions={props.item.strInstructions}
+        cocktailId={props.item.idDrink}
       />
-
-      <Button className="CheckButton">See the recipe</Button>
+      {/* <Button className="CheckButton">See the recipe</Button> */}
     </Box>
   );
 }
@@ -50,7 +57,7 @@ function User(props) {
   if (session) {
     return (
       <Box sx={{ marginTop: "104px" }}>
-        <Box sx={{ display: "flex" }}>
+        {/* <Box sx={{ display: "flex" }}>
           <Button
             component={NextLinkComposed}
             to={{
@@ -73,11 +80,11 @@ function User(props) {
           >
             View your favourites
           </Button>
-        </Box>
+        </Box> */}
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box sx={{ textAlign: "center", width: "60vw" }}>
-            <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
+          <Box sx={{ textAlign: "center", width: "600px" }}>
+            <Typography sx={{ fontSize: "30px", fontFamily: theme.typography.fontFamily[0], color: "#022140", marginBottom: '30px' }}>
               Cocktails of the day
             </Typography>
             <Carousel>
