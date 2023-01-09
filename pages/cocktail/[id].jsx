@@ -25,14 +25,22 @@ export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
   const sessionToken = context.req.cookies["next-auth.session-token"];
   const data = await getCocktailDetails(cocktailId);
-  const favoriteId = await getFavoriteId(sessionToken, cocktailId);
-  console.log(context.req.cookies["next-auth.session-token"]);
-  return {
-    props: {
-      data,
-      favoriteId,
-    },
-  };
+  if (sessionToken) {
+    const favoriteId = await getFavoriteId(sessionToken, cocktailId);
+    // console.log(context.req.cookies["next-auth.session-token"]);
+    return {
+      props: {
+        data,
+        favoriteId,
+      },
+    }
+  } else {
+    return {
+      props: {
+        data,
+      }
+    }
+  }
 }
 
 function Details(props) {
@@ -111,6 +119,7 @@ function Details(props) {
             height={500}
             layout="responsive"
           />
+          {status === "authenticated" && (
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
               <React.Fragment>
@@ -124,6 +133,7 @@ function Details(props) {
               </React.Fragment>
             )}
           </PopupState>
+          )}
         </Box>
         <Box sx={{width:'100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start'}}>
           <Box sx={{display: 'flex', alignItems: 'center', gap: '15px'}}>
