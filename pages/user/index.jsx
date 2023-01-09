@@ -1,6 +1,5 @@
 import React from "react";
 import { Box } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
 import { Paper, Button } from "@mui/material";
 import { getRandomCocktails } from "../../lib/carousel";
 import Image from "next/image";
@@ -9,6 +8,8 @@ import Typography from "@mui/material/Typography";
 import { useSession } from "next-auth/react";
 import CocktailCard from "../../components/cocktailCard";
 import theme from "../../src/theme";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 // import { unstable_getServerSession } from "next-auth/next";
 // import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -22,6 +23,7 @@ export async function getServerSideProps(context) {
 }
 
 function Item(props) {
+
   return (
     <Box
       sx={{
@@ -31,66 +33,52 @@ function Item(props) {
         alignItems: "center",
       }}
     >
-      {/* <h2>{props.item.strDrink}</h2> */}
-      {/* <p>{props.item.description}</p> */}
-      {/* <Image
-        src={props.item.strDrinkThumb}
-        alt="Picture of the author"
-        width={500}
-        height={500}
-      /> */}
       <CocktailCard 
         cocktailImage={props.item.strDrinkThumb} 
         cocktailName={props.item.strDrink} 
         instructions={props.item.strInstructions}
         cocktailId={props.item.idDrink}
       />
-      {/* <Button className="CheckButton">See the recipe</Button> */}
     </Box>
   );
 }
 
 function User(props) {
   // console.log(props.data)
+  // https://www.transparenttextures.com/patterns/gradient-squares.png
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
   const { data: session } = useSession();
   let items = props.data;
   if (session) {
     return (
       <Box sx={{ marginTop: "104px" }}>
-        {/* <Box sx={{ display: "flex" }}>
-          <Button
-            component={NextLinkComposed}
-            to={{
-              pathname: "/user/inventory",
-            }}
-            variant="contained"
-            // startIcon={}
-            sx={{ margin: "20px" }}
-          >
-            Go to your Inventory
-          </Button>
-          <Button
-            component={NextLinkComposed}
-            to={{
-              pathname: "/user/favorites",
-            }}
-            variant="contained"
-            // startIcon={}
-            sx={{ margin: "20px" }}
-          >
-            View your favourites
-          </Button>
-        </Box> */}
-
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box sx={{ textAlign: "center", width: "600px" }}>
+          <Box sx={{ textAlign: "center", width: "100%" }}>
             <Typography sx={{ fontSize: "30px", fontFamily: theme.typography.fontFamily[0], color: "#022140", marginBottom: '30px' }}>
               Cocktails of the day
             </Typography>
-            <Carousel>
+            <Carousel responsive={responsive}>
               {items.map((item, i) => (
                 <Item key={i} item={item} />
-              ))}
+              ))}               
             </Carousel>
           </Box>
         </Box>

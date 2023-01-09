@@ -8,34 +8,26 @@ import { NextLinkComposed } from '../src/Link';
 
 export default function CocktailCard(props) {
   return (
-    <Card sx={{ maxWidth: 500 }}>
-      <CardActionArea>
+    <Card sx={{margin: '30px', boxShadow: 'none'}}>
+      <Button 
+        component={NextLinkComposed} 
+        to={{
+          pathname: `/cocktail/${props.cocktailId}`,
+        }}
+      >
         <CardMedia
           component="img"
-          height="340"
+          height="500"
           image={props.cocktailImage}
           alt=""
+          sx={{borderRadius: '5px'}}
         />
-        <CardContent sx={{minHeight: 150}}>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.cocktailName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {props.instructions}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
-        <Button 
-          size="small" 
-          color="primary" 
-          component={NextLinkComposed} 
-          to={{
-            pathname: `/cocktail/${props.cocktailId}`,
-          }}>
-          View recipe
-        </Button>
-      </CardActions>
+      </Button>
+      <CardContent sx={{display: 'flex', justifyContent: 'center', background: 'transparent', }}>       
+        <Typography component="div" sx={{color: "#022140"}}>
+          {props.cocktailName}
+        </Typography>
+      </CardContent>
     </Card>
   );
 }
