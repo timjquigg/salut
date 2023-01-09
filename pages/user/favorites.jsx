@@ -7,15 +7,14 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { getFavorites } from "../../lib/favourite";
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import theme from "../../src/theme";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const Favourites = (props) => {
-
   const results = props.recipes.map((item) => (
     <ImageListItem key={item.idDrink}>
       <IconButton
@@ -45,37 +44,48 @@ const Favourites = (props) => {
     </ImageListItem>
   ));
   return (
-    <Box sx={{marginTop: '104px'}}>
-      <Box sx={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Typography sx={{fontFamily: theme.typography.fontFamily[0], fontSize: '40px'}}>My Favourite Recipes</Typography>
-      <PopupState variant="popover" popupId="demo-popup-menu">
-        {(popupState) => (
-          <React.Fragment>
-            <Button variant="outlined" {...bindTrigger(popupState)}>
-              categories
-            </Button>
-            <Menu {...bindMenu(popupState)}>
-              <MenuItem onClick={popupState.close}>Category 1</MenuItem>
-            </Menu>
-          </React.Fragment>
-        )}
-      </PopupState>
+    <Box sx={{ marginTop: "104px" }}>
+      <Box
+        sx={{
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          sx={{ fontFamily: theme.typography.fontFamily[0], fontSize: "40px" }}
+        >
+          My Favourite Recipes
+        </Typography>
+        <PopupState variant="popover" popupId="demo-popup-menu">
+          {(popupState) => (
+            <React.Fragment>
+              <Button variant="outlined" {...bindTrigger(popupState)}>
+                categories
+              </Button>
+              <Menu {...bindMenu(popupState)}>
+                <MenuItem onClick={popupState.close}>Category 1</MenuItem>
+              </Menu>
+            </React.Fragment>
+          )}
+        </PopupState>
       </Box>
-      <Box sx={{display: 'flex', justifyContent: 'center'}}>
-        <ImageList sx={{ width: 1000, height: 1000, }} cols={3} >
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <ImageList sx={{ width: 1000, height: 1000 }} cols={3}>
           {results}
         </ImageList>
       </Box>
-    </ Box>
+    </Box>
   );
 };
 
 export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies['next-auth.session-token']
+  const sessionToken = context.req.cookies["next-auth.session-token"];
   const recipes = await getFavorites(sessionToken);
   return {
     props: {
-      recipes
+      recipes,
     },
   };
 }
