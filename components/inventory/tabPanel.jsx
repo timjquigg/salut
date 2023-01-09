@@ -1,12 +1,15 @@
 import { Box } from "@mui/system";
 import { TabTable } from "./tabTable";
+import { css } from "@emotion/react";
 
 export function TabPanel(props) {
   const { data, value, index, ...other } = props;
 
-  // const dataList = data.map((ingredient, index) => {
-  //   return <Typography key={index}>{ingredient}</Typography>;
-  // });
+  const styles = {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+  };
 
   return (
     <div
@@ -15,6 +18,7 @@ export function TabPanel(props) {
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
+      // css={styles}
     >
       {value === index && (
         <Box>
