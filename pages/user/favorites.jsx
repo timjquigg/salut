@@ -7,13 +7,12 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Box } from "@mui/material";
 import { getFavorites } from "../../lib/favourite";
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 const Favourites = (props) => {
-
   const results = props.recipes.map((item) => (
     <ImageListItem key={item.idDrink}>
       <IconButton
@@ -43,11 +42,15 @@ const Favourites = (props) => {
     </ImageListItem>
   ));
   return (
-    <Box sx={{marginTop: '104px'}}>
+    <Box sx={{ marginTop: "104px" }}>
       <PopupState variant="popover" popupId="demo-popup-menu">
         {(popupState) => (
           <React.Fragment>
-            <Button variant="contained" {...bindTrigger(popupState)} sx={{marginLeft:'100px'}}>
+            <Button
+              variant="contained"
+              {...bindTrigger(popupState)}
+              sx={{ marginLeft: "100px" }}
+            >
               All Favourites
             </Button>
             <Menu {...bindMenu(popupState)}>
@@ -56,21 +59,21 @@ const Favourites = (props) => {
           </React.Fragment>
         )}
       </PopupState>
-      <Box sx={{display: 'flex', justifyContent: 'center'}}>
-        <ImageList sx={{ width: 1000, height: 1000, }} cols={3} >
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <ImageList sx={{ width: 1000, height: 1000 }} cols={3}>
           {results}
         </ImageList>
       </Box>
-    </ Box>
+    </Box>
   );
 };
 
 export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies['next-auth.session-token']
+  const sessionToken = context.req.cookies["next-auth.session-token"];
   const recipes = await getFavorites(sessionToken);
   return {
     props: {
-      recipes
+      recipes,
     },
   };
 }
