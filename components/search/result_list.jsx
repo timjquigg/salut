@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@mui/material";
 import FavIcon from "./favButton";
 import Image from "next/image";
+import Tooltip from "@mui/material/Tooltip";
 
 const ResultList = (props) => {
   console.log(props);
