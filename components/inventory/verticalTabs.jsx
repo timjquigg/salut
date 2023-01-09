@@ -3,16 +3,40 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { TabPanel } from "./tabPanel";
+import { Button } from "@mui/material";
 
 export default function VerticalTabs(props) {
   const [value, setValue] = useState(0);
+  // const [selected, setSelected] = useState(props.inventory);
+
+  const categories = props.children;
+  const inventory = props.inventory;
+
+  const sortedCategories = Object.keys(categories).sort();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const categories = props.children;
-  const sortedCategories = Object.keys(categories).sort();
+  // const updateSelected = (event, name) => {
+  //   const selectedIndex = selected.indexOf(name);
+  //   let newSelected = [];
+
+  //   if (selectedIndex === -1) {
+  //     newSelected = newSelected.concat(selected, name);
+  //   } else if (selectedIndex === 0) {
+  //     newSelected = newSelected.concat(selected.slice(1));
+  //   } else if (selectedIndex === selected.length - 1) {
+  //     newSelected = newSelected.concat(selected.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelected = newSelected.concat(
+  //       selected.slice(0, selectedIndex),
+  //       selected.slice(selectedIndex + 1)
+  //     );
+  //   }
+
+  //   setSelected(newSelected);
+  // };
 
   const tabList = sortedCategories.map((category, index) => {
     return (
@@ -30,7 +54,10 @@ export default function VerticalTabs(props) {
         key={index}
         value={value}
         index={index}
+        inventory={inventory}
         data={categories[category]}
+        // inven={props.inventory}
+        updateInventory={props.updateInventory}
       />
     );
   });

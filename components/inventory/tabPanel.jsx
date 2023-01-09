@@ -18,7 +18,14 @@ export function TabPanel(props) {
     >
       {value === index && (
         <Box>
-          <TabTable rows={data} />
+          <TabTable
+            rows={data}
+            inventory={props.inventory}
+            // selected={props.selected}
+            // isSelected={props.isSelected}
+            // onClick={props.onClick}
+            updateInventory={props.updateInventory}
+          />
         </Box>
       )}
     </div>

@@ -15,6 +15,7 @@ export function TabTable(props) {
   const rows = props.rows;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const [selected, setSelected] = useState(props.inventory);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -25,12 +26,32 @@ export function TabTable(props) {
     setPage(0);
   };
 
+  const handleClick = (event, name) => {
+    console.log(name);
+    props.updateInventory(event, name);
+  };
+
+  const isSelected = (name) => props.inventory.indexOf(name) !== -1;
+
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
   const tableRows = rows
     .sort()
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map((ingredient, index) => {
+      const isItemSelected = isSelected(ingredient);
+      const labelId = `enhanced-table-checkbox-${index}`;
       return (
-        <TableRow key={index} hover role="checkbox" tabIndex={-1}>
+        <TableRow
+          hover
+          onClick={(event) => handleClick(event, ingredient)}
+          role="checkbox"
+          aria-checked={isItemSelected}
+          tabIndex={-1}
+          key={ingredient}
+          selected={isItemSelected}
+        >
           <TableCell key={ingredient}>{ingredient}</TableCell>
         </TableRow>
       );
