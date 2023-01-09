@@ -53,7 +53,7 @@ function Inventory(props) {
     >
       <Paper
         sx={{
-          width: 4 / 5,
+          width: 2 / 5,
           mx: "auto",
           height: "100%",
         }}

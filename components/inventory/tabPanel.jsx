@@ -1,15 +1,8 @@
 import { Box } from "@mui/system";
 import { TabTable } from "./tabTable";
-import { css } from "@emotion/react";
 
 export function TabPanel(props) {
   const { data, value, index, ...other } = props;
-
-  const styles = {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-  };
 
   return (
     <div
