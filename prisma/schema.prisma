@@ -64,9 +64,16 @@ model Favorite {
   userId     String
   cocktail   Cocktail @relation(fields: [cocktailId], references: [idDrink])
   cocktailId String
-  category   String?
+  category   Category[]
 
   @@unique([userId, cocktailId])
+}
+
+model Category {
+  id             String   @id @default(uuid())
+  name           String
+  favorite       Favorite @relation(fields:[favoriteId], references:[id])
+  favoriteId     String
 }
 
 model Inventory {
@@ -86,6 +93,7 @@ model Ingredient {
   strABV         String?
   inventory      Inventory[]
 }
+
 
 model Cocktail {
   idDrink                     String     @id @default(uuid())
