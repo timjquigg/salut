@@ -2,39 +2,22 @@ import { Typography, Box, Paper, Button } from "@mui/material";
 import { getIngredients, getInventory } from "../../lib/inventory";
 import { getUserId } from "../../lib/user";
 import VerticalTabs from "../../components/inventory/verticalTabs";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-
+import { inventoryContext } from "../../providers/InventoryProvider";
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 function Inventory(props) {
   const { data: session, status } = useSession();
   const { ingredients, categories } = props;
   const [startingInventory, setStartingInventory] = useState(props.inventory);
-  const [inventory, setInventory] = useState(startingInventory);
 
-  const updateInventory = (event, name) => {
-    const inventoryIndex = inventory.indexOf(name);
-    let newInventory = [];
-
-    if (inventoryIndex === -1) {
-      newInventory = newInventory.concat(inventory, name);
-    } else if (inventoryIndex === 0) {
-      newInventory = newInventory.concat(inventory.slice(1));
-    } else if (inventoryIndex === inventory.length - 1) {
-      newInventory = newInventory.concat(inventory.slice(0, -1));
-    } else if (inventoryIndex > 0) {
-      newInventory = newInventory.concat(
-        inventory.slice(0, inventoryIndex),
-        inventory.slice(inventoryIndex + 1)
-      );
-    }
-
-    setInventory(newInventory);
-  };
+  const { inventory } = useContext(inventoryContext);
+  console.log("inventory page", inventory);
 
   const save = () => {
+    console.log(inventory);
     const additions = inventory.filter((el) => !startingInventory.includes(el));
     const deletions = startingInventory.filter((el) => !inventory.includes(el));
     const payload = { additions, deletions, user: session.user.id };
@@ -61,9 +44,7 @@ function Inventory(props) {
         }}
       >
         <Typography>Ingredients</Typography>
-        <VerticalTabs inventory={inventory} updateInventory={updateInventory}>
-          {categories}
-        </VerticalTabs>
+        <VerticalTabs>{categories}</VerticalTabs>
         <Button
           sx={{ mx: "auto" }}
           onClick={() => {

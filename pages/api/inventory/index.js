@@ -2,11 +2,11 @@ import {
   deleteFromInventory,
   addToInventory,
   getInventory,
-} from "../../lib/inventory";
+} from "../../../lib/inventory";
 
 export default async function handler(req, res) {
-  const { user, additions, deletions } = req.body;
   if (req.method === "POST") {
+    const { user, additions, deletions } = req.body;
     if (additions.length > 0) {
       await addToInventory(user, additions);
     }
