@@ -3,7 +3,7 @@ import { getInventory } from "../../../lib/inventory";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    console.log(req.query);
+    // console.log(req.query);
     const { userId, sessionToken } = req.query;
     if (sessionToken) {
       const inventory = await getInventory(getUserId(sessionToken));

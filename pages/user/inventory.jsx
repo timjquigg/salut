@@ -2,29 +2,13 @@ import { Typography, Box, Paper, Button } from "@mui/material";
 import { getIngredients, getInventory } from "../../lib/inventory";
 import { getUserId } from "../../lib/user";
 import VerticalTabs from "../../components/inventory/verticalTabs";
-import { useState, useContext } from "react";
 import { useSession } from "next-auth/react";
-import axios from "axios";
-import { inventoryContext } from "../../providers/InventoryProvider";
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+import useInventoryData from "../../hooks/useInventoryData";
 
 function Inventory(props) {
+  const { categories } = props;
   const { data: session, status } = useSession();
-  const { ingredients, categories } = props;
-  const [startingInventory, setStartingInventory] = useState(props.inventory);
-
-  const { inventory } = useContext(inventoryContext);
-  console.log("inventory page", inventory);
-
-  const save = () => {
-    console.log(inventory);
-    const additions = inventory.filter((el) => !startingInventory.includes(el));
-    const deletions = startingInventory.filter((el) => !inventory.includes(el));
-    const payload = { additions, deletions, user: session.user.id };
-    axios.post("api/inventory", payload).then((res) => {
-      setStartingInventory(res.data);
-    });
-  };
+  const { save } = useInventoryData(props.inventory, session.user.id);
 
   return (
     <Box
