@@ -1,5 +1,6 @@
 import { Typography, Box, Paper, Button } from "@mui/material";
 import { getIngredients, getInventory } from "../../lib/inventory";
+import { getUserId } from "../../lib/user";
 import VerticalTabs from "../../components/inventory/verticalTabs";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -10,7 +11,8 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 function Inventory(props) {
   const { data: session, status } = useSession();
   const { ingredients, categories } = props;
-  const [inventory, setInventory] = useState(props.inventory);
+  const [startingInventory, setStartingInventory] = useState(props.inventory);
+  const [inventory, setInventory] = useState(startingInventory);
 
   const updateInventory = (event, name) => {
     const inventoryIndex = inventory.indexOf(name);
@@ -33,11 +35,11 @@ function Inventory(props) {
   };
 
   const save = () => {
-    const additions = inventory.filter((el) => !props.inventory.includes(el));
-    const deletions = props.inventory.filter((el) => !inventory.includes(el));
+    const additions = inventory.filter((el) => !startingInventory.includes(el));
+    const deletions = startingInventory.filter((el) => !inventory.includes(el));
     const payload = { additions, deletions, user: session.user.id };
     axios.post("api/inventory", payload).then((res) => {
-      console.log(res);
+      setStartingInventory(res.data);
     });
   };
 
@@ -79,7 +81,7 @@ Inventory.auth = true;
 export async function getServerSideProps(context) {
   const { ingredients, categories } = await getIngredients();
   const sessionToken = context.req.cookies["next-auth.session-token"];
-  const inventory = await getInventory(sessionToken);
+  const inventory = await getInventory(getUserId(sessionToken));
   return {
     props: {
       ingredients,
