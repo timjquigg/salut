@@ -4,29 +4,17 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
+import CategoryButton from "./categoryButton";
+import ListItemText from "@mui/material/ListItemText";
 
 const ITEM_HEIGHT = 48;
+
 const CategoryMenu = (props) => {
-  const [anchorEl, setAnchorEl] = useState(false);
+  // console.log(props);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const addCategory = async (category, cocktailId) => {
-    const response = await fetch("/api/category", {
-      method: "PUT",
-      body: JSON.stringify({ category, cocktailId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
-  const handleClose = (category, id) => {
-    addCategory(category, id);
-    console.log("handleClose");
-    setAnchorEl(null);
   };
 
   return (
@@ -44,7 +32,13 @@ const CategoryMenu = (props) => {
           right: "5px",
         }}
       >
-        <MoreVertIcon />
+        <MoreVertIcon
+          sx={{
+            fontSize: "30px",
+            backgroundColor: "rgba(0, 0, 0, .2)",
+            borderRadius: "100px",
+          }}
+        />
       </IconButton>
       <Menu
         id="long-menu"
@@ -52,21 +46,25 @@ const CategoryMenu = (props) => {
           "aria-labelledby": "long-button",
         }}
         anchorEl={anchorEl}
-        open={anchorEl}
+        multiple
+        open={open}
         onClose={() => setAnchorEl(null)}
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
             width: "20ch",
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
           },
         }}
       >
-        {props.categories.map((option) => (
-          <MenuItem
-            key={option}
-            onClick={() => handleClose(option, props.idDrink)}
-          >
-            {option}
+        {props.categories.map((category, i) => (
+          <MenuItem key={category} value={category}>
+            <CategoryButton
+              category={category}
+              favId={props.favId}
+              userId={props.userId}
+            />
+            <ListItemText primary={category} sx={{ ml: 2, color: "white" }} />
           </MenuItem>
         ))}
       </Menu>
