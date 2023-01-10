@@ -4,7 +4,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Button } from "@mui/material";
-import FavIcon from "./favButton";
+import FavIcon from "./favIcon";
 import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
 

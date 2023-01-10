@@ -4,11 +4,11 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import { Box } from "@mui/material";
 import { getFavorites, getUserId } from "../../lib/favourite";
+import { Box, Typography } from "@mui/material";
 import { getAllCategoriesByUser } from "../../lib/category";
-import CategoryForm from "../../components/category/category_form";
-import CategoryMenu from "../../components/category/category_menu";
+import CategoryForm from "../../components/category/categoryForm";
+import CategoryMenu from "../../components/category/categoryMenu";
 
 const Favourites = (props) => {
   // console.log(props.recipes);
@@ -16,7 +16,16 @@ const Favourites = (props) => {
   const categoryList = (categories) => {
     setCategories(categories);
   };
-  const results = props.recipes.map((item, i) => (
+
+  // console.log(props.recipes);
+  const imagePath = (id) => {
+    if (id.includes("/public")) {
+      const newId = id.replace("/public", "");
+      return newId;
+    }
+    return id;
+  };
+  const results = props.recipes.map((item) => (
     <ImageListItem key={item.idDrink}>
       {/* <CategoryDeleteButton category={item.Favorite} idDrink={item.idDrink} /> */}
       <CategoryMenu
@@ -25,7 +34,7 @@ const Favourites = (props) => {
         userId={item.userId}
       />
       <img
-        src={`${item.strDrinkThumb}?w=150&fit=crop`}
+        src={`${imagePath(item.strDrinkThumb)}?w=150&fit=crop`}
         alt={item.strDrink}
         loading="lazy"
       />

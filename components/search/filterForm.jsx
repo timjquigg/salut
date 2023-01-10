@@ -2,11 +2,13 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import SearchContainer from "./search_container";
+import SearchContainer from "./searchContainer";
 
 const FilterForm = (props) => {
   return (
-    <>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -17,12 +19,12 @@ const FilterForm = (props) => {
         onChange={props.onChange}
         onInputChange={props.changeInputFilterHandler}
         sx={{
-          width: "55%",
+          width: "50vw",
         }}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Search by Filter"
+            label="Search by ingredients"
             // placeholder="Favorites"
           />
         )}
@@ -31,13 +33,16 @@ const FilterForm = (props) => {
         variant="contained"
         onClick={props.onClick}
         sx={{
-          width: "15%",
-          m: 2,
+          width: "200px",
+          height: "50px",
+          marginTop: 3,
+          color: "#fff",
+          borderRadius: "30px",
         }}
       >
-        Filter Cocktails
+        Search
       </Button>
-    </>
+    </Box>
   );
 };
 

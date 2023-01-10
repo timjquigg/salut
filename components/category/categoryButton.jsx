@@ -34,7 +34,7 @@ const CategoryButton = (props) => {
       },
     });
   };
-  console.log(selectedCategory);
+  // console.log(selectedCategory);
   return (
     <ToggleButton
       sx={{ border: "none" }}

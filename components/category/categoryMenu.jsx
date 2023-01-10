@@ -4,7 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
-import CategoryButton from "./category_button";
+import CategoryButton from "./categoryButton";
 import ListItemText from "@mui/material/ListItemText";
 
 const ITEM_HEIGHT = 48;

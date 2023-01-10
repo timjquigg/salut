@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState } from "react";
 import { getCocktailDetails } from "../../lib/details";
 import { getFavoriteId } from "../../lib/favourite";
@@ -8,26 +9,43 @@ import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-
+import { getInventory } from "../../lib/inventory";
 import ToggleButton from '@mui/material/ToggleButton';
 import theme from "../../src/theme";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import CopyToClipboardButton from "../../components/copyUrl";
+import AddIcon from '@mui/icons-material/Add';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
   const sessionToken = context.req.cookies["next-auth.session-token"];
   const data = await getCocktailDetails(cocktailId);
-  const favoriteId = await getFavoriteId(sessionToken, cocktailId);
-  console.log(context.req.cookies["next-auth.session-token"]);
-  return {
-    props: {
-      data,
-      favoriteId,
-    },
-  };
+  
+  if (sessionToken) {
+    const favoriteId = await getFavoriteId(sessionToken, cocktailId);
+    const inventory = await getInventory(sessionToken)
+    // console.log(context.req.cookies["next-auth.session-token"]);
+    return {
+      props: {
+        data,
+        favoriteId,
+        inventory,
+      },
+    }
+  } else {
+    return {
+      props: {
+        data,
+      }
+    }
+  }
 }
 
 function Details(props) {
@@ -55,6 +73,15 @@ function Details(props) {
 
   const ingredients = getIngredients("strIngredient");
   const measurement = getIngredients("strMeasure");
+
+  const inventories = props.inventory;
+  const invUppercase = [];
+  if (inventories) {
+    inventories.map(inventory => invUppercase.push(inventory.toUpperCase()))
+  }
+  // console.log(invUppercase)
+
+  
 
   const addFavorite = async (userId, cocktailId) => {
     const response = await fetch("/api/postFavourite", {
@@ -98,7 +125,7 @@ function Details(props) {
         border: '5px double #C8963E',
       }}>
         
-        <Box sx={{width: '100%', display: 'flex', }}>
+        <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}}>
           <Image 
             src={thumb}
             alt="Picture of the author"
@@ -106,6 +133,21 @@ function Details(props) {
             height={500}
             layout="responsive"
           />
+          {status === "authenticated" && (
+          <PopupState variant="popover" popupId="demo-popup-menu">
+            {(popupState) => (
+              <React.Fragment>
+                <Button variant="outlined" {...bindTrigger(popupState)} sx={{width: '200px'}}>
+                  add category
+                  <AddIcon />
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem onClick={popupState.close}>Category 1</MenuItem>
+                </Menu>
+              </React.Fragment>
+            )}
+          </PopupState>
+          )}
         </Box>
         <Box sx={{width:'100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start'}}>
           <Box sx={{display: 'flex', alignItems: 'center', gap: '15px'}}>
@@ -136,20 +178,33 @@ function Details(props) {
               </Box>
             )}
           </Box>
-          <Box sx={{marginTop: '2rem'}}>
-            <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Ingredients</Typography>
-            <Box sx={{ display: 'flex', gap: '10px'}}>
-              <Box>
-                {ingredients.map((ingredient, i) => (
-                  <p key={i}>{ingredient}</p>
-                ))}
-              </Box>
-              <Box>
-                {measurement.map((m, i) => (
-                  <p key={i}>{m}</p>
-                ))}
+          <Box sx={{marginTop: '2rem', display: 'flex', gap: 5}}>
+            <Box>
+              <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Ingredients</Typography>
+              <Box sx={{ display: 'flex', gap: '10px'}}>
+                <Box>
+                  {ingredients.map((ingredient, i) => (
+                    <p key={i}>{ingredient}</p>
+                  ))}
+                </Box>
+                <Box>
+                  {measurement.map((m, i) => (
+                    <p key={i}>{m}</p>
+                  ))}
+                </Box>
               </Box>
             </Box>
+            {status === "authenticated" && (
+            <Box>
+              <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Your Inventory</Typography>
+              <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem', alignItems: 'center'}}>
+              {ingredients.map((ingredient, i) => (
+                invUppercase.includes(ingredient.toUpperCase()) ? <CheckBoxIcon key={i}/> : <CheckBoxOutlineBlankIcon key={i}/>
+                // console.log(inventories, ingredient)
+              ))}
+              </Box>
+            </Box>
+            )}
           </Box>
           <Box sx={{marginTop: '1rem'}}>
             <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Directions</Typography>
