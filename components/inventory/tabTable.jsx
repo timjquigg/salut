@@ -14,27 +14,30 @@ import {
 export function TabTable(props) {
   const rows = props.rows;
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [selected, setSelected] = useState(props.inventory);
+  const rowsPerPage = 10;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
   const handleClick = (event, name) => {
-    console.log(name);
     props.updateInventory(event, name);
   };
 
   const isSelected = (name) => props.inventory.indexOf(name) !== -1;
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const getEmptyRows = () => {
+    if (rows.length > rowsPerPage) {
+      if (page > 0) {
+        return page > 0
+          ? Math.max(0, (1 + page) * rowsPerPage - rows.length)
+          : 0;
+      }
+    }
+    return rowsPerPage - rows.length;
+  };
+
+  const emptyRows = getEmptyRows();
 
   const tableRows = rows
     .sort()
@@ -51,6 +54,7 @@ export function TabTable(props) {
           tabIndex={-1}
           key={ingredient}
           selected={isItemSelected}
+          style={{ height: 53 }}
         >
           <TableCell key={ingredient}>{ingredient}</TableCell>
         </TableRow>
@@ -67,16 +71,24 @@ export function TabTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>{tableRows}</TableBody>
+          {emptyRows > 0 && (
+            <TableRow
+              style={{
+                height: 53 * emptyRows,
+              }}
+            >
+              <TableCell colSpan={6} />
+            </TableRow>
+          )}
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Box>
   );
