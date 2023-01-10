@@ -10,12 +10,15 @@ const FavIcon = (props) => {
   return (
     <ToggleButton
       sx={{
-        outline: "none",
+        // outline: "none",
         border: "none",
-        background: "none",
+        backgroundColor: "none",
         position: "absolute",
         top: "5px",
         right: "5px",
+        '&:selected': {
+          backgroundColor: "none",
+        }
       }}
       selected={selected}
       onChange={() => {

@@ -73,10 +73,14 @@ function Details(props) {
 
   const ingredients = getIngredients("strIngredient");
   const measurement = getIngredients("strMeasure");
+
   const inventories = props.inventory;
   const invUppercase = [];
-  inventories.map(inventory => invUppercase.push(inventory.toUpperCase()))
-  console.log(invUppercase)
+  if (inventories) {
+    inventories.map(inventory => invUppercase.push(inventory.toUpperCase()))
+  }
+  // console.log(invUppercase)
+
   
 
   const addFavorite = async (userId, cocktailId) => {
