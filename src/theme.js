@@ -40,7 +40,7 @@ const sans = Poppin.style.fontFamily
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#f57c21",
+      main: "#c75d0e",
       contrastText: "#022140"
     },
     secondary: {
