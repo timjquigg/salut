@@ -50,6 +50,7 @@ export async function getServerSideProps(context) {
 
 function Details(props) {
   const [selected, setSelected] = useState(props.favoriteId ? true : false);
+  const [inventory, setInventory] = useState(props.inventory);
   const { data: session, status } = useSession();
   const router = useRouter();
   // console.log('id:', router.query.id)
@@ -79,10 +80,7 @@ function Details(props) {
   if (inventories) {
     inventories.map(inventory => invUppercase.push(inventory.toUpperCase()))
   }
-  // console.log(invUppercase)
-
   
-
   const addFavorite = async (userId, cocktailId) => {
     const response = await fetch("/api/postFavourite", {
       method: "POST",
@@ -100,6 +98,15 @@ function Details(props) {
       headers: {
         "Content-Type": "application/json",
       },
+    });
+  };
+
+  const save = () => {
+    const additions = inventory.filter((el) => !inventories.includes(el));
+    const deletions = inventories.filter((el) => !inventory.includes(el));
+    const payload = { additions, deletions, user: session.user.id };
+    axios.post("api/inventory", payload).then((res) => {
+      console.log(res);
     });
   };
 
