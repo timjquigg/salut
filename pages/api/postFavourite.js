@@ -8,7 +8,7 @@ async function Handler(req, res) {
       data: {
         userId: req.body.userId,
         cocktailId: req.body.cocktailId,
-      }
+      },
     });
     res.status(201).json({ message: "favorite saved!" });
   }

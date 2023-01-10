@@ -1,16 +1,16 @@
 import { getAllIngredients } from "../../lib/search";
-import KeywordForm from "../../components/search/keyword_form";
-import FilterForm from "../../components/search/filter_form";
-import SearchContainer from "../../components/search/search_container";
+import KeywordForm from "../../components/search/keywordForm";
+import FilterForm from "../../components/search/filterForm";
+import SearchContainer from "../../components/search/searchContainer";
 import useSearch from "../../custom_hook/useSearch";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import Image from "next/image";
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import theme from "../../src/theme";
 
 function TabPanel(props) {
@@ -42,7 +42,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -68,15 +68,23 @@ const Search = (props) => {
     <SearchContainer marginTop={15}>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Typography sx={{fontFamily: theme.typography.fontFamily[0], fontSize: '40px'}}>Look for recipes</Typography>
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Typography
+          sx={{ fontFamily: theme.typography.fontFamily[0], fontSize: "40px" }}
+        >
+          Look for recipes
+        </Typography>
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
               <Tab label="Search by ingredients" {...a11yProps(0)} />
               <Tab label="Search by keywords" {...a11yProps(1)} />
             </Tabs>

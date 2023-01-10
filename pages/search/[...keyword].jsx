@@ -7,19 +7,16 @@ import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import useSearch from "../../custom_hook/useSearch";
-import KeywordForm from "../../components/search/keyword_form";
-import FilterForm from "../../components/search/filter_form";
-import SearchContainer from "../../components/search/search_container";
-import ResultList from "../../components/search/result_list";
+import KeywordForm from "../../components/search/keywordForm";
+import FilterForm from "../../components/search/filterForm";
+import SearchContainer from "../../components/search/searchContainer";
+import ResultList from "../../components/search/resultList";
 import { useSession } from "next-auth/react";
 import { getFavoriteByUser } from "../../lib/favourite";
-import Button from "@mui/material/Button";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
 import theme from "../../src/theme";
 
 function TabPanel(props) {
@@ -51,7 +48,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -81,9 +78,13 @@ const Result = (props) => {
   return (
     <>
       <SearchContainer>
-        <Box sx={{ width: 'auto' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Box sx={{ width: "auto" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
               <Tab label="Search by ingredients" {...a11yProps(0)} />
               <Tab label="Search by keywords" {...a11yProps(1)} />
             </Tabs>

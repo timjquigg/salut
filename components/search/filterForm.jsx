@@ -2,11 +2,13 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import SearchContainer from "./search_container";
+import SearchContainer from "./searchContainer";
 
 const FilterForm = (props) => {
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -32,10 +34,10 @@ const FilterForm = (props) => {
         onClick={props.onClick}
         sx={{
           width: "200px",
-          height: '50px',
+          height: "50px",
           marginTop: 3,
-          color: '#fff',
-          borderRadius: '30px'
+          color: "#fff",
+          borderRadius: "30px",
         }}
       >
         Search

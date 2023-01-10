@@ -3,13 +3,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { TabPanel } from "./tabPanel";
-import { Button } from "@mui/material";
 
 export default function VerticalTabs(props) {
   const [value, setValue] = useState(0);
 
   const categories = props.children;
-  const inventory = props.inventory;
 
   const sortedCategories = Object.keys(categories).sort();
 
@@ -33,9 +31,7 @@ export default function VerticalTabs(props) {
         key={index}
         value={value}
         index={index}
-        inventory={inventory}
         data={categories[category]}
-        updateInventory={props.updateInventory}
       />
     );
   });
@@ -58,7 +54,6 @@ export default function VerticalTabs(props) {
         sx={{
           borderRight: 1,
           borderColor: "divider",
-          // maxHeight: "90%",
         }}
       >
         {tabList}
