@@ -56,68 +56,60 @@ function StyledAvatar(props) {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem>
-            <IconButton
-              component={NextLinkComposed}
-              to={{
-                pathname: "/",
-              }}
-            >
-              <ListItemIcon>
-                <Home fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Home</ListItemText>
-            </IconButton>
+          <MenuItem
+            // disableGutters
+            component={NextLinkComposed}
+            to={{
+              pathname: "/",
+            }}
+          >
+            <ListItemIcon>
+              <Home fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
           </MenuItem>
-          <MenuItem>
-            <IconButton
-              component={NextLinkComposed}
-              to={{
-                pathname: "/user",
-              }}
-            >
-              <ListItemIcon>
-                <Dashboard fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Dashboard</ListItemText>
-            </IconButton>
+          <MenuItem
+            // disableGutters
+            component={NextLinkComposed}
+            to={{
+              pathname: "/user",
+            }}
+          >
+            <ListItemIcon>
+              <Dashboard fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Dashboard</ListItemText>
           </MenuItem>
 
-          <MenuItem>
-            <IconButton
-              component={NextLinkComposed}
-              to={{
-                pathname: "/user/favorites",
-              }}
-            >
-              <ListItemIcon>
-                <Bookmarks fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Favorites</ListItemText>
-            </IconButton>
+          <MenuItem
+            component={NextLinkComposed}
+            to={{
+              pathname: "/user/favorites",
+            }}
+          >
+            <ListItemIcon>
+              <Bookmarks fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Favorites</ListItemText>
           </MenuItem>
 
-          <MenuItem>
-            <IconButton
-              component={NextLinkComposed}
-              to={{
-                pathname: "/user/inventory",
-              }}
-            >
-              <ListItemIcon>
-                <Liquor fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Inventory</ListItemText>
-            </IconButton>
+          <MenuItem
+            component={NextLinkComposed}
+            to={{
+              pathname: "/user/inventory",
+            }}
+          >
+            <ListItemIcon>
+              <Liquor fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Inventory</ListItemText>
           </MenuItem>
           <Divider />
-          <MenuItem>
-            <IconButton onClick={() => signOut({ callbackUrl: "/" })}>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Logout</ListItemText>
-            </IconButton>
+          <MenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
           </MenuItem>
         </Menu>
       </Paper>
