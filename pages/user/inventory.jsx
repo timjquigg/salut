@@ -46,14 +46,17 @@ Inventory.auth = true;
 export async function getServerSideProps(context) {
   const { ingredients, categories } = await getIngredients();
   const sessionToken = context.req.cookies["next-auth.session-token"];
-  const inventory = await getInventory(getUserId(sessionToken));
-  return {
-    props: {
-      ingredients,
-      categories,
-      inventory,
-    },
-  };
+  if (sessionToken) {
+    const inventory = await getInventory(getUserId(sessionToken));
+    return {
+      props: {
+        ingredients,
+        categories,
+        inventory,
+      },
+    };
+  }
+  return { props: {} };
 }
 
 export default Inventory;
