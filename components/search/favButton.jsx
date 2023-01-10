@@ -2,6 +2,7 @@ import { useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ToggleButton from "@mui/material/ToggleButton";
+import Tooltip from "@mui/material/Tooltip";
 
 const FavIcon = (props) => {
   const [selected, setSelected] = useState(props.isFavorite);
@@ -29,9 +30,13 @@ const FavIcon = (props) => {
       }}
     >
       {selected ? (
-        <FavoriteIcon sx={{ color: "red", fontSize: 45 }} />
+        <Tooltip title="Remove from Favorite">
+          <FavoriteIcon sx={{ color: "red", fontSize: 45 }} />
+        </Tooltip>
       ) : (
-        <FavoriteBorderIcon sx={{ fontSize: 45 }} />
+        <Tooltip title="Add to Favorite">
+          <FavoriteBorderIcon sx={{ fontSize: 45 }} />
+        </Tooltip>
       )}
     </ToggleButton>
   );
