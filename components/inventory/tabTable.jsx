@@ -9,6 +9,7 @@ import {
   TablePagination,
   TableRow,
   TableHead,
+  Checkbox,
 } from "@mui/material";
 
 export function TabTable(props) {
@@ -56,6 +57,13 @@ export function TabTable(props) {
           selected={isItemSelected}
           style={{ height: 53 }}
         >
+          <Checkbox
+            color="primary"
+            checked={isItemSelected}
+            inputProps={{
+              "aria-labelledby": labelId,
+            }}
+          />
           <TableCell key={ingredient}>{ingredient}</TableCell>
         </TableRow>
       );
