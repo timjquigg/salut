@@ -49,7 +49,7 @@ const useSearch = () => {
   };
 
   const addFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/postFavourite", {
+    const response = await fetch("/api/postFavorite", {
       method: "POST",
       body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
       headers: {
@@ -59,7 +59,7 @@ const useSearch = () => {
   };
 
   const removeFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/removeFavourite", {
+    const response = await fetch("/api/removeFavorite", {
       method: "DELETE",
       body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
       headers: {

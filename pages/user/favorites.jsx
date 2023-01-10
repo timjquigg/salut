@@ -4,13 +4,13 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import { getFavorites, getUserId } from "../../lib/favourite";
-import { Box, Typography } from "@mui/material";
-import { getAllCategoriesByUser } from "../../lib/category";
+import { Box, Skeleton, Typography } from "@mui/material";
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
+import { getFavorites, getUserId } from "../../lib/favorite";
+import { getAllCategoriesByUser } from "../../lib/category";
 
-const Favourites = (props) => {
+function Favorites(props) {
   // console.log(props.recipes);
   const [categories, setCategories] = useState(props.categories);
   const categoryList = (categories) => {
@@ -65,22 +65,26 @@ const Favourites = (props) => {
       </Box>
     </Box>
   );
-};
+}
+Favorites.auth = true;
 
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
-  const userId = await getUserId(sessionToken);
-  const categoriesByUser = await getAllCategoriesByUser(sessionToken);
-  const recipes = await getFavorites(sessionToken);
-  const categories = categoriesByUser.map((el) => el.name);
-  return {
-    props: {
-      recipes,
-      userId,
-      categories,
-      categoriesByUser,
-    },
-  };
+  if (sessionToken) {
+    const userId = await getUserId(sessionToken);
+    const categoriesByUser = await getAllCategoriesByUser(sessionToken);
+    const recipes = await getFavorites(sessionToken);
+    const categories = categoriesByUser.map((el) => el.name);
+    return {
+      props: {
+        recipes,
+        userId,
+        categories,
+        categoriesByUser,
+      },
+    };
+  }
+  return { props: {} };
 }
 
-export default Favourites;
+export default Favorites;
