@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { inventoryContext } from "../../providers/InventoryProvider";
 import {
   Box,
   Paper,
@@ -14,6 +15,9 @@ import {
 
 export function TabTable(props) {
   const rows = props.rows;
+
+  const { inventory, updateInventory } = useContext(inventoryContext);
+
   const [page, setPage] = useState(0);
   const rowsPerPage = 10;
 
@@ -22,10 +26,10 @@ export function TabTable(props) {
   };
 
   const handleClick = (event, name) => {
-    props.updateInventory(event, name);
+    updateInventory(event, name);
   };
 
-  const isSelected = (name) => props.inventory.indexOf(name) !== -1;
+  const isSelected = (name) => inventory.indexOf(name) !== -1;
 
   const getEmptyRows = () => {
     if (rows.length > rowsPerPage) {
