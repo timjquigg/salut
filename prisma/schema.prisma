@@ -48,6 +48,7 @@ model User {
   sessions      Session[]
   favorites     Favorite[]
   inventory     Inventory[]
+  category      Category[]
 }
 
 model VerificationToken {
@@ -64,16 +65,29 @@ model Favorite {
   userId     String
   cocktail   Cocktail @relation(fields: [cocktailId], references: [idDrink])
   cocktailId String
-  category   Category[]
+  categories CategoriesOnFavorite[]
 
   @@unique([userId, cocktailId])
+}
+
+model CategoriesOnFavorite {
+  id         String   @id @default(uuid())
+  favorite   Favorite @relation(fields:[favoriteId], references:[id])
+  favoriteId String
+  category   Category @relation(fields:[categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+
+  @@unique([favoriteId, categoryId])
 }
 
 model Category {
   id             String   @id @default(uuid())
   name           String
-  favorite       Favorite @relation(fields:[favoriteId], references:[id])
-  favoriteId     String
+  user           User @relation(fields:[userId], references: [id], onDelete: Cascade)
+  userId         String
+  favorites      CategoriesOnFavorite[]
+  
+  @@unique([userId, name])
 }
 
 model Inventory {

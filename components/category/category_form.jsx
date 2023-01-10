@@ -12,30 +12,44 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 const filter = createFilterOptions();
 
 function CategoryForm(props) {
-  // const [categories, setCategories] = useState([]);
   const [value, setValue] = useState("");
   const [open, toggleOpen] = useState(false);
   const [dialogValue, setDialogValue] = useState("");
 
+  const addCategory = async (category, userId) => {
+    const response = await fetch("/api/category", {
+      method: "POST",
+      body: JSON.stringify({ category, userId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   const handleClose = () => {
-    setDialogValue();
+    setDialogValue("");
     toggleOpen(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const categoryList = [...props.categories, dialogValue];
-    props.categoryList(categoryList);
+    addCategory(dialogValue, props.userId);
+    const newCategories = [...props.categories];
+    if (newCategories.includes(dialogValue)) {
+      console.log("Returning, not updating state");
+      return;
+    }
+    newCategories.push(dialogValue);
+    props.setCategories(newCategories);
     console.log("Submitting to update category state");
+
     handleClose();
   };
 
   const selectCategoryHandler = (category) => {
-    // console.log("category selected:", category);
     setValue(category);
   };
 
-  console.log("currentValue:", value);
   return (
     <React.Fragment>
       <Autocomplete
@@ -59,6 +73,7 @@ function CategoryForm(props) {
         getOptionLabel={(option) => {
           return option;
         }}
+        // getOptionLabel={(option) => option || ""}
         selectOnFocus
         clearOnBlur
         renderOption={(props, option) => <li {...props}>{option}</li>}

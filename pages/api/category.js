@@ -2,39 +2,20 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function Handler(req, res) {
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     console.log("req.body", req.body);
-    // const favorite = await prisma.favorite.create({
-    //   data: {
-    //     userId: req.body.userId,
-    //     cocktailId: req.body.cocktailId,
-    //   },
-    // });
-    res.status(201).json({ message: "retrieved all categories" });
-  }
-  if (req.method === "PUT") {
-    const favoriteCocktail = await prisma.favorite.findMany({
-      where: { cocktailId: req.body.cocktailId },
-    });
-    const favoriteCategory = await prisma.favorite.update({
-      where: { id: favoriteCocktail[0].id },
+    const newCategory = await prisma.category.create({
       data: {
-        category: req.body.category,
+        name: req.body.category,
+        userId: req.body.userId,
       },
     });
-    res.status(201).json({ message: "cocktail category updates" });
+    res.status(201).json({ message: "added category" });
   }
+
   if (req.method === "DELETE") {
     console.log("req.body", req.body);
-    const favoriteCocktail = await prisma.favorite.findMany({
-      where: { cocktailId: req.body.cocktailId },
-    });
-    const favoriteCategory = await prisma.favorite.update({
-      where: { id: favoriteCocktail[0].id },
-      data: {
-        category: null,
-      },
-    });
+    // NEED TO IMPLEMENT
     res.status(201).json({ message: "cocktail category set to null" });
   }
 }

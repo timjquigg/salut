@@ -5,23 +5,25 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Box } from "@mui/material";
-import { getFavorites } from "../../lib/favourite";
+import { getFavorites, getUserId } from "../../lib/favourite";
 import { getAllCategoriesByUser } from "../../lib/category";
 import CategoryForm from "../../components/category/category_form";
 import CategoryMenu from "../../components/category/category_menu";
-import CategoryDeleteButton from "../../components/category/category_delete";
 
 const Favourites = (props) => {
-  const [categories, setCategories] = useState(props.categoryList);
+  // console.log(props.recipes);
+  const [categories, setCategories] = useState(props.categories);
   const categoryList = (categories) => {
     setCategories(categories);
-    console.log("categories on favorites", categories);
   };
-  // console.log(props.recipes);
-  const results = props.recipes.map((item) => (
+  const results = props.recipes.map((item, i) => (
     <ImageListItem key={item.idDrink}>
-      <CategoryDeleteButton category={item.Favorite} idDrink={item.idDrink} />
-      <CategoryMenu categories={categories} idDrink={item.idDrink} />
+      {/* <CategoryDeleteButton category={item.Favorite} idDrink={item.idDrink} /> */}
+      <CategoryMenu
+        categories={categories}
+        favId={item.favId}
+        userId={item.userId}
+      />
       <img
         src={`${item.strDrinkThumb}?w=150&fit=crop`}
         alt={item.strDrink}
@@ -41,7 +43,12 @@ const Favourites = (props) => {
         alignItems: "center",
       }}
     >
-      <CategoryForm categories={categories} categoryList={categoryList} />
+      {/* <MultipleSelectCheckmarks categories={categories} /> */}
+      <CategoryForm
+        categories={categories}
+        setCategories={categoryList}
+        userId={props.userId}
+      />
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <ImageList sx={{ width: 1000, height: 1000 }} cols={3}>
           {results}
@@ -53,16 +60,16 @@ const Favourites = (props) => {
 
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
-  const categories = await getAllCategoriesByUser(sessionToken);
-  const categoriesArr = categories.map((category) => category.category);
-  // const categorySet = new Set(categories.map((category) => category.category));
-  const categoryList = [...new Set(categoriesArr)].filter((el) => el);
-
+  const userId = await getUserId(sessionToken);
+  const categoriesByUser = await getAllCategoriesByUser(sessionToken);
   const recipes = await getFavorites(sessionToken);
+  const categories = categoriesByUser.map((el) => el.name);
   return {
     props: {
       recipes,
-      categoryList,
+      userId,
+      categories,
+      categoriesByUser,
     },
   };
 }
