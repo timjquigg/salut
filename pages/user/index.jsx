@@ -1,10 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { Paper, Button } from "@mui/material";
 import { getCocktailsBasedOnInventory } from "../../lib/carousel";
 import { getUserId } from "../../lib/user";
-import Image from "next/image";
-import { NextLinkComposed } from "../../src/Link";
 import Typography from "@mui/material/Typography";
 import { useSession } from "next-auth/react";
 import CocktailCard from "../../components/cocktailCard";
@@ -53,11 +50,11 @@ function User(props) {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 7,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 5,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -85,7 +82,7 @@ function User(props) {
             >
               Recommended For You
             </Typography>
-            <Typography>
+            <Typography sx={{marginBottom: '50px'}}>
               Here are some recommended recipes for you based on your inventory items!
             </Typography>
             <Carousel responsive={responsive}>
