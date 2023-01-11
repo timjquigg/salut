@@ -155,7 +155,7 @@ const Search = (props) => {
           </Box>
         </Box>
       </SearchContainer>
-      <Box>
+      <Box sx={{backgroundColor: 'rgb(245, 241, 231)'}}>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={{ width: "100%" }}>
             <Typography
@@ -164,6 +164,7 @@ const Search = (props) => {
                 color: "#022140",
                 textAlign: 'center',
                 fontFamily: theme.typography.fontFamily[0],
+                margin: '20px'
               }}
             >
               Popular Cocktails
