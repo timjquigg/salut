@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react";
 import { getCocktailDetails } from "../../../lib/details";
 import { getFavoriteId } from "../../../lib/favorite";
 import { getInventory } from "../../../lib/inventory";
+import GetLocation from "../../../components/maps/getLocation";
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
@@ -41,10 +42,12 @@ export async function getServerSideProps(context) {
 
 function Details(props) {
   return (
-
-  <LoggedinDetail data={props.data} favoriteId={props.favoriteId} inventory={props.inventory}/>
-      
-  )
+    <LoggedinDetail
+      data={props.data}
+      favoriteId={props.favoriteId}
+      inventory={props.inventory}
+    />
+  );
 }
 
 Details.auth = true;
