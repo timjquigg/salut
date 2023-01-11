@@ -2,6 +2,7 @@ import {
   getCocktail,
   getAllIngredients,
   getFilterCocktailsStrict,
+  getNonAlcoholicDrinks,
 } from "../../lib/search";
 import * as React from "react";
 import { useState } from "react";
@@ -74,13 +75,21 @@ const Result = (props) => {
     seeMoreHandler,
     addFavorite,
     removeFavorite,
+    submitNonAlcoholicHandler,
   } = useSearch();
 
   return (
     <>
       <SearchContainer>
         <Box sx={{ width: "auto" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Box
+            sx={{
+              borderBottom: 1,
+              borderColor: "divider",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Tabs
               value={value}
               onChange={handleChange}
@@ -88,6 +97,7 @@ const Result = (props) => {
             >
               <Tab label="Search by ingredients" {...a11yProps(0)} />
               <Tab label="Search by keywords" {...a11yProps(1)} />
+              <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -105,6 +115,14 @@ const Result = (props) => {
               enteredSearch={enteredSearch}
               changeHandler={changeHandler}
               submitHandler={submitHandler}
+            />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <KeywordForm
+              enteredSearch={enteredSearch}
+              changeHandler={changeHandler}
+              submitHandler={submitNonAlcoholicHandler}
+              nonAlcoholic={true}
             />
           </TabPanel>
         </Box>
@@ -139,10 +157,15 @@ const Result = (props) => {
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
   const keyword = context.query.keyword;
+  console.log("KW", keyword.includes("Non-Alcoholic"));
   let data;
-  if (keyword.length > 1) {
+  if (keyword.length > 1 && !keyword.includes("Non-Alcoholic")) {
     const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
     data = await getFilterCocktailsStrict(filterKeywords);
+  } else if (keyword.includes("Non-Alcoholic")) {
+    const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
+    console.log("AHA", filterKeywords);
+    data = await getNonAlcoholicDrinks(filterKeywords[1]);
   } else {
     data = await getCocktail(keyword[0]);
   }

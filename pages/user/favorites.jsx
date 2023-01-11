@@ -58,7 +58,13 @@ const Favorites = (props) => {
         userId={item.userId}
         categoryContents={props.categoryContents}
       />
-      <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} />
+      <ImageListItemBar
+        title={item.strDrink}
+        subtitle={item.strCategory}
+        sx={{
+          backgroundColor: "rgba(110, 110, 110, 0.8)",
+        }}
+      />
     </ImageListItem>
   ));
   return (

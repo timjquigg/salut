@@ -33,7 +33,7 @@ async function Handler(req, res) {
       });
     });
 
-    console.log("output:", output);
+    // console.log("output:", output);
     res.status(200).json(output);
   }
 
@@ -51,7 +51,7 @@ async function Handler(req, res) {
         categoryId: findCategoryId.id,
       },
     });
-    console.log(findCategoryId);
+    // console.log(findCategoryId);
     res.status(201).json({ message: "cocktail added to category" });
   }
 
