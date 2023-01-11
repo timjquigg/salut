@@ -3,7 +3,7 @@ import { ButtonGroup, Button, Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { Container, Stack } from "@mui/system";
 
-const Signin = ({ providers }) => {
+const Signin = ({ providers, query }) => {
   const clickHandler = async (provider) => {
     await signIn(provider, { callbackUrl: "/user" });
   };
@@ -15,7 +15,7 @@ const Signin = ({ providers }) => {
         onClick={() => clickHandler(provider.id)}
         variant="contained"
       >
-        Sign in with {provider.name}
+        {query === "signin" ? "Sign in with" : "Sign up with"} {provider.name}
       </Button>
     );
   });
@@ -45,9 +45,16 @@ const Signin = ({ providers }) => {
 
   return (
     <Container maxWidth="xs" sx={{ my: 20 }}>
-      <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
-        Sign in Options:
-      </Typography>
+      {query === "signin" && (
+        <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
+          Sign in Options:
+        </Typography>
+      )}
+      {query === "signup" && (
+        <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
+          Sign up Options:
+        </Typography>
+      )}
       <Box textAlign="center">
         <Stack
           orientation="vertical"
@@ -66,13 +73,13 @@ const Signin = ({ providers }) => {
 export default Signin;
 
 export async function getServerSideProps(context) {
-  // const query = context.query;
-  // console.log(query.request);
+  const query = context.query;
+  console.log(query);
   const providers = await getProviders();
   return {
     props: {
       providers,
-      // request: query.request,
+      query: query.query,
     },
   };
 }
