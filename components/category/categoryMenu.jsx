@@ -1,17 +1,17 @@
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
-import CategoryButton from "./categoryButton";
-import ListItemText from "@mui/material/ListItemText";
+import CategoryMenuItems from "./categoryMenuItem";
 
 const ITEM_HEIGHT = 48;
 
 const CategoryMenu = (props) => {
-  // console.log(props);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [categoryContents, setCategoryContents] = useState(
+    props.categoryContents
+  );
+  const [anchorEl, setAnchorEl] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -57,16 +57,16 @@ const CategoryMenu = (props) => {
           },
         }}
       >
-        {props.categories.map((category, i) => (
-          <MenuItem key={category} value={category}>
-            <CategoryButton
-              category={category}
-              favId={props.favId}
-              userId={props.userId}
-              categoryContents={props.categoryContents}
-            />
-            <ListItemText primary={category} sx={{ ml: 2, color: "white" }} />
-          </MenuItem>
+        {props.categories.map((category) => (
+          <CategoryMenuItems
+            key={category}
+            value={category}
+            category={category}
+            favId={props.favId}
+            userId={props.userId}
+            categoryContents={categoryContents}
+            setCategoryContents={setCategoryContents}
+          />
         ))}
       </Menu>
     </div>

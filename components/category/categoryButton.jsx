@@ -12,14 +12,6 @@ const StyledToggleButton = styled(ToggleButton)({
 });
 
 const CategoryButton = (props) => {
-  const [selected, setSelected] = useState(
-    props.categoryContents.some(
-      (el) => el.favId === props.favId && el.name === props.category
-    )
-      ? true
-      : false
-  );
-
   const addDrinkToCategory = async () => {
     const response = await fetch("/api/categoryOnFavorite", {
       method: "POST",
@@ -48,71 +40,28 @@ const CategoryButton = (props) => {
     });
   };
 
-  function removeItem(arr, index) {
-    if (index > -1) {
-      arr.splice(index, 1);
-    }
-    return arr;
-  }
-
   return (
     <StyledToggleButton
       sx={{ border: "none" }}
-      selected={selected}
+      selected={props.selected}
       value={props.category}
       // onChange={() => {
       //   setSelected(!selected);
       // }}
       onClick={() => {
-        if (selected) {
+        if (props.selected) {
           deleteDrinkToCategory();
-          const contentIndex = props.categoryContents.findIndex(
-            (el) => el.name === props.category && el.favId === props.favId
-          );
-          // console.log("current state:", props.categoryContents);
-          const filteredCategories = removeItem(
-            [...props.categoryContents],
-            contentIndex
-          );
-          // console.log("FILTERED:", filteredCategories);
-          // console.log(props.category, props.favId);
-          // setCategoryContent(filteredCategories);
-          console.log(
-            filteredCategories.some(
-              (el) => el.favId === props.favId && el.name === props.category
-            )
-          );
-          setSelected(
-            filteredCategories.some(
-              (el) => el.favId === props.favId && el.name === props.category
-            )
-          );
+          props.removeSelected();
         } else {
           addDrinkToCategory();
-          const updateCategory = [...props.categoryContents];
-          updateCategory.push({ name: props.category, favId: props.favId });
-          // setCategoryContent(updateCategory);
-          console.log(
-            updateCategory.some(
-              (el) => el.favId === props.favId && el.name === props.category
-            )
-          );
-          setSelected(
-            updateCategory.some(
-              (el) => el.favId === props.favId && el.name === props.category
-            )
-          );
+          props.addSelected();
         }
       }}
     >
-      {selected ? (
-        // <Tooltip title="Remove from Category">
+      {props.selected ? (
         <CheckBoxIcon sx={{ color: "white" }} />
       ) : (
-        // </Tooltip>
-        // <Tooltip title="Add to Category">
         <CheckBoxOutlineBlankIcon sx={{ color: "white" }} />
-        // </Tooltip>
       )}
     </StyledToggleButton>
   );
