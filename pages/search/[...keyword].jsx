@@ -12,7 +12,7 @@ import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
 import ResultList from "../../components/search/resultList";
 import { useSession } from "next-auth/react";
-import { getFavoriteByUser } from "../../lib/favourite";
+import { getFavoriteByUser } from "../../lib/favorite";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

@@ -2,7 +2,7 @@ import * as React from "react";
 import LoggedinDetail from "../../../components/detail/loggedinDetail";
 import { getSession } from "next-auth/react";
 import { getCocktailDetails } from "../../../lib/details";
-import { getFavoriteId } from "../../../lib/favourite";
+import { getFavoriteId } from "../../../lib/favorite";
 import { getInventory } from "../../../lib/inventory";
 
 export async function getServerSideProps(context) {

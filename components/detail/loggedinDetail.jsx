@@ -52,7 +52,7 @@ function LoggedinDetail(props) {
   
   
   const addFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/postFavourite", {
+    const response = await fetch("/api/postFavorite", {
       method: "POST",
       body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
       headers: {
@@ -62,7 +62,7 @@ function LoggedinDetail(props) {
   };
 
   const removeFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/removeFavourite", {
+    const response = await fetch("/api/removeFavorite", {
       method: "DELETE",
       body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
       headers: {
@@ -92,25 +92,32 @@ function LoggedinDetail(props) {
   }
 
   return (
-
-    <Box sx={{minHeight: '100vh', backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")', paddingTop: '10vh' }}>
-      <Box sx={{
-        color: theme.palette.primary.contrastText,
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'start', 
-        gap: '5vw', 
-        marginLeft: '5vw', 
-        marginRight: '5vw', 
-        paddingLeft: '5vw', 
-        paddingRight: '5vw', 
-        paddingTop: '10vh',
-        paddingBottom: '5vh',
-        border: '5px double #C8963E',
-      }}>
-        
-        <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}}>
-          <Image 
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundImage:
+          'url("https://www.transparenttextures.com/patterns/stardust.png")',
+        paddingTop: "10vh",
+      }}
+    >
+      <Box
+        sx={{
+          color: theme.palette.primary.contrastText,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "start",
+          gap: "5vw",
+          marginLeft: "5vw",
+          marginRight: "5vw",
+          paddingLeft: "5vw",
+          paddingRight: "5vw",
+          paddingTop: "10vh",
+          paddingBottom: "5vh",
+          border: "5px double #C8963E",
+        }}
+      >
+        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
+          <Image
             src={thumb}
             alt="Picture of the author"
             width={500}
@@ -139,33 +146,35 @@ function LoggedinDetail(props) {
             
               <Box>
                 <ToggleButton
-                  color='primary'
+                  color="primary"
                   value="check"
                   selected={selected}
                   onChange={() => {
-                  setSelected(!selected);
+                    setSelected(!selected);
                   }}
                   onClick={() => {
                     if (!selected) {
-                      addFavorite(session.user.id, router.query.id)
+                      addFavorite(session.user.id, router.query.id);
                     } else {
-                      removeFavorite(session.user.id, router.query.id)
+                      removeFavorite(session.user.id, router.query.id);
                     }
                   }}
                 >
                   {selected ? (
-                    <Favorite sx={{ color: "red" }}/>
+                    <Favorite sx={{ color: "red" }} />
                   ) : (
-                    <FavoriteBorder sx={{ color: "red" }}/>
+                    <FavoriteBorder sx={{ color: "red" }} />
                   )}
                 </ToggleButton>
               </Box>
 
           </Box>
-          <Box sx={{marginTop: '2rem', display: 'flex', gap: 5}}>
+          <Box sx={{ marginTop: "2rem", display: "flex", gap: 5 }}>
             <Box>
-              <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Ingredients</Typography>
-              <Box sx={{ display: 'flex', gap: '10px'}}>
+              <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
+                Ingredients
+              </Typography>
+              <Box sx={{ display: "flex", gap: "10px" }}>
                 <Box>
                   {ingredients.map((ingredient, i) => (
                     <p key={i}>{ingredient}</p>
@@ -194,23 +203,29 @@ function LoggedinDetail(props) {
             </Box>
 
           </Box>
-          <Box sx={{marginTop: '1rem'}}>
-            <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Directions</Typography>
+          <Box sx={{ marginTop: "1rem" }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
+              Directions
+            </Typography>
             <p>{instructions}</p>
           </Box>
-          <Box sx={{display: 'flex'}}>
+          <Box sx={{ display: "flex" }}>
             <CopyToClipboardButton />
-            <Button title="Share on facebook"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com" target="_blank"
-                    rel="noreferrer"
-                    >
-              <FacebookIcon sx={{fill: theme.palette.primary.contrastText}}/>
+            <Button
+              title="Share on facebook"
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FacebookIcon sx={{ fill: theme.palette.primary.contrastText }} />
             </Button>
-            <Button title="Share on Twitter"
-                    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com" target="_blank"
-                    rel="noreferrer"
-                    >
-              <TwitterIcon sx={{fill: theme.palette.primary.contrastText}}/>
+            <Button
+              title="Share on Twitter"
+              href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <TwitterIcon sx={{ fill: theme.palette.primary.contrastText }} />
             </Button>
           </Box>
         </Box>
