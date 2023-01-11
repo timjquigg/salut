@@ -8,8 +8,8 @@ import Typography from "@mui/material/Typography";
 import { useSession } from "next-auth/react";
 import CocktailCard from "../../components/cocktailCard";
 import theme from "../../src/theme";
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 // import { unstable_getServerSession } from "next-auth/next";
 // import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
 }
 
 function Item(props) {
-// console.log(props.item.strDrinkThumb)
+  // console.log(props.item.strDrinkThumb)
   return (
     <Box
       sx={{
@@ -34,9 +34,9 @@ function Item(props) {
         alignItems: "center",
       }}
     >
-      <CocktailCard 
-        cocktailImage={props.item.strDrinkThumb} 
-        cocktailName={props.item.strDrink} 
+      <CocktailCard
+        cocktailImage={props.item.strDrinkThumb}
+        cocktailName={props.item.strDrink}
         instructions={props.item.strInstructions}
         cocktailId={props.item.idDrink}
       />
@@ -51,20 +51,20 @@ function User(props) {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5
+      items: 5,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3
+      items: 3,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2
+      items: 2,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
+      items: 1,
+    },
   };
   const { data: session } = useSession();
   let items = props.data;
@@ -73,13 +73,20 @@ function User(props) {
       <Box sx={{ marginTop: "104px" }}>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={{ textAlign: "center", width: "100%" }}>
-            <Typography sx={{ fontSize: "30px", fontFamily: theme.typography.fontFamily[0], color: "#022140", marginBottom: '30px' }}>
+            <Typography
+              sx={{
+                fontSize: "30px",
+                fontFamily: theme.typography.fontFamily[0],
+                color: "#022140",
+                marginBottom: "30px",
+              }}
+            >
               Popular Cocktails
             </Typography>
             <Carousel responsive={responsive}>
               {items.map((item, i) => (
                 <Item key={i} item={item} />
-              ))}               
+              ))}
             </Carousel>
           </Box>
         </Box>

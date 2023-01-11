@@ -9,7 +9,7 @@ import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
 
 const ResultList = (props) => {
-  console.log(props);
+  // console.log(props);
   let results = props.drink.slice(0, props.itemDisplay).map((item) => (
     <ImageListItem
       key={item.idDrink}
@@ -22,10 +22,10 @@ const ResultList = (props) => {
     >
       {props.session && (
         <FavIcon
-          addFavorite={(event) =>
+          addFavorite={() =>
             props.addFavorite(props.session.user.id, item.idDrink)
           }
-          removeFavorite={(event) =>
+          removeFavorite={() =>
             props.removeFavorite(props.session.user.id, item.idDrink)
           }
           isFavorite={props.favorites.includes(item.idDrink)}
