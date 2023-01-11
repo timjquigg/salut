@@ -14,7 +14,9 @@ import {
 } from "@mui/material";
 
 export function TabTable(props) {
+  // console.log(props)
   const rows = props.rows;
+  const category = props.category;
 
   const { inventory, updateInventory } = useContext(inventoryContext);
 
@@ -59,7 +61,7 @@ export function TabTable(props) {
           tabIndex={-1}
           key={ingredient}
           selected={isItemSelected}
-          style={{ height: 53 }}
+          // style={{ maxhHeight: '70vh' }}
         >
           <Checkbox
             color="primary"
@@ -74,14 +76,14 @@ export function TabTable(props) {
     });
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "30vw", padding: '30px', paddingRight: '50px' }}>
       <TableContainer sx={{ height: "100%" }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Ingredient</TableCell>
-            </TableRow>
-          </TableHead>
+        <Table>
+          {/* <TableHead sx={{ width: '100%', textAlign: 'center', justifySelf: 'center'}}>
+            
+              {category}
+            
+          </TableHead> */}
           <TableBody>{tableRows}</TableBody>
           {emptyRows > 0 && (
             <TableRow
