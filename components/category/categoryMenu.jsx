@@ -28,14 +28,14 @@ const CategoryMenu = (props) => {
         onClick={handleClick}
         sx={{
           position: "absolute",
-          bottom: "7px",
+          top: "5px",
           right: "5px",
         }}
       >
         <MoreVertIcon
           sx={{
             fontSize: "30px",
-            backgroundColor: "rgba(0, 0, 0, .2)",
+            backgroundColor: "rgba(255,255,255, .9)",
             borderRadius: "100px",
           }}
         />
