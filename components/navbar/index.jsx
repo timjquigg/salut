@@ -57,18 +57,10 @@ function Navbar() {
           )}
           {status === "unauthenticated" && (
             <>
-              <NavButton
-                component={NextLinkComposed}
-                path="/auth/signin"
-                // query={{ slug: "signin" }}
-              >
+              <NavButton component={NextLinkComposed} path="/auth/signin">
                 Sign In
               </NavButton>
-              <NavButton
-                component={NextLinkComposed}
-                path="/auth/signup"
-                // query={{ slug: "signup" }}
-              >
+              <NavButton component={NextLinkComposed} path="/auth/signup">
                 Sign Up
               </NavButton>
             </>

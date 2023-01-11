@@ -8,7 +8,6 @@ export function NavButton(props) {
       to={{
         pathname: props.path,
       }}
-      query={props.query}
       onClick={props.onClick}
       sx={{
         color: theme.palette.primary.contrastText,
