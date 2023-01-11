@@ -4,7 +4,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import { getFavorites, getUserId } from "../../lib/favourite";
+import { getFavorites, getUserId } from "../../lib/favorite";
 import { Box, Typography } from "@mui/material";
 import {
   getAllCategoriesByUser,
@@ -14,7 +14,7 @@ import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
 import Image from "next/image";
 
-const Favourites = (props) => {
+const Favorites = (props) => {
   const [recipes, setRecipes] = useState(props.recipes);
   const [categories, setCategories] = useState(props.categories);
   const categoryList = (categories) => {
