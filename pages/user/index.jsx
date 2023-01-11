@@ -8,6 +8,8 @@ import CocktailCard from "../../components/cocktailCard";
 import theme from "../../src/theme";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Button from '@mui/material/Button';
+import { NextLinkComposed } from "../../src/Link";
 // import { unstable_getServerSession } from "next-auth/next";
 // import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -70,14 +72,14 @@ function User(props) {
   if (session) {
     return (
       <Box sx={{ marginTop: "104px" }}>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box sx={{ textAlign: "center", width: "100%" }}>
+        <Box sx={{ display: "flex", justifyContent: "center", backgroundColor: 'rgb(245, 241, 231)' }}>
+          <Box sx={{ textAlign: "center", width: "100%", marginTop: '20px' }}>
             <Typography
               sx={{
                 fontSize: "30px",
                 fontFamily: theme.typography.fontFamily[0],
                 color: "#022140",
-                marginBottom: "10px",
+                margin: "10px",
               }}
             >
               Recommended For You
@@ -91,6 +93,24 @@ function User(props) {
               ))}
             </Carousel>
           </Box>
+        </Box>
+        <Box sx={{display: 'flex', justifyContent: 'center', gap: 5, paddingTop: '6vh'}}>
+          <Button 
+            component={NextLinkComposed}
+            to={{
+              pathname: '/user/favorites',
+            }} 
+            variant="outlined" 
+            sx={{borderRadius: '20px'}}
+          >Go to your favorites</Button>
+          <Button 
+            component={NextLinkComposed}
+            to={{
+              pathname: '/user/inventory',
+            }} 
+            variant="outlined" 
+            sx={{borderRadius: '20px'}}
+          >Go to your inventory</Button>
         </Box>
       </Box>
     );
