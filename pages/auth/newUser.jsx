@@ -6,7 +6,6 @@ import { Container, Stack } from "@mui/system";
 
 const Signin = ({ providers, previousPage }) => {
   const { error } = useRouter().query;
-
   const clickHandler = async (provider) => {
     await signIn(provider, {
       callbackUrl: previousPage,
@@ -20,13 +19,13 @@ const Signin = ({ providers, previousPage }) => {
         onClick={() => clickHandler(provider.id)}
         variant="contained"
       >
-        Sign in with {provider.name}
+        Sign in with {provider.name} 
       </Button>
     );
   });
 
   return (
-    <Container maxWidth="xs" sx={{ my: 20 }}>
+    <Container>
       <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
         Welcome New User!
       </Typography>
