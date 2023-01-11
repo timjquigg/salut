@@ -14,7 +14,9 @@ const filter = createFilterOptions();
 function CategoryForm(props) {
   const [value, setValue] = useState("");
   const [open, toggleOpen] = useState(false);
+  const [deleteOpen, toggleDeleteOpen] = useState(false);
   const [dialogValue, setDialogValue] = useState("");
+  // console.log(value);
 
   const addCategory = async (category, userId) => {
     const response = await fetch("/api/category", {
@@ -25,6 +27,14 @@ function CategoryForm(props) {
       },
     });
   };
+
+  // const filterDrinks = async (category, userId) => {
+  //   const response = await fetch(
+  //     `http://localhost:3000/api/categoryOnFavorite?userId=${userId}&category=${category}`
+  //   ).then((res) => res);
+  //   console.log(response);
+  //   return;
+  // };
 
   const handleClose = () => {
     setDialogValue("");
@@ -46,8 +56,14 @@ function CategoryForm(props) {
     handleClose();
   };
 
-  const selectCategoryHandler = (category) => {
+  const selectCategoryHandler = async (category) => {
     setValue(category);
+    const response = await fetch(
+      `/api/categoryOnFavorite?userId=${props.userId}&category=${category}`
+    );
+    const data = await response.json();
+    console.log("Data:", data);
+    props.filterCocktail(data);
   };
 
   return (
@@ -58,6 +74,9 @@ function CategoryForm(props) {
           if (newValue === " + Add a new category") {
             toggleOpen(true);
             setDialogValue("");
+          } else if (newValue === " - Delete a category") {
+            toggleDeleteOpen(true);
+            setDialogValue("");
           } else {
             selectCategoryHandler(newValue);
           }
@@ -65,7 +84,9 @@ function CategoryForm(props) {
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
           // console.log({ options, params, filtered });
+          filtered.push("See all favorites");
           filtered.push(" + Add a new category");
+          filtered.push(" - Delete a category");
           return filtered;
         }}
         id="free-solo-category-form"
@@ -103,6 +124,34 @@ function CategoryForm(props) {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit">Submit</Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+
+      <Dialog
+        open={deleteOpen}
+        onClose={() => console.log("closed delete dialog")}
+      >
+        <form onSubmit={() => console.log("submit delete")}>
+          <DialogTitle>Delect a Category</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Select the category to be deleted
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              value={dialogValue}
+              onChange={(e) => console.log("changing delete form")}
+              label="title"
+              type="text"
+              variant="standard"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => toggleDeleteOpen(false)}>Cancel</Button>
             <Button type="submit">Submit</Button>
           </DialogActions>
         </form>

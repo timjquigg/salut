@@ -12,12 +12,16 @@ import CategoryMenu from "../../components/category/categoryMenu";
 
 const Favourites = (props) => {
   // console.log(props.recipes);
+  const [recipes, setRecipes] = useState(props.recipes);
   const [categories, setCategories] = useState(props.categories);
   const categoryList = (categories) => {
     setCategories(categories);
   };
 
-  // console.log(props.recipes);
+  const filterCocktail = (cocktails) => {
+    setRecipes(cocktails);
+  };
+
   const imagePath = (id) => {
     if (id.includes("/public")) {
       const newId = id.replace("/public", "");
@@ -25,7 +29,7 @@ const Favourites = (props) => {
     }
     return id;
   };
-  const results = props.recipes.map((item) => (
+  const results = recipes.map((item) => (
     <ImageListItem key={item.idDrink}>
       {/* <CategoryDeleteButton category={item.Favorite} idDrink={item.idDrink} /> */}
       <CategoryMenu
@@ -52,10 +56,10 @@ const Favourites = (props) => {
         alignItems: "center",
       }}
     >
-      {/* <MultipleSelectCheckmarks categories={categories} /> */}
       <CategoryForm
         categories={categories}
         setCategories={categoryList}
+        filterCocktail={filterCocktail}
         userId={props.userId}
       />
       <Box sx={{ display: "flex", justifyContent: "center" }}>
