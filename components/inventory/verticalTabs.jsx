@@ -32,6 +32,7 @@ export default function VerticalTabs(props) {
         value={value}
         index={index}
         data={categories[category]}
+        category={category}
       />
     );
   });
