@@ -17,7 +17,7 @@ export default function CocktailCard(props) {
   }
   // console.log('did this work?:', imagePath(props.cocktailImage))
   return (
-    <Card sx={{margin: '30px', boxShadow: 'none'}}>
+    <Card sx={{margin: '10px', boxShadow: 'none'}}>
       <Button 
         component={NextLinkComposed} 
         to={{
@@ -26,7 +26,7 @@ export default function CocktailCard(props) {
       >
         <CardMedia
           component="img"
-          height="500"
+          height="300"
           src={imagePath(props.cocktailImage)}
           alt=""
           sx={{borderRadius: '5px'}}

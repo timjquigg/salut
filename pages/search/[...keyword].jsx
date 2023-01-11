@@ -162,10 +162,9 @@ export async function getServerSideProps(context) {
   if (keyword.length > 1 && !keyword.includes("Non-Alcoholic")) {
     const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
     data = await getFilterCocktailsStrict(filterKeywords);
-  } else if (keyword.includes("Non-Alcoholic")) {
+  } else if (keyword.includes("Non-Alcoholic") && keyword.length === 2) {
     const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
-    console.log("AHA", filterKeywords);
-    data = await getNonAlcoholicDrinks(filterKeywords[1]);
+    data = await getNonAlcoholicDrinks(filterKeywords[1] || []);
   } else {
     data = await getCocktail(keyword[0]);
   }

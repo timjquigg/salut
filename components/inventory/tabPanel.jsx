@@ -2,8 +2,8 @@ import { Box } from "@mui/system";
 import { TabTable } from "./tabTable";
 
 export function TabPanel(props) {
-  const { data, value, index, ...other } = props;
-
+  const { data, value, index, category, ...other } = props;
+  // console.log('category:', category)
   return (
     <div
       role="tabpanel"
@@ -14,7 +14,7 @@ export function TabPanel(props) {
     >
       {value === index && (
         <Box>
-          <TabTable rows={data} />
+          <TabTable rows={data} category={category} />
         </Box>
       )}
     </div>
