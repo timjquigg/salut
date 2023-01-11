@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import { styled } from "@mui/material/styles";
+
+const StyledToggleButton = styled(ToggleButton)({
+  "&.Mui-selected, &.Mui-selected:hover": {
+    color: "transparent",
+    backgroundColor: "transparent",
+  },
+});
 
 const CategoryButton = (props) => {
-  const [selected, setSelected] = useState(props.hasCategory ? true : false);
-  const [selectedCategory, setSelectedCategory] = useState([]);
-
   const addDrinkToCategory = async () => {
     const response = await fetch("/api/categoryOnFavorite", {
       method: "POST",
@@ -34,39 +39,31 @@ const CategoryButton = (props) => {
       },
     });
   };
-  // console.log(selectedCategory);
+
   return (
-    <ToggleButton
+    <StyledToggleButton
       sx={{ border: "none" }}
-      selected={
-        selected
-          ? true
-          : selectedCategory.includes(props.category)
-          ? true
-          : false
-      }
-      value={"Category"}
-      onChange={() => {
-        setSelected(!selected);
-      }}
+      selected={props.selected}
+      value={props.category}
+      // onChange={() => {
+      //   setSelected(!selected);
+      // }}
       onClick={() => {
-        if (selected) {
+        if (props.selected) {
           deleteDrinkToCategory();
+          props.removeSelected();
         } else {
           addDrinkToCategory();
+          props.addSelected();
         }
       }}
     >
-      {selected ? (
-        // <Tooltip title="Remove from Category">
+      {props.selected ? (
         <CheckBoxIcon sx={{ color: "white" }} />
       ) : (
-        // </Tooltip>
-        // <Tooltip title="Add to Category">
         <CheckBoxOutlineBlankIcon sx={{ color: "white" }} />
-        // </Tooltip>
       )}
-    </ToggleButton>
+    </StyledToggleButton>
   );
 };
 
