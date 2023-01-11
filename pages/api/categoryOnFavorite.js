@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function Handler(req, res) {
   if (req.method === "GET") {
-    console.log("req.body on PUT", req.query);
+    // console.log("req.body on GET", req.query);
 
     const filteredDrinks = await getAllCategoryDrinksByUser(
       req.query.userId,

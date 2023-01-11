@@ -31,7 +31,6 @@ const Favourites = (props) => {
   };
   const results = recipes.map((item) => (
     <ImageListItem key={item.idDrink}>
-      {/* <CategoryDeleteButton category={item.Favorite} idDrink={item.idDrink} /> */}
       <CategoryMenu
         categories={categories}
         favId={item.favId}

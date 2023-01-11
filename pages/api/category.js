@@ -15,8 +15,14 @@ async function Handler(req, res) {
 
   if (req.method === "DELETE") {
     console.log("req.body", req.body);
-    // NEED TO IMPLEMENT
-    res.status(201).json({ message: "cocktail category set to null" });
+    const categoryId = await prisma.category.findFirst({
+      where: { userId: req.body.userId, name: req.body.category },
+    });
+    const deleteCategory = await prisma.category.delete({
+      where: { id: categoryId.id },
+    });
+    console.log(categoryId.id);
+    res.status(201).json({ message: "delete category" });
   }
 }
 
