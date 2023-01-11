@@ -57,8 +57,18 @@ function Navbar() {
           )}
           {status === "unauthenticated" && (
             <>
-              <NavButton onClick={() => signIn()}>Sign In</NavButton>
-              <NavButton component={NextLinkComposed} path="auth/signup">
+              <NavButton
+                component={NextLinkComposed}
+                path="/auth/signin"
+                // query={{ slug: "signin" }}
+              >
+                Sign In
+              </NavButton>
+              <NavButton
+                component={NextLinkComposed}
+                path="/auth/signup"
+                // query={{ slug: "signup" }}
+              >
                 Sign Up
               </NavButton>
             </>
