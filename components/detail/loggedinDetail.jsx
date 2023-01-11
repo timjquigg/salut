@@ -7,17 +7,18 @@ import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButton from "@mui/material/ToggleButton";
 import theme from "../../src/theme";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import CopyToClipboardButton from "../copyUrl";
-import AddIcon from '@mui/icons-material/Add';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import AddIcon from "@mui/icons-material/Add";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import CheckBox from "./checkbox";
-
 
 function LoggedinDetail(props) {
   const [selected, setSelected] = useState(props.favoriteId ? true : false);
@@ -48,9 +49,8 @@ function LoggedinDetail(props) {
 
   // const inventories = props.inventory;
   const invUppercase = [];
-  inventory.map(inv => invUppercase.push(inv.toUpperCase()))
-  
-  
+  inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
+
   const addFavorite = async (userId, cocktailId) => {
     const response = await fetch("/api/postFavorite", {
       method: "POST",
@@ -79,7 +79,7 @@ function LoggedinDetail(props) {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   const removeInventory = async (userId, inventory) => {
     const response = await fetch("/api/inventory/removeInventory", {
@@ -89,7 +89,7 @@ function LoggedinDetail(props) {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   return (
     <Box
@@ -124,51 +124,70 @@ function LoggedinDetail(props) {
             height={500}
             layout="responsive"
           />
-          
-          <PopupState variant="popover" popupId="demo-popup-menu">
-            {(popupState) => (
-              <React.Fragment>
-                <Button variant="outlined" {...bindTrigger(popupState)} sx={{width: '200px'}}>
-                  add category
-                  <AddIcon />
-                </Button>
-                <Menu {...bindMenu(popupState)}>
-                  <MenuItem onClick={popupState.close}>Category 1</MenuItem>
-                </Menu>
-              </React.Fragment>
-            )}
-          </PopupState>
-
         </Box>
-        <Box sx={{width:'100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start'}}>
-          <Box sx={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-            <Typography sx={{fontFamily: theme.typography.fontFamily[0], fontSize: '40px'}}>{ cocktailName }</Typography>
-            
-              <Box>
-                <ToggleButton
-                  color="primary"
-                  value="check"
-                  selected={selected}
-                  onChange={() => {
-                    setSelected(!selected);
-                  }}
-                  onClick={() => {
-                    if (!selected) {
-                      addFavorite(session.user.id, router.query.id);
-                    } else {
-                      removeFavorite(session.user.id, router.query.id);
-                    }
-                  }}
-                >
-                  {selected ? (
-                    <Favorite sx={{ color: "red" }} />
-                  ) : (
-                    <FavoriteBorder sx={{ color: "red" }} />
-                  )}
-                </ToggleButton>
-              </Box>
+        <Box
+          sx={{
+            width: "100%",
+            height: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "start",
+            alignItems: "start",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
+            <Typography
+              sx={{
+                fontFamily: theme.typography.fontFamily[0],
+                fontSize: "40px",
+              }}
+            >
+              {cocktailName}
+            </Typography>
 
+            <Box>
+              <ToggleButton
+                color="primary"
+                value="check"
+                selected={selected}
+                onChange={() => {
+                  setSelected(!selected);
+                }}
+                onClick={() => {
+                  if (!selected) {
+                    addFavorite(session.user.id, router.query.id);
+                  } else {
+                    removeFavorite(session.user.id, router.query.id);
+                  }
+                }}
+              >
+                {selected ? (
+                  <Favorite sx={{ color: "red" }} />
+                ) : (
+                  <FavoriteBorder sx={{ color: "red" }} />
+                )}
+              </ToggleButton>
+            </Box>
           </Box>
+
+          <Box sx={{ display: "flex" }}>
+            <Stack direction="row" spacing={1}>
+              {props.categories.map((category) => {
+                return (
+                  <Chip
+                    key={category}
+                    label={category}
+                    sx={{
+                      border: "solid",
+                      borderWidth: "thin",
+                      backgroundColor: "rgba(200,150,62,0.7)",
+                    }}
+                  />
+                );
+              })}
+            </Stack>
+          </Box>
+
           <Box sx={{ marginTop: "2rem", display: "flex", gap: 5 }}>
             <Box>
               <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
@@ -187,21 +206,35 @@ function LoggedinDetail(props) {
                 </Box>
               </Box>
             </Box>
-            
+
             <Box>
-              <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Your Inventory</Typography>
-              <Box sx={{display: 'flex', flexDirection: 'column', marginTop: '0.1rem', alignItems: 'center'}}>
-              {ingredients.map((ingredient, i) => (
-                <CheckBox
-                  key={i}         
-                  isInventory={invUppercase.includes(ingredient.toUpperCase())}
-                  addInventory={() => addInventory(session.user.id, ingredient)}
-                  removeInventory={() => removeInventory(session.user.id, ingredient)}
-                />
-              ))}
+              <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
+                Your Inventory
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginTop: "0.1rem",
+                  alignItems: "center",
+                }}
+              >
+                {ingredients.map((ingredient, i) => (
+                  <CheckBox
+                    key={i}
+                    isInventory={invUppercase.includes(
+                      ingredient.toUpperCase()
+                    )}
+                    addInventory={() =>
+                      addInventory(session.user.id, ingredient)
+                    }
+                    removeInventory={() =>
+                      removeInventory(session.user.id, ingredient)
+                    }
+                  />
+                ))}
               </Box>
             </Box>
-
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
             <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
