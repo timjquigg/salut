@@ -1,7 +1,8 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Paper, Button } from "@mui/material";
-import { getPopularCocktails } from "../../lib/carousel";
+import { getCocktailsBasedOnInventory } from "../../lib/carousel";
+import { getUserId } from "../../lib/user";
 import Image from "next/image";
 import { NextLinkComposed } from "../../src/Link";
 import Typography from "@mui/material/Typography";
@@ -14,7 +15,8 @@ import "react-multi-carousel/lib/styles.css";
 // import { authOptions } from "../api/auth/[...nextauth]";
 
 export async function getServerSideProps(context) {
-  const data = await getPopularCocktails();
+  const sessionToken = context.req.cookies["next-auth.session-token"];
+  const data = await getCocktailsBasedOnInventory(getUserId(sessionToken));
   // console.log('data:', data)
   return {
     props: {
@@ -78,10 +80,13 @@ function User(props) {
                 fontSize: "30px",
                 fontFamily: theme.typography.fontFamily[0],
                 color: "#022140",
-                marginBottom: "30px",
+                marginBottom: "10px",
               }}
             >
-              Popular Cocktails
+              Recommended recipes
+            </Typography>
+            <Typography>
+              Here are some recommended recipes for you based on your inventory items!
             </Typography>
             <Carousel responsive={responsive}>
               {items.map((item, i) => (
