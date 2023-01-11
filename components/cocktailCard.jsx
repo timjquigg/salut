@@ -17,7 +17,7 @@ export default function CocktailCard(props) {
   }
   // console.log('did this work?:', imagePath(props.cocktailImage))
   return (
-    <Card sx={{margin: '10px', boxShadow: 'none'}}>
+    <Card sx={{margin: '10px', boxShadow: 'none', backgroundColor: 'transparent'}}>
       <Button 
         component={NextLinkComposed} 
         to={{
