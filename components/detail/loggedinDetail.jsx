@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import { useSession } from "next-auth/react";
@@ -17,9 +17,6 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import CheckBox from "./checkbox";
-import useInventoryData from "../../hooks/useInventoryData";
-import { inventoryContext } from "../../providers/InventoryProvider";
-
 
 
 function LoggedinDetail(props) {
@@ -186,8 +183,6 @@ function LoggedinDetail(props) {
               <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Your Inventory</Typography>
               <Box sx={{display: 'flex', flexDirection: 'column', marginTop: '0.1rem', alignItems: 'center'}}>
               {ingredients.map((ingredient, i) => (
-                // invUppercase.includes(ingredient.toUpperCase()) ? <Checkbox key={i} checked={checked} onClick={clickHandler}/> : <Checkbox key={i} checked={!checked} onClick={clickHandler}/>
-                // console.log(inventories, ingredient)
                 <CheckBox
                   key={i}         
                   isInventory={invUppercase.includes(ingredient.toUpperCase())}

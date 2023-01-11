@@ -1,22 +1,10 @@
 import React, { useState } from 'react'
-import Checkbox from '@mui/material/Checkbox';
 import ToggleButton from '@mui/material/ToggleButton';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 function CheckBox(props) {
   const [selected, setSelected] = useState(props.isInventory);
-  // const clickHandler = (update) => {
-  //   setSelected(!selected);
-  //   update();
-  // }
-  console.log(props.isInventory)
-  // return (
-  //   <Checkbox
-  //     checked={selected}
-  //     onClick={() => clickHandler(props.update)}
-  //   />
-  // )
   const add = props.addInventory;
   const remove = props.removeInventory;
 
@@ -35,11 +23,18 @@ function CheckBox(props) {
           remove();
         }
       }}
+      sx={{
+        padding: '8.4px',
+        border: 'none',
+        "&.Mui-selected, &.Mui-selected:hover": {
+          backgroundColor: 'transparent'
+        }
+      }}
     >
       {selected ? (
-        <CheckBoxIcon />
+        <CheckBoxIcon sx={{border: 'none'}}/>
       ) : (
-        <CheckBoxOutlineBlankIcon />
+        <CheckBoxOutlineBlankIcon sx={{border: 'none'}}/>
       )}
     </ToggleButton>
   )
