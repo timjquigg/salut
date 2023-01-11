@@ -9,6 +9,7 @@ import createEmotionCache from "../src/createEmotionCache";
 import Layout from "../components/layout";
 import { SessionProvider } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import InventoryProvider from "../providers/InventoryProvider";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -32,9 +33,11 @@ export default function MyApp(props) {
         <SessionProvider session={session}>
           {Component.auth ? (
             <Auth>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <InventoryProvider>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </InventoryProvider>
             </Auth>
           ) : (
             <Layout>

@@ -24,6 +24,11 @@ export const authOptions = {
       return session;
     },
   },
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/signin",
+    newUser: "/auth/newUser",
+  },
 };
 
 export default NextAuth(authOptions);

@@ -11,18 +11,10 @@ export function TabPanel(props) {
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
-      // css={styles}
     >
       {value === index && (
         <Box>
-          <TabTable
-            rows={data}
-            inventory={props.inventory}
-            // selected={props.selected}
-            // isSelected={props.isSelected}
-            // onClick={props.onClick}
-            updateInventory={props.updateInventory}
-          />
+          <TabTable rows={data} />
         </Box>
       )}
     </div>

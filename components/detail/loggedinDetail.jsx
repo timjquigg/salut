@@ -1,7 +1,5 @@
 import * as React from "react";
 import { useState } from "react";
-import { getCocktailDetails } from "../../lib/details";
-import { getFavoriteId } from "../../lib/favourite";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import { useSession } from "next-auth/react";
@@ -9,47 +7,21 @@ import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { getInventory } from "../../lib/inventory";
 import ToggleButton from '@mui/material/ToggleButton';
 import theme from "../../src/theme";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import CopyToClipboardButton from "../../components/copyUrl";
+import CopyToClipboardButton from "../copyUrl";
 import AddIcon from '@mui/icons-material/Add';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBox from "./checkbox";
 
 
-export async function getServerSideProps(context) {
-  const cocktailId = context.query.id;
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  const data = await getCocktailDetails(cocktailId);
-  
-  if (sessionToken) {
-    const favoriteId = await getFavoriteId(sessionToken, cocktailId);
-    const inventory = await getInventory(sessionToken)
-    // console.log(context.req.cookies["next-auth.session-token"]);
-    return {
-      props: {
-        data,
-        favoriteId,
-        inventory,
-      },
-    }
-  } else {
-    return {
-      props: {
-        data,
-      }
-    }
-  }
-}
-
-function Details(props) {
+function LoggedinDetail(props) {
   const [selected, setSelected] = useState(props.favoriteId ? true : false);
+  const [inventory, setInventory] = useState(props.inventory);
   const { data: session, status } = useSession();
   const router = useRouter();
   // console.log('id:', router.query.id)
@@ -74,17 +46,13 @@ function Details(props) {
   const ingredients = getIngredients("strIngredient");
   const measurement = getIngredients("strMeasure");
 
-  const inventories = props.inventory;
+  // const inventories = props.inventory;
   const invUppercase = [];
-  if (inventories) {
-    inventories.map(inventory => invUppercase.push(inventory.toUpperCase()))
-  }
-  // console.log(invUppercase)
-
+  inventory.map(inv => invUppercase.push(inv.toUpperCase()))
   
-
+  
   const addFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/postFavourite", {
+    const response = await fetch("/api/postFavorite", {
       method: "POST",
       body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
       headers: {
@@ -94,7 +62,7 @@ function Details(props) {
   };
 
   const removeFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/removeFavourite", {
+    const response = await fetch("/api/removeFavorite", {
       method: "DELETE",
       body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
       headers: {
@@ -103,37 +71,60 @@ function Details(props) {
     });
   };
 
-  // console.log(props.data)
-  // mini squares https://www.transparenttextures.com/patterns/grid-me.png
-  // rocky wall https://www.transparenttextures.com/patterns/rocky-wall.png
-  // splash https://www.transparenttextures.com/patterns/stardust.png
-  return (
+  const addInventory = async (userId, inventory) => {
+    const response = await fetch("/api/inventory/addInventory", {
+      method: "POST",
+      body: JSON.stringify({ userId: userId, inventory: inventory }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 
-    <Box sx={{minHeight: '100vh', backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")', paddingTop: '10vh' }}>
-      <Box sx={{
-        color: theme.palette.primary.contrastText,
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'start', 
-        gap: '5vw', 
-        marginLeft: '5vw', 
-        marginRight: '5vw', 
-        paddingLeft: '5vw', 
-        paddingRight: '5vw', 
-        paddingTop: '10vh',
-        paddingBottom: '5vh',
-        border: '5px double #C8963E',
-      }}>
-        
-        <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}}>
-          <Image 
+  const removeInventory = async (userId, inventory) => {
+    const response = await fetch("/api/inventory/removeInventory", {
+      method: "DELETE",
+      body: JSON.stringify({ userId: userId, inventory: inventory }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundImage:
+          'url("https://www.transparenttextures.com/patterns/stardust.png")',
+        paddingTop: "10vh",
+      }}
+    >
+      <Box
+        sx={{
+          color: theme.palette.primary.contrastText,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "start",
+          gap: "5vw",
+          marginLeft: "5vw",
+          marginRight: "5vw",
+          paddingLeft: "5vw",
+          paddingRight: "5vw",
+          paddingTop: "10vh",
+          paddingBottom: "5vh",
+          border: "5px double #C8963E",
+        }}
+      >
+        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
+          <Image
             src={thumb}
             alt="Picture of the author"
             width={500}
             height={500}
             layout="responsive"
           />
-          {status === "authenticated" && (
+          
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
               <React.Fragment>
@@ -147,41 +138,43 @@ function Details(props) {
               </React.Fragment>
             )}
           </PopupState>
-          )}
+
         </Box>
         <Box sx={{width:'100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start'}}>
           <Box sx={{display: 'flex', alignItems: 'center', gap: '15px'}}>
             <Typography sx={{fontFamily: theme.typography.fontFamily[0], fontSize: '40px'}}>{ cocktailName }</Typography>
-            {status === "authenticated" && (
+            
               <Box>
                 <ToggleButton
-                  color='primary'
+                  color="primary"
                   value="check"
                   selected={selected}
                   onChange={() => {
-                  setSelected(!selected);
+                    setSelected(!selected);
                   }}
                   onClick={() => {
                     if (!selected) {
-                      addFavorite(session.user.id, router.query.id)
+                      addFavorite(session.user.id, router.query.id);
                     } else {
-                      removeFavorite(session.user.id, router.query.id)
+                      removeFavorite(session.user.id, router.query.id);
                     }
                   }}
                 >
                   {selected ? (
-                    <Favorite sx={{ color: "red" }}/>
+                    <Favorite sx={{ color: "red" }} />
                   ) : (
-                    <FavoriteBorder sx={{ color: "red" }}/>
+                    <FavoriteBorder sx={{ color: "red" }} />
                   )}
                 </ToggleButton>
               </Box>
-            )}
+
           </Box>
-          <Box sx={{marginTop: '2rem', display: 'flex', gap: 5}}>
+          <Box sx={{ marginTop: "2rem", display: "flex", gap: 5 }}>
             <Box>
-              <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Ingredients</Typography>
-              <Box sx={{ display: 'flex', gap: '10px'}}>
+              <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
+                Ingredients
+              </Typography>
+              <Box sx={{ display: "flex", gap: "10px" }}>
                 <Box>
                   {ingredients.map((ingredient, i) => (
                     <p key={i}>{ingredient}</p>
@@ -194,35 +187,45 @@ function Details(props) {
                 </Box>
               </Box>
             </Box>
-            {status === "authenticated" && (
+            
             <Box>
               <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Your Inventory</Typography>
-              <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem', alignItems: 'center'}}>
+              <Box sx={{display: 'flex', flexDirection: 'column', marginTop: '0.1rem', alignItems: 'center'}}>
               {ingredients.map((ingredient, i) => (
-                invUppercase.includes(ingredient.toUpperCase()) ? <CheckBoxIcon key={i}/> : <CheckBoxOutlineBlankIcon key={i}/>
-                // console.log(inventories, ingredient)
+                <CheckBox
+                  key={i}         
+                  isInventory={invUppercase.includes(ingredient.toUpperCase())}
+                  addInventory={() => addInventory(session.user.id, ingredient)}
+                  removeInventory={() => removeInventory(session.user.id, ingredient)}
+                />
               ))}
               </Box>
             </Box>
-            )}
+
           </Box>
-          <Box sx={{marginTop: '1rem'}}>
-            <Typography sx={{fontWeight: 'bold', fontSize: '1rem'}}>Directions</Typography>
+          <Box sx={{ marginTop: "1rem" }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
+              Directions
+            </Typography>
             <p>{instructions}</p>
           </Box>
-          <Box sx={{display: 'flex'}}>
+          <Box sx={{ display: "flex" }}>
             <CopyToClipboardButton />
-            <Button title="Share on facebook"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com" target="_blank"
-                    rel="noreferrer"
-                    >
-              <FacebookIcon sx={{fill: theme.palette.primary.contrastText}}/>
+            <Button
+              title="Share on facebook"
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FacebookIcon sx={{ fill: theme.palette.primary.contrastText }} />
             </Button>
-            <Button title="Share on Twitter"
-                    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com" target="_blank"
-                    rel="noreferrer"
-                    >
-              <TwitterIcon sx={{fill: theme.palette.primary.contrastText}}/>
+            <Button
+              title="Share on Twitter"
+              href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <TwitterIcon sx={{ fill: theme.palette.primary.contrastText }} />
             </Button>
           </Box>
         </Box>
@@ -231,4 +234,4 @@ function Details(props) {
   );
 }
 
-export default Details;
+export default LoggedinDetail;
