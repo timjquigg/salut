@@ -42,23 +42,23 @@ const Favourites = (props) => {
         alignItems: "center",
       }}
     >
+      <Link href={`/cocktail/${item.idDrink}`}>
+        <Image
+          src={`${item.strDrinkThumb}`}
+          alt={item.strDrink}
+          width="335"
+          height="350"
+          object-fit="cover"
+          position="relative"
+        />
+      </Link>
       <CategoryMenu
         categories={categories}
         favId={item.favId}
         userId={item.userId}
         categoryContents={props.categoryContents}
       />
-      <Image
-        src={`${item.strDrinkThumb}`}
-        alt={item.strDrink}
-        width="335"
-        height="350"
-        object-fit="cover"
-        position="relative"
-      />
-      <Link href={`/cocktail/${item.idDrink}`}>
-        <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} />
-      </Link>
+      <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} />
     </ImageListItem>
   ));
   return (

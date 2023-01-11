@@ -28,7 +28,7 @@ const CategoryMenu = (props) => {
         onClick={handleClick}
         sx={{
           position: "absolute",
-          top: "5px",
+          bottom: "7px",
           right: "5px",
         }}
       >
