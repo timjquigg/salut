@@ -3,12 +3,20 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ToggleButton from "@mui/material/ToggleButton";
 import Tooltip from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
+
+const StyledToggleButton = styled(ToggleButton)({
+  "&.Mui-selected, &.Mui-selected:hover": {
+    color: "transparent",
+    backgroundColor: "transparent",
+  },
+});
 
 const FavIcon = (props) => {
   const [selected, setSelected] = useState(props.isFavorite);
 
   return (
-    <ToggleButton
+    <StyledToggleButton
       value="Like"
       sx={{
         // outline: "none",
@@ -42,7 +50,7 @@ const FavIcon = (props) => {
           <FavoriteBorderIcon sx={{ fontSize: 45 }} />
         </Tooltip>
       )}
-    </ToggleButton>
+    </StyledToggleButton>
   );
 };
 

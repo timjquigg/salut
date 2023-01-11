@@ -17,7 +17,7 @@ function CategoryForm(props) {
   const [open, toggleOpen] = useState(false);
   const [deleteOpen, toggleDeleteOpen] = useState(false);
   const [dialogValue, setDialogValue] = useState("");
-  console.log(props.categories);
+  // console.log(props.categories);
 
   const addCategory = async (category, userId) => {
     const response = await fetch("/api/category", {
@@ -39,12 +39,12 @@ function CategoryForm(props) {
     addCategory(dialogValue, props.userId);
     const newCategories = [...props.categories];
     if (newCategories.includes(dialogValue)) {
-      console.log("Returning, not updating state");
+      // console.log("Returning, not updating state");
       return;
     }
     newCategories.push(dialogValue);
     props.setCategories(newCategories);
-    console.log("Submitting to update category state");
+    // console.log("Submitting to update category state");
 
     handleClose();
   };
@@ -115,7 +115,7 @@ function CategoryForm(props) {
               id="name"
               value={dialogValue}
               onChange={(e) => setDialogValue(e.target.value)}
-              label="title"
+              label="Enter category title"
               type="text"
               variant="standard"
             />
@@ -127,10 +127,7 @@ function CategoryForm(props) {
         </form>
       </Dialog>
 
-      <Dialog
-        open={deleteOpen}
-        onClose={() => console.log("closed delete dialog")}
-      >
+      <Dialog open={deleteOpen}>
         <DialogTitle>Select a Category</DialogTitle>
         <DialogContent sx={{ display: "flex", flexDirection: "column" }}>
           <DialogContentText>

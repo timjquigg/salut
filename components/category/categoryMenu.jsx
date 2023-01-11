@@ -63,6 +63,7 @@ const CategoryMenu = (props) => {
               category={category}
               favId={props.favId}
               userId={props.userId}
+              categoryContents={props.categoryContents}
             />
             <ListItemText primary={category} sx={{ ml: 2, color: "white" }} />
           </MenuItem>

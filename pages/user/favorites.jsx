@@ -6,12 +6,15 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { getFavorites, getUserId } from "../../lib/favourite";
 import { Box, Typography } from "@mui/material";
-import { getAllCategoriesByUser } from "../../lib/category";
+import {
+  getAllCategoriesByUser,
+  getCategoryContentsByUser,
+} from "../../lib/category";
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
+import Image from "next/image";
 
 const Favourites = (props) => {
-  // console.log(props.recipes);
   const [recipes, setRecipes] = useState(props.recipes);
   const [categories, setCategories] = useState(props.categories);
   const categoryList = (categories) => {
@@ -30,16 +33,28 @@ const Favourites = (props) => {
     return id;
   };
   const results = recipes.map((item) => (
-    <ImageListItem key={item.idDrink}>
+    <ImageListItem
+      key={item.idDrink}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <CategoryMenu
         categories={categories}
         favId={item.favId}
         userId={item.userId}
+        categoryContents={props.categoryContents}
       />
-      <img
-        src={`${imagePath(item.strDrinkThumb)}?w=150&fit=crop`}
+      <Image
+        src={`${item.strDrinkThumb}`}
         alt={item.strDrink}
-        loading="lazy"
+        width="335"
+        height="350"
+        object-fit="cover"
+        position="relative"
       />
       <Link href={`/cocktail/${item.idDrink}`}>
         <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} />
@@ -62,7 +77,7 @@ const Favourites = (props) => {
         userId={props.userId}
       />
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ImageList sx={{ width: 1000, height: 1000 }} cols={3}>
+        <ImageList sx={{ width: "100%", height: "80%" }} cols={3}>
           {results}
         </ImageList>
       </Box>
@@ -72,16 +87,18 @@ const Favourites = (props) => {
 
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
+  const categoryContents = await getCategoryContentsByUser(sessionToken);
   const userId = await getUserId(sessionToken);
   const categoriesByUser = await getAllCategoriesByUser(sessionToken);
   const recipes = await getFavorites(sessionToken);
   const categories = categoriesByUser.map((el) => el.name);
+
   return {
     props: {
       recipes,
       userId,
       categories,
-      categoriesByUser,
+      categoryContents,
     },
   };
 }
