@@ -83,25 +83,28 @@ const Favorites = (props) => {
       </Box>
     </Box>
   );
-}
+};
 Favorites.auth = true;
 
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
-  const categoryContents = await getCategoryContentsByUser(sessionToken);
-  const userId = await getUserId(sessionToken);
-  const categoriesByUser = await getAllCategoriesByUser(sessionToken);
-  const recipes = await getFavorites(sessionToken);
-  const categories = categoriesByUser.map((el) => el.name);
+  if (sessionToken) {
+    const categoryContents = await getCategoryContentsByUser(sessionToken);
+    const userId = await getUserId(sessionToken);
+    const categoriesByUser = await getAllCategoriesByUser(sessionToken);
+    const recipes = await getFavorites(sessionToken);
+    const categories = categoriesByUser.map((el) => el.name);
 
-  return {
-    props: {
-      recipes,
-      userId,
-      categories,
-      categoryContents,
-    },
-  };
+    return {
+      props: {
+        recipes,
+        userId,
+        categories,
+        categoryContents,
+      },
+    };
+  }
+  return { props: {} };
 }
 
 export default Favorites;

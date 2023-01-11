@@ -24,7 +24,11 @@ const FilterForm = (props) => {
           <TextField
             {...params}
             label="Search by ingredients"
-            // placeholder="Favorites"
+            onKeyDown={(e) => {
+              console.log(e.key);
+              if (e.key === "Enter") {
+              }
+            }}
           />
         )}
       />

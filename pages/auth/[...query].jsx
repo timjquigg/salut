@@ -90,12 +90,11 @@ export default Signin;
 
 export async function getServerSideProps(context) {
   const query = context.query;
-  console.log(query);
   const providers = await getProviders();
   return {
     props: {
       providers,
-      query: query.query,
+      query: query.query[0],
     },
   };
 }
