@@ -83,7 +83,7 @@ function User(props) {
                 marginBottom: "10px",
               }}
             >
-              Recommended recipes
+              Recommended For You
             </Typography>
             <Typography>
               Here are some recommended recipes for you based on your inventory items!
