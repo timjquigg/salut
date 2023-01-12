@@ -48,17 +48,15 @@ export async function getServerSideProps(context) {
 
 function Details(props) {
   return (
-    <LocationProvider>        <LoggedinDetail
-     
+    <LocationProvider>
+      <LoggedinDetail
         data={props.data}
-     
         favoriteId={props.favoriteId}
-     
         inventory={props.inventory}
-      
-    </LocationProvider>categories={props.categories}
-    />
-  );;
+        categories={props.categories}
+      />
+    </LocationProvider>
+  );
 }
 
 Details.auth = true;
