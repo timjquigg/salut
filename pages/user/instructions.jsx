@@ -82,7 +82,7 @@ export default function Instruction() {
             fontFamily: theme.typography.fontFamily[0],
             lineHeight: "100px",
             left: "8%",
-            top: "20%",
+            top: "10%",
           }}
         >
           <Typography

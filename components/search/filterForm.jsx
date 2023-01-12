@@ -25,8 +25,8 @@ const FilterForm = (props) => {
             {...params}
             label="Search by ingredients"
             onKeyDown={(e) => {
-              console.log(e.key);
               if (e.key === "Enter") {
+                e.preventDefault();
                 props.onClick();
               }
             }}
