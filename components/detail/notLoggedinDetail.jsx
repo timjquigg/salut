@@ -33,7 +33,7 @@ function NotLoggedinDetail(props) {
       sx={{
         minHeight: "100vh",
         backgroundImage:
-          'url("https://www.transparenttextures.com/patterns/stardust.png")',
+          'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
         paddingTop: "10vh",
       }}
     >
