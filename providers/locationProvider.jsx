@@ -11,6 +11,7 @@ export default function LocationProvider(props) {
   const [showMap, setShowMap] = useState(false);
   const [position, setPosition] = useState({});
   const [stores, setStores] = useState([]);
+  const [currentStore, setCurrentStore] = useState({});
 
   const getStoreData = (location) => {
     console.log("Sending to API");
@@ -31,9 +32,11 @@ export default function LocationProvider(props) {
     showMap,
     position,
     stores,
+    currentStore,
     setShowMap,
     setPosition,
     getStoreData,
+    setCurrentStore,
   };
 
   return (

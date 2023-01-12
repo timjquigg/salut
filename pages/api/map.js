@@ -1,17 +1,24 @@
+const { Client } = require("@googlemaps/google-maps-services-js");
 const axios = require("axios");
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-const baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json";
+// const baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json";
+
+const client = new Client({});
 
 const getLiquoreStores = async (location) => {
-  const query = new URLSearchParams({ query: "Liquor Store" }).toString();
-  location = new URLSearchParams({
-    location: `${location.latitude},${location.longitude}`,
-  }).toString();
-  const radius = new URLSearchParams({ radius: 2000 }).toString();
-  const fullUrl = `${baseUrl}?${location}&${query}&${radius}&key=${apiKey}`;
-  const results = await axios.get(fullUrl);
+  const args = {
+    params: {
+      key: apiKey,
+      keyword: "Liquor Store",
+      location: { lat: location.latitude, lng: location.longitude },
+      // opennow: true,
+      radius: 2000,
+    },
+  };
 
-  return results;
+  return client.placesNearby(args).then((res) => {
+    return res;
+  });
 };
 
 const testResults = [
@@ -461,11 +468,9 @@ const testResults = [
 export default async function handler(req, res) {
   const location = req.query;
   if (req.method === "GET") {
-    // Temporary disable for testing:
-    // const results = await getLiquoreStores(location);
-    // const parsedResults = results.data.results;
-    // console.log(parsedResults);
-    // res.json(parsedResults);
-    res.json(testResults);
+    const results = await getLiquoreStores(location);
+    const parsedResults = results.data.results;
+    console.log(parsedResults[0].geometry);
+    res.json(parsedResults);
   }
 }
