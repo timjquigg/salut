@@ -87,14 +87,31 @@ function User(props) {
             <Typography sx={{marginBottom: '50px'}}>
               Here are some recommended recipes for you based on your inventory items!
             </Typography>
-            <Carousel responsive={responsive}>
-              {items.map((item, i) => (
-                <Item key={i} item={item} />
-              ))}
-            </Carousel>
+            {items.length > 0 ? 
+              <Carousel responsive={responsive}>
+                {items.map((item, i) => (
+                  <Item key={i} item={item} />
+                ))}
+              </Carousel> :
+              <Typography
+               sx={{marginBottom: '50px'}}
+              >
+                Nothing to show - please add more items to your inventory!
+              </Typography>
+            }
           </Box>
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'center', gap: 5, paddingTop: '6vh'}}>
+          <Button
+            component={NextLinkComposed}
+            to={{
+              pathname: '/user/cocktails',
+            }} 
+            variant="outlined" 
+            sx={{borderRadius: '20px'}}
+          >
+            Cocktails you can make
+          </Button>
           <Button 
             component={NextLinkComposed}
             to={{

@@ -22,7 +22,7 @@ export default function Home() {
     <Box sx={{ display: "flex", height: "100vh" }}>
       <Box
         sx={{
-          width: "50%",
+          width: {xl: '50%', lg: '50%'},
           backgroundImage: 'url("../landing2.jpeg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -32,19 +32,22 @@ export default function Home() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "end",
-          textAlign: "right",
-          width: "50%",
-          paddingRight: "5vw",
+          alignItems: {xl: 'end', lg: 'end', xs: 'center'},
+          textAlign: {xl: 'right', lg: 'right', xs: 'center'},
+          width: {xl: '50%', lg: '50%', xs: '100%'},
+          paddingRight: {xl: '5vw', lg: '5vw'},
+          backgroundImage: {xs: 'linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url("../landing2.jpeg")', lg: 'none'},
+          backgroundSize: "cover",
+          backgroundPosition: {sm: 'center'},
         }}
       >
-        <Box sx={{ paddingTop: "150px" }}>
+        <Box sx={{ paddingTop: {sm: '150px', xs: '100px'} }}>
           <Typography
             sx={{
               color: "#022140",
-              fontSize: 90,
+              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 60},
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: "100px",
+              lineHeight: {md: '100px', xs: '75px'},
             }}
           >
             Interactive
@@ -52,9 +55,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: 90,
+              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 60},
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: "100px",
+              lineHeight: {md: '100px', xs: '75px'},
             }}
           >
             Cocktail
@@ -62,9 +65,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: 90,
+              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 60},
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: "#022140",
+              lineHeight: {md: '100px', xs: '75px'},
             }}
           >
             Cabinet
@@ -74,8 +77,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: 28,
+              fontSize: {xl: 28, lg: 25, xs: 18},
               fontFamily: theme.typography.fontFamily[1],
+              marginTop: {xs: '300px', sm: 0}
             }}
           >
             You don&apos;t know what to drink tonight?
@@ -83,9 +87,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: 28,
+              fontSize: {xl: 28, lg: 25, xs: 18},
               fontFamily: theme.typography.fontFamily[1],
-              marginBottom: 7,
+              marginBottom: {sm: 7, xs: 3},
             }}
           >
             We&apos;ve got your back.
