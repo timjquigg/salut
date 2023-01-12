@@ -7,7 +7,7 @@ const useSearch = () => {
   const [filterKeywords, setFilterKeywords] = useState([]);
   const [inputFilterKeywords, setInputFilterKeywords] = useState();
   const [itemDisplay, setItemDisplay] = useState(12);
-
+  console.log(enteredSearch);
   const pathFormatter = (filtersArr) => {
     let url = "/search";
     filtersArr.forEach((filter) => {
@@ -17,7 +17,7 @@ const useSearch = () => {
   };
 
   const submitHandler = (event) => {
-    // event.preventDefault();
+    // console.log(event);
     setEnteredSearch("");
     setItemDisplay(12);
     router.push(`/search/${enteredSearch}`);
@@ -42,6 +42,7 @@ const useSearch = () => {
     // event.preventDefault();
     const formatValue = filterKeywords.map((el) => el.strIngredient);
     setItemDisplay(12);
+    setFilterKeywords([]);
     router.push(pathFormatter(formatValue));
   };
 

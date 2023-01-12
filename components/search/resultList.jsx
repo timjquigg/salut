@@ -3,13 +3,23 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import FavIcon from "./favIcon";
 import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ResultList = (props) => {
   // console.log(props);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  let itemListWidth = matches
+    ? 400
+    : props.drink.length > 3
+    ? 1375
+    : props.drink.length * 450;
+
   const imagePath = (id) => {
     if (id.includes("/public")) {
       const newId = id.replace("/public", "");
@@ -39,22 +49,31 @@ const ResultList = (props) => {
           isFavorite={props.favorites.includes(item.idDrink)}
         />
       )}
+
       <Link href={`/cocktail/${item.idDrink}`}>
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width="435"
-          height="450"
+          width={matches ? "351" : "435"}
+          height={matches ? "375" : "450"}
           object-fit="cover"
           position="relative"
         />
+        {/* <Image
+          src={item.strDrinkThumb}
+          alt={item.strDrink}
+          fill
+          // height={220}
+          // width={200}
+        /> */}
       </Link>
+
       <ImageListItemBar
         title={item.strDrink}
         subtitle={item.strCategory}
         sx={{
           backgroundColor: "rgba(110, 110, 110, 0.8)",
-          marginBottom: '6px'
+          marginBottom: "6px",
         }}
       />
     </ImageListItem>
@@ -69,12 +88,14 @@ const ResultList = (props) => {
       } out of ${props.drink.length} Results`}</p>
       <ImageList
         sx={{
-          width: props.drink.length > 3 ? 1375 : props.drink.length * 450,
+          width: itemListWidth,
           height: props.drink.length > 3 ? 1000 : 470,
-
+          backgroundImage:
+            'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
           p: 3,
         }}
-        cols={3}
+        cols={matches ? 1 : 3}
+        // cols={3}
         gap={10}
       >
         {results}

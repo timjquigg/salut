@@ -15,6 +15,12 @@ const KeywordForm = (props) => {
             ? "Search Non-Alcoholic Drinks"
             : "Search By Keyword"
         }
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            props.submitHandler();
+          }
+        }}
         variant="outlined"
         value={props.enteredSearch}
         onChange={props.changeHandler}
