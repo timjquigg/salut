@@ -37,7 +37,7 @@ function Navbar(props) {
       <List>
           <ListItem key={'SearchCocktails'} disablePadding>
             <ListItemButton 
-              sx={{ textAlign: 'center' }} 
+              sx={{ textAlign: 'center'}} 
               component={NextLinkComposed}
               to={{
                 pathname: "/search",
@@ -176,7 +176,7 @@ function Navbar(props) {
           </IconButton>
           <ButtonGroup
             variant="string"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" }}}
           >
             <NavButton component={NextLinkComposed} path="/search">
               SEARCH COCKTAILS

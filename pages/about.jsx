@@ -75,7 +75,7 @@ function About() {
           >
             <Typography
               sx={{
-                marginRight: "65px",
+                marginRight: "60px",
                 marginLeft: "35px",
                 fontWeight: "bold",
               }}
@@ -86,7 +86,7 @@ function About() {
             <Typography
               sx={{
                 marginLeft: "40px",
-                marginRight: "15px",
+                marginRight: "10px",
                 fontWeight: "bold",
                 paddingLeft: "5px",
               }}
