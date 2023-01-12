@@ -31,13 +31,13 @@ function Navbar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        <img src="../salut_logo.png" alt="logo" height="40px" />
+        <img src="../salut_logo.png" alt="logo" height="60px" />
       </Typography>
       <Divider />
       <List>
           <ListItem key={'SearchCocktails'} disablePadding>
             <ListItemButton 
-              sx={{ textAlign: 'center' }} 
+              sx={{ textAlign: 'center'}} 
               component={NextLinkComposed}
               to={{
                 pathname: "/search",
@@ -153,7 +153,7 @@ function Navbar(props) {
             sx={{
               flexGrow: 1,
               // color: theme.palette.primary.main,
-              marginLeft: "20px",
+              marginLeft: {sm: '20px'},
             }}
           >
             <Button
@@ -162,7 +162,7 @@ function Navbar(props) {
                 pathname: "/",
               }}
             >
-              <img src="../salut_logo.png" alt="logo" height="40px" />
+              <img src="../salut_logo.png" alt="logo" height="60px" />
             </Button>
           </Box>
           <IconButton
@@ -176,7 +176,7 @@ function Navbar(props) {
           </IconButton>
           <ButtonGroup
             variant="string"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" }}}
           >
             <NavButton component={NextLinkComposed} path="/search">
               SEARCH COCKTAILS

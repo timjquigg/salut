@@ -1,17 +1,18 @@
 import { Button, Box } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { locationContext } from "../../providers/locationProvider";
 
 function GetLocation() {
-  const { position, setPosition, showMap, setShowMap, getStoreData } =
+  const { position, setPosition, setShowMap, getStoreData } =
     useContext(locationContext);
 
   const handlClick = async () => {
     const location = await getAddress();
-    setPosition(location);
-    setShowMap(true);
-    getStoreData(position);
+    getStoreData(location);
   };
+
+  // useEffect(() => {
+  // }, [position]);
 
   function getCoordinates() {
     return new Promise(function (resolve, reject) {

@@ -18,7 +18,7 @@ const FilterForm = (props) => {
         onChange={props.onChange}
         onInputChange={props.changeInputFilterHandler}
         sx={{
-          width: "50vw",
+          width: {sm: "50vw", xs: "80vw"},
         }}
         renderInput={(params) => (
           <TextField

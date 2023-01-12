@@ -118,12 +118,14 @@ const Search = (props) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            width: "100vw"
           }}
         >
           <Typography
             sx={{
               fontFamily: theme.typography.fontFamily[0],
-              fontSize: "40px",
+              fontSize: {sm: "40px", xs: "35px"},
+              marginTop: {xs: "20px", lg: 'none'}
             }}
           >
             Look for recipes
@@ -141,6 +143,9 @@ const Search = (props) => {
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
+                variant="scrollable"
+                scrollButtons
+                allowScrollButtonsMobile
               >
                 <Tab label="Search by ingredients" {...a11yProps(0)} />
                 <Tab label="Search by keywords" {...a11yProps(1)} />
