@@ -1,4 +1,4 @@
-import { Roboto, Source_Serif_4, Open_Sans, Poppins,Chonburi } from "@next/font/google";
+import { Roboto, Source_Serif_4, Open_Sans, Poppins, Chonburi, DM_Serif_Text, Shrikhand, Yeseva_One } from "@next/font/google";
 import { createTheme } from "@mui/material/styles";
 
 export const roboto = Roboto({
@@ -20,7 +20,13 @@ export const Cho = Chonburi({
   display: "swap",
 });
 
-const serif = Cho.style.fontFamily
+export const DM = Shrikhand({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const serif = DM.style.fontFamily
 
 export const Open_sans = Open_Sans({
   weight: ["300", "400", "500", "600", "700"],

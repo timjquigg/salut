@@ -22,7 +22,7 @@ export default function Home() {
     <Box sx={{ display: "flex", height: "100vh" }}>
       <Box
         sx={{
-          width: {xl: '50%', lg: '50%'},
+          width: {lg: '50%'},
           backgroundImage: 'url("../landing2.jpeg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -32,22 +32,22 @@ export default function Home() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: {xl: 'end', lg: 'end', xs: 'center'},
-          textAlign: {xl: 'right', lg: 'right', xs: 'center'},
-          width: {xl: '50%', lg: '50%', xs: '100%'},
-          paddingRight: {xl: '5vw', lg: '5vw'},
+          alignItems: {lg: 'end', xs: 'center'},
+          textAlign: {lg: 'right', xs: 'center'},
+          width: {lg: '50%', xs: '100%'},
+          paddingRight: {lg: '5vw'},
           backgroundImage: {xs: 'linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url("../landing2.jpeg")', lg: 'none'},
           backgroundSize: "cover",
           backgroundPosition: {sm: 'center'},
         }}
       >
-        <Box sx={{ paddingTop: {sm: '150px', xs: '100px'} }}>
+        <Box sx={{ paddingTop: {sm: '150px', xs: '120px'} }}>
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 60},
+              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 50},
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: {md: '100px', xs: '75px'},
+              lineHeight: {md: '100px', xs: '70px'},
             }}
           >
             Interactive
@@ -55,9 +55,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 60},
+              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 50},
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: {md: '100px', xs: '75px'},
+              lineHeight: {md: '100px', xs: '70px'},
             }}
           >
             Cocktail
@@ -65,9 +65,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 60},
+              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 50},
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: {md: '100px', xs: '75px'},
+              lineHeight: {md: '100px', xs: '70px'},
             }}
           >
             Cabinet
