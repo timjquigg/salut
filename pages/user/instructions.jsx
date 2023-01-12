@@ -25,7 +25,7 @@ const steps = [
     label: "Search for cocktails",
     description: `On the navigation bar, we can navigate to the search cocktail page by clicking 'Search Cocktails'.
       A form will be shown as well as a list of popular cocktails.
-      \n The search bar has 3 modes: Search by keyword that
+     The search bar has 3 modes: Search by keyword that
       lets you type any keyword/keywords, search by ingredients which will help you in selecting multiple ingredients, and 
       search non-alcoholic drinks which will only show non-alcoholic drinks`,
   },
@@ -44,6 +44,7 @@ const steps = [
 ];
 
 export default function Instruction() {
+  // console.log("aha", window.innerHeight);
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -62,13 +63,14 @@ export default function Instruction() {
         sx={{
           display: "flex",
           justifyContent: "center",
-          height: "100vh",
+          height: { md: "100vh", sm: "50vh" },
+          width: "100vw",
         }}
       >
         <Box
           component="img"
           sx={{
-            height: "100vh",
+            height: { md: "100vh", sm: "50vh" },
             width: "100%",
           }}
           alt="introBg"
@@ -82,15 +84,15 @@ export default function Instruction() {
             fontFamily: theme.typography.fontFamily[0],
             lineHeight: "100px",
             left: "8%",
-            top: "10%",
+            top: { md: "9%", xs: "9.5%" },
           }}
         >
           <Typography
             sx={{
               color: "white",
-              fontSize: 55,
+              fontSize: { lg: 50, xs: 25 },
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: "100px",
+              lineHeight: { md: "100px", xs: "50px" },
             }}
           >
             Welcome to Salut!
@@ -98,34 +100,38 @@ export default function Instruction() {
           <Typography
             sx={{
               color: "white",
-              fontSize: 20,
+              fontSize: { md: 20, sm: 15, xs: 13 },
               fontFamily: theme.typography.fontFamily[1],
             }}
           >
-            Your one stop solution and source of cocktail recipes.
+            Your one stop solution and
+            <br />
+            source of cocktail recipes.
           </Typography>
           <Typography
             sx={{
               color: "white",
-              fontSize: 35,
+              fontSize: { lg: 35, md: 25, sm: 20 },
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: "100px",
+              lineHeight: { md: "100px", xs: "50px" },
             }}
           >
             Cocktail planning made easier
           </Typography>
           <Typography
             sx={{
-              color: "white",
-              fontSize: 20,
+              color: { sm: "white", xs: "black" },
+              fontSize: { lg: 17, md: 15, xs: 13 },
               fontFamily: theme.typography.fontFamily[1],
+              p: 1,
+              display: { xs: "none", sm: "block", md: "block", lg: "block" },
             }}
           >
             <DoneIcon sx={{ mr: 2 }} />
             Don't know what alcoholic beverages to serve for your guests?
             <br />
             <DoneIcon sx={{ mr: 2 }} />
-            Wants to come up with a drink with what is on hand?
+            Want to come up with a drink with what is on hand?
             <br />
             <DoneIcon sx={{ mr: 2 }} />
             Looking for inspiration on what cocktail to make?
@@ -134,24 +140,22 @@ export default function Instruction() {
             Categorize and organize cocktail ideas/plans for upcoming events?
             <br />
           </Typography>
-          <Typography
-            sx={{
-              color: "white",
-              fontSize: 30,
-              fontFamily: theme.typography.fontFamily[0],
-              mt: 3,
-            }}
-          >
-            We've got you covered!
-          </Typography>
+
           <Button
             variant="contained"
             sx={{
-              width: "200px",
-              height: "50px",
-              marginTop: 3,
+              fontSize: { sm: "50%", xs: "30%" },
+              width: "40%",
+              height: "20%",
+              marginTop: 0,
               color: "#fff",
               borderRadius: "30px",
+              position: {
+                md: "relative",
+                lg: "relative",
+                xs: "absolute",
+              },
+              top: { xs: "100%" },
             }}
             onClick={() => {
               window.scrollTo({ top: 1000, behavior: "smooth" });
@@ -164,10 +168,12 @@ export default function Instruction() {
           sx={{
             display: "flex",
             alignItems: "center",
-            m: 4,
+            justifyContent: "space-evenly",
+            height: "10%",
             position: "absolute",
-            bottom: "1px",
-            left: "80px",
+            bottom: { sm: "0%" },
+            top: { xs: "38%", sm: "65%" },
+            left: { sm: "-20px" },
           }}
         >
           <Box
@@ -175,29 +181,27 @@ export default function Instruction() {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
-              width: "200px",
-              height: "200px",
-
-              m: 1,
+              width: "18%",
+              height: "10%",
             }}
           >
             <SearchIcon
               sx={{
-                color: "white",
-                fontSize: 80,
+                color: { sm: "white", xs: "black" },
+                fontSize: { lg: 60, xs: 40 },
                 textAlign: "center",
               }}
             />
             <Typography
               sx={{
-                color: "white",
-                fontSize: 18,
+                color: { sm: "white", xs: "black" },
+                fontSize: { sm: 18, xs: 13 },
                 fontFamily: theme.typography.fontFamily[1],
-                p: 3,
+                p: 2,
                 textAlign: "center",
               }}
             >
-              Search cocktail recipes by keywords or ingredients
+              Search cocktail recipes
             </Typography>
           </Box>
           <Box
@@ -205,29 +209,27 @@ export default function Instruction() {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
-              width: "200px",
-              height: "200px",
-
-              m: 1,
+              width: "18%",
+              height: "10%",
             }}
           >
             <LocalBarIcon
               sx={{
-                color: "white",
-                fontSize: 80,
+                color: { sm: "white", xs: "black" },
+                fontSize: { lg: 60, xs: 40 },
                 textAlign: "center",
               }}
             />
             <Typography
               sx={{
-                color: "white",
-                fontSize: 18,
+                color: { sm: "white", xs: "black" },
+                fontSize: { sm: 18, xs: 13 },
                 fontFamily: theme.typography.fontFamily[1],
-                p: 3,
+                p: 2,
                 textAlign: "center",
               }}
             >
-              Save and categorize Cockails
+              Save and categorize cockails
             </Typography>
           </Box>
           <Box
@@ -235,29 +237,27 @@ export default function Instruction() {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
-              width: "200px",
-              height: "200px",
-
-              m: 1,
+              width: "18%",
+              height: "10%",
             }}
           >
             <BallotIcon
               sx={{
-                color: "white",
-                fontSize: 80,
+                color: { sm: "white", xs: "black" },
+                fontSize: { lg: 60, xs: 40 },
                 textAlign: "center",
               }}
             />
             <Typography
               sx={{
-                color: "white",
-                fontSize: 18,
+                color: { sm: "white", xs: "black" },
+                fontSize: { sm: 18, xs: 13 },
                 fontFamily: theme.typography.fontFamily[1],
-                p: 3,
+                p: 2,
                 textAlign: "center",
               }}
             >
-              Save ingredients to see what else you need for a recipe
+              Organize your inventory
             </Typography>
           </Box>
         </Box>
@@ -265,10 +265,11 @@ export default function Instruction() {
       <Typography
         sx={{
           color: "black",
-          fontSize: 55,
+          fontSize: { sm: 55, xs: 20 },
           fontFamily: theme.typography.fontFamily[0],
-          lineHeight: "100px",
-          m: 5,
+          mt: { xs: "40%", sm: "0%" },
+          // lineHeight: "100px",
+          m: 3,
         }}
       >
         Getting started
@@ -281,20 +282,29 @@ export default function Instruction() {
             activeStep={activeStep}
             orientation="vertical"
             sx={{
+              width: "100%",
               marginTop: "10px",
               display: "flex",
               alignItems: "center",
             }}
           >
             {steps.map((step, index) => (
-              <Step key={step.label}>
+              <Step
+                key={step.label}
+                sx={{
+                  width: "100%",
+                  marginTop: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 <StepLabel>
-                  <Typography sx={{ fontSize: "30px" }}>
+                  <Typography sx={{ fontSize: { sm: "30px", xs: "12px" } }}>
                     {step.label}
                   </Typography>
                 </StepLabel>
                 <StepContent>
-                  <Typography sx={{ fontSize: "20px" }}>
+                  <Typography sx={{ fontSize: { sm: "30px", xs: "12px" } }}>
                     {step.description}
                   </Typography>
                   <Box
@@ -305,12 +315,22 @@ export default function Instruction() {
                       alignItems: "center",
                     }}
                   >
-                    <Image
-                      src="/../public/gif.gif"
-                      alt="my gif"
-                      height={500}
-                      width={700}
-                    />
+                    <Box
+                      sx={{
+                        width: { xs: "100%", sm: "70%" },
+                        height: { xs: "200px", sm: "500px" },
+                        position: "relative",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        src="/../public/gif.gif"
+                        alt="my gif"
+                        fill
+                        // height={220}
+                        // width={200}
+                      />
+                    </Box>
                     <div>
                       <Button
                         variant="contained"
@@ -371,7 +391,7 @@ export default function Instruction() {
                 </Button>
               </Box>
             </Paper>
-          )}
+          )}{" "}
         </Box>
       </Box>
     </>

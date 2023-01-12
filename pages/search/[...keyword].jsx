@@ -157,7 +157,7 @@ const Result = (props) => {
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
   const keyword = context.query.keyword;
-  console.log("KW", keyword.includes("Non-Alcoholic"));
+  // console.log("KW", keyword.includes("Non-Alcoholic"));
   let data;
   if (keyword.length > 1 && !keyword.includes("Non-Alcoholic")) {
     const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
