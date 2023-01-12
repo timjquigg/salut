@@ -10,7 +10,8 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { inventoryContext } from "../../providers/InventoryProvider";
-
+import { getCocktailsBasedOnInventory } from '../../lib/cocktail';
+import { NextLinkComposed } from "../../src/Link";
 
 function Inventory(props) {
   const [open, setOpen] = React.useState(false);
@@ -82,6 +83,9 @@ function Inventory(props) {
           width: '40%',
           mx: "auto",
           height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'
         }}
       >
         <Typography sx={{margin: '20px', fontSize: 'large'}}>
@@ -94,6 +98,18 @@ function Inventory(props) {
           </Typography>
         ))}
         </Box>
+        <Box sx={{marginBottom: '15px'}}>
+          <Button
+            component={NextLinkComposed}
+            to={{
+              pathname: '/user/cocktails',
+            }} 
+            variant="contained" 
+            sx={{borderRadius: '20px', color: '#fff',}}
+          >
+            What can I make?
+          </Button>
+        </Box>
       </Paper>
     </Box>
   );
@@ -105,11 +121,13 @@ export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
   if (sessionToken) {
     const inventory = await getInventory(getUserId(sessionToken));
+    const cocktailId = await getCocktailsBasedOnInventory(inventory);
     return {
       props: {
         ingredients,
         categories,
         inventory,
+        cocktailId,
       },
     };
   }

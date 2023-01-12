@@ -58,7 +58,7 @@ const Favorites = (props) => {
         userId={item.userId}
         categoryContents={props.categoryContents}
       />
-      <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} />
+      <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} sx={{marginBottom: '6px'}} />
     </ImageListItem>
   ));
   return (
