@@ -27,6 +27,7 @@ const FilterForm = (props) => {
             onKeyDown={(e) => {
               console.log(e.key);
               if (e.key === "Enter") {
+                props.onClick();
               }
             }}
           />

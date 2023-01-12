@@ -85,6 +85,7 @@ const Search = (props) => {
     changeFilterHandler,
     changeInputFilterHandler,
     submitFilterHandler,
+    submitNonAlcoholicHandler,
   } = useSearch();
 
   const responsive = {
@@ -110,7 +111,7 @@ const Search = (props) => {
   let items = props.recipes;
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <SearchContainer>
         <Box
           sx={{
@@ -120,12 +121,22 @@ const Search = (props) => {
           }}
         >
           <Typography
-            sx={{ fontFamily: theme.typography.fontFamily[0], fontSize: "40px" }}
+            sx={{
+              fontFamily: theme.typography.fontFamily[0],
+              fontSize: "40px",
+            }}
           >
             Look for recipes
           </Typography>
           <Box sx={{ width: "100%" }}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Box
+              sx={{
+                borderBottom: 1,
+                borderColor: "divider",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
@@ -133,6 +144,7 @@ const Search = (props) => {
               >
                 <Tab label="Search by ingredients" {...a11yProps(0)} />
                 <Tab label="Search by keywords" {...a11yProps(1)} />
+                <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -152,26 +164,34 @@ const Search = (props) => {
                 submitHandler={submitHandler}
               />
             </TabPanel>
+            <TabPanel value={value} index={2}>
+              <KeywordForm
+                enteredSearch={enteredSearch}
+                changeHandler={changeHandler}
+                submitHandler={submitNonAlcoholicHandler}
+                nonAlcoholic={true}
+              />
+            </TabPanel>
           </Box>
         </Box>
       </SearchContainer>
-      <Box sx={{backgroundColor: 'rgb(245, 241, 231)'}}>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ backgroundColor: "rgb(245, 241, 231)" }}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={{ width: "100%" }}>
             <Typography
               sx={{
                 fontSize: "20px",
                 color: "#022140",
-                textAlign: 'center',
+                textAlign: "center",
                 fontFamily: theme.typography.fontFamily[0],
-                margin: '20px'
+                margin: "20px",
               }}
             >
               Popular Cocktails
             </Typography>
             <Carousel responsive={responsive}>
               {items.map((item, i) => (
-                <Item key={i} item={item}/>
+                <Item key={i} item={item} />
               ))}
             </Carousel>
           </Box>

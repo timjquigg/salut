@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -9,6 +9,7 @@ const StyledToggleButton = styled(ToggleButton)({
   "&.Mui-selected, &.Mui-selected:hover": {
     color: "transparent",
     backgroundColor: "transparent",
+    borderRadius: "100px",
   },
 });
 
@@ -42,13 +43,15 @@ const FavIcon = (props) => {
       }}
     >
       {selected ? (
-        <Tooltip title="Remove from Favorite">
-          <FavoriteIcon sx={{ color: "red", fontSize: 45 }} />
-        </Tooltip>
+        // <Tooltip
+        //   title="Remove from Favorite"
+        // >
+        <FavoriteIcon sx={{ color: "red", fontSize: 45 }} />
       ) : (
-        <Tooltip title="Add to Favorite">
-          <FavoriteBorderIcon sx={{ fontSize: 45 }} />
-        </Tooltip>
+        // </Tooltip>
+        // <Tooltip title="Add to Favorite">
+        <FavoriteBorderIcon sx={{ fontSize: 45 }} />
+        // </Tooltip>
       )}
     </StyledToggleButton>
   );

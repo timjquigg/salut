@@ -10,6 +10,14 @@ import Tooltip from "@mui/material/Tooltip";
 
 const ResultList = (props) => {
   // console.log(props);
+  const imagePath = (id) => {
+    if (id.includes("/public")) {
+      const newId = id.replace("/public", "");
+      return newId;
+    }
+    return id;
+  };
+
   let results = props.drink.slice(0, props.itemDisplay).map((item) => (
     <ImageListItem
       key={item.idDrink}
@@ -31,17 +39,23 @@ const ResultList = (props) => {
           isFavorite={props.favorites.includes(item.idDrink)}
         />
       )}
-      <Image
-        src={`${item.strDrinkThumb}`}
-        alt={item.strDrink}
-        width="435"
-        height="450"
-        object-fit="cover"
-        position="relative"
-      />
       <Link href={`/cocktail/${item.idDrink}`}>
-        <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} />
+        <Image
+          src={item.strDrinkThumb}
+          alt={item.strDrink}
+          width="435"
+          height="450"
+          object-fit="cover"
+          position="relative"
+        />
       </Link>
+      <ImageListItemBar
+        title={item.strDrink}
+        subtitle={item.strCategory}
+        sx={{
+          backgroundColor: "rgba(110, 110, 110, 0.8)",
+        }}
+      />
     </ImageListItem>
   ));
 

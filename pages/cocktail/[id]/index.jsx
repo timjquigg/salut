@@ -4,6 +4,8 @@ import { getSession } from "next-auth/react";
 import { getCocktailDetails } from "../../../lib/details";
 import { getFavoriteId } from "../../../lib/favorite";
 import { getInventory } from "../../../lib/inventory";
+import { getCategoriesByFavId } from "../../../lib/category";
+import LocationProvider from "../../../providers/locationProvider";
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
@@ -22,12 +24,17 @@ export async function getServerSideProps(context) {
   if (sessionToken) {
     const favoriteId = await getFavoriteId(sessionToken, cocktailId);
     const inventory = await getInventory(sessionToken);
-    // console.log(context.req.cookies["next-auth.session-token"]);
+    let categories = [];
+    if (favoriteId) {
+      categories = await getCategoriesByFavId(favoriteId.id);
+    }
+
     return {
       props: {
         data,
         favoriteId,
         inventory,
+        categories,
       },
     };
   } else {
@@ -41,10 +48,15 @@ export async function getServerSideProps(context) {
 
 function Details(props) {
   return (
-
-  <LoggedinDetail data={props.data} favoriteId={props.favoriteId} inventory={props.inventory}/>
-      
-  )
+    <LocationProvider>
+      <LoggedinDetail
+        data={props.data}
+        favoriteId={props.favoriteId}
+        inventory={props.inventory}
+        categories={props.categories}
+      />
+    </LocationProvider>
+  );
 }
 
 Details.auth = true;
