@@ -17,31 +17,39 @@ const useSearch = () => {
   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setEnteredSearch("");
     setItemDisplay(12);
     router.push(`/search/${enteredSearch}`);
   };
 
   const changeHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setEnteredSearch(event.target.value);
   };
 
   const changeFilterHandler = (event, newValue) => {
     setFilterKeywords(newValue);
   };
+  // console.log(filterKeywords);
 
   const changeInputFilterHandler = (event, newValue) => {
-    console.log(newValue.strIngredient);
     setInputFilterKeywords(newValue);
+    // console.log(inputFilterKeywords);
   };
 
   const submitFilterHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const formatValue = filterKeywords.map((el) => el.strIngredient);
     setItemDisplay(12);
     router.push(pathFormatter(formatValue));
+  };
+
+  const submitNonAlcoholicHandler = (event) => {
+    // event.preventDefault();
+    const formatValue = filterKeywords.map((el) => el.strIngredient);
+    setItemDisplay(12);
+    router.push(`${pathFormatter(formatValue)}/Non-Alcoholic/${enteredSearch}`);
   };
 
   const seeMoreHandler = () => {
@@ -81,6 +89,7 @@ const useSearch = () => {
     itemDisplay,
     addFavorite,
     removeFavorite,
+    submitNonAlcoholicHandler,
   };
 };
 

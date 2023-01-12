@@ -10,7 +10,11 @@ const KeywordForm = (props) => {
     >
       <TextField
         id="outlined-basic"
-        label="Search by Keyword"
+        label={
+          props.nonAlcoholic
+            ? "Search Non-Alcoholic Drinks"
+            : "Search By Keyword"
+        }
         variant="outlined"
         value={props.enteredSearch}
         onChange={props.changeHandler}

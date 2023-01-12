@@ -4,15 +4,37 @@ import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
 import useSearch from "../../custom_hook/useSearch";
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import theme from "../../src/theme";
-import { Paper } from "@mui/material";
+import CocktailCard from "../../components/cocktailCard";
+import Carousel from "react-multi-carousel";
+import { getPopularCocktails } from "../../lib/carousel";
+import "react-multi-carousel/lib/styles.css";
+
+function Item(props) {
+  // console.log(props.item.strDrinkThumb)
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CocktailCard
+        cocktailImage={props.item.strDrinkThumb}
+        cocktailName={props.item.strDrink}
+        instructions={props.item.strInstructions}
+        cocktailId={props.item.idDrink}
+      />
+    </Box>
+  );
+}
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -63,61 +85,129 @@ const Search = (props) => {
     changeFilterHandler,
     changeInputFilterHandler,
     submitFilterHandler,
+    submitNonAlcoholicHandler,
   } = useSearch();
 
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 7,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 3,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 3,
+    },
+  };
+
+  let items = props.recipes;
+
   return (
-    <SearchContainer marginTop={15}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography
-          sx={{ fontFamily: theme.typography.fontFamily[0], fontSize: "40px" }}
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <SearchContainer>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          Look for recipes
-        </Typography>
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
+          <Typography
+            sx={{
+              fontFamily: theme.typography.fontFamily[0],
+              fontSize: "40px",
+            }}
+          >
+            Look for recipes
+          </Typography>
+          <Box sx={{ width: "100%" }}>
+            <Box
+              sx={{
+                borderBottom: 1,
+                borderColor: "divider",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
-              <Tab label="Search by ingredients" {...a11yProps(0)} />
-              <Tab label="Search by keywords" {...a11yProps(1)} />
-            </Tabs>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab label="Search by ingredients" {...a11yProps(0)} />
+                <Tab label="Search by keywords" {...a11yProps(1)} />
+                <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <FilterForm
+                options={props.ingredients}
+                filterKeywords={filterKeywords}
+                inputFilterKeywords={inputFilterKeywords}
+                onChange={changeFilterHandler}
+                onInputChange={changeInputFilterHandler}
+                onClick={submitFilterHandler}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <KeywordForm
+                enteredSearch={enteredSearch}
+                changeHandler={changeHandler}
+                submitHandler={submitHandler}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <KeywordForm
+                enteredSearch={enteredSearch}
+                changeHandler={changeHandler}
+                submitHandler={submitNonAlcoholicHandler}
+                nonAlcoholic={true}
+              />
+            </TabPanel>
           </Box>
-          <TabPanel value={value} index={0}>
-            <FilterForm
-              options={props.ingredients}
-              filterKeywords={filterKeywords}
-              inputFilterKeywords={inputFilterKeywords}
-              onChange={changeFilterHandler}
-              onInputChange={changeInputFilterHandler}
-              onClick={submitFilterHandler}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <KeywordForm
-              enteredSearch={enteredSearch}
-              changeHandler={changeHandler}
-              submitHandler={submitHandler}
-            />
-          </TabPanel>
+        </Box>
+      </SearchContainer>
+      <Box sx={{ backgroundColor: "rgb(245, 241, 231)" }}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={{ width: "100%" }}>
+            <Typography
+              sx={{
+                fontSize: "20px",
+                color: "#022140",
+                textAlign: "center",
+                fontFamily: theme.typography.fontFamily[0],
+                margin: "20px",
+              }}
+            >
+              Popular Cocktails
+            </Typography>
+            <Carousel responsive={responsive}>
+              {items.map((item, i) => (
+                <Item key={i} item={item} />
+              ))}
+            </Carousel>
+          </Box>
         </Box>
       </Box>
-    </SearchContainer>
+    </Box>
   );
 };
 
 export async function getServerSideProps(context) {
   const data = await getAllIngredients();
+  const recipes = await getPopularCocktails();
   return {
     props: {
       ingredients: data,
+      recipes,
     },
   };
 }
