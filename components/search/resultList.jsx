@@ -54,6 +54,7 @@ const ResultList = (props) => {
         subtitle={item.strCategory}
         sx={{
           backgroundColor: "rgba(110, 110, 110, 0.8)",
+          marginBottom: '6px'
         }}
       />
     </ImageListItem>
