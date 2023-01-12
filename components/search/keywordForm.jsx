@@ -19,7 +19,7 @@ const KeywordForm = (props) => {
         value={props.enteredSearch}
         onChange={props.changeHandler}
         sx={{
-          width: "50vw",
+          width: {sm: "50vw", xs: "80vw"},
         }}
       />
       <Button
