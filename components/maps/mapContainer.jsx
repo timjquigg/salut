@@ -1,28 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Box } from "@mui/system";
-import GetLocation from "./getLocation";
 import axios from "axios";
+import { Dialog, Typography } from "@mui/material";
+import { locationContext } from "../../providers/locationProvider";
 
 function MapContainer() {
-  const [showMap, setShowMap] = useState(false);
-  const [position, setPosition] = useState({});
-
-  const handleClick = (location) => {
-    setPosition(location);
-    console.log("position:", position);
+  const { showMap, setShowMap } = useContext(locationContext);
+  const handleClose = (value) => {
+    setShowMap(false);
   };
 
-  useEffect(() => {
-    console.log("Sending to API");
-    const params = new URLSearchParams(position).toString();
-    console.log(params);
-    axios.get(`api/map?${params}`);
-  }, [position]);
-
   return (
-    <Box>
-      <GetLocation onClick={handleClick} />
-    </Box>
+    <Dialog fullWidth={true} maxWidth="md" onClose={handleClose} open={showMap}>
+      <Box sx={{ width: "100%", height: "60vh" }}>
+        <Typography>Map Container</Typography>
+      </Box>
+    </Dialog>
   );
 }
 

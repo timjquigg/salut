@@ -1,29 +1,16 @@
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
+import { useContext } from "react";
+import { locationContext } from "../../providers/locationProvider";
 
-function GetLocation(props) {
+function GetLocation() {
+  const { position, setPosition, showMap, setShowMap, getStoreData } =
+    useContext(locationContext);
+
   const handlClick = async () => {
-    const position = await getAddress();
-    props.onClick(position);
-  };
-
-  const getLocation = () => {
-    const success = (position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      // console.log({ latitude }, { longitude });
-    };
-
-    const error = () => {
-      console.log("unable to retrieve your location");
-    };
-
-    if (!navigator.geolocation) {
-      console.log("Geolocation is not supported by your browser");
-    } else {
-      console.log("locating...");
-      navigator.geolocation.getCurrentPosition(success, error);
-    }
+    const location = await getAddress();
+    setPosition(location);
+    setShowMap(true);
+    getStoreData(position);
   };
 
   function getCoordinates() {
@@ -40,13 +27,16 @@ function GetLocation(props) {
   }
 
   return (
-    <Button
-      onClick={() => {
-        handlClick();
-      }}
-    >
-      Get Location
-    </Button>
+    <Box sx={{ mt: "1rem" }}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          handlClick();
+        }}
+      >
+        Find Nearby Liquor Store
+      </Button>
+    </Box>
   );
 }
 
