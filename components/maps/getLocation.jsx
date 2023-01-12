@@ -1,5 +1,5 @@
 import { Button, Box } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { locationContext } from "../../providers/locationProvider";
 
 function GetLocation() {
@@ -10,9 +10,6 @@ function GetLocation() {
     const location = await getAddress();
     getStoreData(location);
   };
-
-  // useEffect(() => {
-  // }, [position]);
 
   function getCoordinates() {
     return new Promise(function (resolve, reject) {

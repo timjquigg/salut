@@ -1,6 +1,5 @@
-import { useMemo, useContext, useEffect } from "react";
+import { useMemo, useContext } from "react";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
-import LiquorIcon from "@mui/icons-material/Liquor";
 import { locationContext } from "../../providers/locationProvider";
 
 export default function Map() {

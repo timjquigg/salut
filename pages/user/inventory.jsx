@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { useContext } from "react";
 import { Typography, Box, Paper, Button } from "@mui/material";
 import { getIngredients, getInventory } from "../../lib/inventory";
@@ -6,11 +6,11 @@ import { getUserId } from "../../lib/user";
 import VerticalTabs from "../../components/inventory/verticalTabs";
 import { useSession } from "next-auth/react";
 import useInventoryData from "../../hooks/useInventoryData";
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import { inventoryContext } from "../../providers/InventoryProvider";
-import { getCocktailsBasedOnInventory } from '../../lib/cocktail';
+import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
 import { NextLinkComposed } from "../../src/Link";
 
 function Inventory(props) {
@@ -21,13 +21,13 @@ function Inventory(props) {
   const { inventory } = useContext(inventoryContext);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
-  
+
   const action = (
     <React.Fragment>
       <IconButton
@@ -53,7 +53,7 @@ function Inventory(props) {
     >
       <Paper
         sx={{
-          width: '40%',
+          width: "40%",
           mx: "auto",
           height: "100%",
         }}
@@ -62,7 +62,13 @@ function Inventory(props) {
         <VerticalTabs>{categories}</VerticalTabs>
         <Button
           variant="contained"
-          sx={{ mx: "auto", marginTop: '20px', color: '#fff', width: '150px', borderRadius: '20px' }}
+          sx={{
+            mx: "auto",
+            marginTop: "20px",
+            color: "#fff",
+            width: "150px",
+            borderRadius: "20px",
+          }}
           onClick={() => {
             save();
             setOpen(true);
@@ -80,32 +86,30 @@ function Inventory(props) {
       </Paper>
       <Paper
         sx={{
-          width: '40%',
+          width: "40%",
           mx: "auto",
           height: "100%",
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between'
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
-        <Typography sx={{margin: '20px', fontSize: 'large'}}>
+        <Typography sx={{ margin: "20px", fontSize: "large" }}>
           Your Inventory List
         </Typography>
         <Box>
-        {inventory.map((item, i) => (
-          <Typography key={i}>
-            {item}
-          </Typography>
-        ))}
+          {inventory.map((item, i) => (
+            <Typography key={i}>{item}</Typography>
+          ))}
         </Box>
-        <Box sx={{marginBottom: '15px'}}>
+        <Box sx={{ marginBottom: "15px" }}>
           <Button
             component={NextLinkComposed}
             to={{
-              pathname: '/user/cocktails',
-            }} 
-            variant="contained" 
-            sx={{borderRadius: '20px', color: '#fff',}}
+              pathname: "/user/cocktails",
+            }}
+            variant="contained"
+            sx={{ borderRadius: "20px", color: "#fff" }}
           >
             What can I make?
           </Button>
@@ -126,7 +130,7 @@ export async function getServerSideProps(context) {
       props: {
         ingredients,
         categories,
-        inventory,
+        // inventory,
         cocktailId,
       },
     };

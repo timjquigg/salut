@@ -27,10 +27,7 @@ function NotLoggedinDetail(props) {
 
   const ingredients = getIngredients("strIngredient");
   const measurement = getIngredients("strMeasure");
-  // console.log(props.data)
-  // mini squares https://www.transparenttextures.com/patterns/grid-me.png
-  // rocky wall https://www.transparenttextures.com/patterns/rocky-wall.png
-  // splash https://www.transparenttextures.com/patterns/stardust.png
+
   return (
     <Box
       sx={{

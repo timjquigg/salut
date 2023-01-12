@@ -15,13 +15,14 @@ export default function InventoryProvider(props) {
   const userId = session.user.id;
 
   useEffect(() => {
+    console.log("getting inventory");
     axios.get(`api/inventory/${userId}`).then((res) => {
       setInventory(res.data);
     });
   }, []);
   // Shared State object:
 
-  const updateInventory = (event, name) => {
+  const updateInventory = (name) => {
     const inventoryIndex = inventory.indexOf(name);
     let newInventory = [];
 

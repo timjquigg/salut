@@ -28,7 +28,7 @@ export function TabTable(props) {
   };
 
   const handleClick = (event, name) => {
-    updateInventory(event, name);
+    updateInventory(name);
   };
 
   const isSelected = (name) => inventory.indexOf(name) !== -1;
@@ -76,7 +76,7 @@ export function TabTable(props) {
     });
 
   return (
-    <Box sx={{ width: "30vw", padding: '30px', paddingRight: '50px' }}>
+    <Box sx={{ width: "30vw", padding: "30px", paddingRight: "50px" }}>
       <TableContainer sx={{ height: "100%" }}>
         <Table>
           {/* <TableHead sx={{ width: '100%', textAlign: 'center', justifySelf: 'center'}}>

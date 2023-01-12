@@ -1,35 +1,39 @@
-import * as React from "react";
-import { useState } from "react";
-import Image from "next/image";
-import Box from "@mui/material/Box";
+// import * as React from "react";
+import { useState, useContext } from "react";
 import { useSession } from "next-auth/react";
-import Favorite from "@mui/icons-material/Favorite";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import { Button, Typography } from "@mui/material";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import ToggleButton from "@mui/material/ToggleButton";
+import {
+  Button,
+  Typography,
+  ToggleButton,
+  Box,
+  Chip,
+  Stack,
+} from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import theme from "../../src/theme";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import CopyToClipboardButton from "../copyUrl";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import AddIcon from "@mui/icons-material/Add";
-import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import CheckBox from "./checkbox";
 import MapContainer from "../maps/mapContainer";
 import GetLocation from "../maps/getLocation";
 import { locationContext } from "../../providers/locationProvider";
 
+import useDetailData from "../../hooks/useDetailData";
+// import { inventoryContext } from "../../providers/InventoryProvider";
+
 function LoggedinDetail(props) {
-  const { showMap } = React.useContext(locationContext);
+  const { showMap } = useContext(locationContext);
   const [selected, setSelected] = useState(props.favoriteId ? true : false);
-  const [inventory, setInventory] = useState(props.inventory);
+  // const { inventory, updateInventory } = useContext(inventoryContext);
   const { data: session, status } = useSession();
   const router = useRouter();
   // console.log('id:', router.query.id)
+  const inventory = props.inventory;
+  // console.log(inventory);
 
   const cocktailName = props.data.strDrink;
   const thumb = props.data.strDrinkThumb;
@@ -51,51 +55,13 @@ function LoggedinDetail(props) {
   const ingredients = getIngredients("strIngredient");
   const measurement = getIngredients("strMeasure");
 
-  // const inventories = props.inventory;
   const invUppercase = [];
   inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
 
-  inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
+  // inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
 
-  const addFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/postFavorite", {
-      method: "POST",
-      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
-  const removeFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/removeFavorite", {
-      method: "DELETE",
-      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
-  const addInventory = async (userId, inventory) => {
-    const response = await fetch("/api/inventory/addInventory", {
-      method: "POST",
-      body: JSON.stringify({ userId: userId, inventory: inventory }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
-  const removeInventory = async (userId, inventory) => {
-    const response = await fetch("/api/inventory/removeInventory", {
-      method: "DELETE",
-      body: JSON.stringify({ userId: userId, inventory: inventory }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  const { addFavorite, removeFavorite, addInventory, removeInventory } =
+    useDetailData();
 
   return (
     <>
@@ -169,9 +135,9 @@ function LoggedinDetail(props) {
                   }}
                 >
                   {selected ? (
-                    <Favorite sx={{ color: "red" }} />
+                    <FavoriteIcon sx={{ color: "red" }} />
                   ) : (
-                    <FavoriteBorder sx={{ color: "red" }} />
+                    <FavoriteBorderIcon sx={{ color: "red" }} />
                   )}
                 </ToggleButton>
               </Box>
