@@ -10,24 +10,33 @@ export const locationContext = createContext();
 export default function LocationProvider(props) {
   const [showMap, setShowMap] = useState(false);
   const [position, setPosition] = useState({});
+  const [stores, setStores] = useState([]);
+  const [currentStore, setCurrentStore] = useState({});
 
   const getStoreData = (location) => {
-    setPosition(location);
-    console.log("position:", position);
     console.log("Sending to API");
-    const params = new URLSearchParams(position).toString();
-    console.log(params);
-    axios.get(`api/map?${params}`).then((res) => {
-      console.log(res);
-    });
+    const params = new URLSearchParams(location).toString();
+    axios
+      .get(`api/map?${params}`)
+      .then((res) => {
+        setStores(res.data);
+      })
+      .finally(() => {
+        // console.log(stores);
+        setPosition(location);
+        setShowMap(true);
+      });
   };
 
   const providerData = {
     showMap,
     position,
+    stores,
+    currentStore,
     setShowMap,
     setPosition,
     getStoreData,
+    setCurrentStore,
   };
 
   return (
