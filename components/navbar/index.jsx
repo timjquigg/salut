@@ -29,7 +29,13 @@ function Navbar(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box onClick={handleDrawerToggle} 
+      sx={{ 
+        textAlign: 'center', 
+        height: '100vh', 
+        backgroundImage: 'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")' 
+      }}
+    >
       <Typography variant="h6" sx={{ my: 2 }}>
         <img src="../salut_logo.png" alt="logo" height="60px" />
       </Typography>
@@ -162,7 +168,7 @@ function Navbar(props) {
                 pathname: "/",
               }}
             >
-              <img src="../salut_logo.png" alt="logo" height="60px" />
+              <img src="../salut_logo.png" alt="logo" height="50px" />
             </Button>
           </Box>
           <IconButton
