@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { Dialog, Typography } from "@mui/material";
 import { locationContext } from "../../providers/locationProvider";
+import Map from "./map";
 
 function MapContainer() {
   const { showMap, setShowMap } = useContext(locationContext);
@@ -14,6 +15,7 @@ function MapContainer() {
     <Dialog fullWidth={true} maxWidth="md" onClose={handleClose} open={showMap}>
       <Box sx={{ width: "100%", height: "60vh" }}>
         <Typography>Map Container</Typography>
+        <Map />
       </Box>
     </Dialog>
   );
