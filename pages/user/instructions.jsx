@@ -92,7 +92,7 @@ export default function Instruction() {
               color: "white",
               fontSize: { lg: 50, xs: 25 },
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: { md: "100px", xs: "50px" },
+              lineHeight: { md: "100px", xs: "60px" },
             }}
           >
             Welcome to Salut!
@@ -144,7 +144,7 @@ export default function Instruction() {
           <Button
             variant="contained"
             sx={{
-              fontSize: { sm: "50%", xs: "30%" },
+              fontSize: { sm: "50%", xs: "26%" },
               width: "40%",
               height: "20%",
               marginTop: 0,
@@ -174,6 +174,8 @@ export default function Instruction() {
             bottom: { sm: "0%" },
             top: { xs: "38%", sm: "65%" },
             left: { sm: "-20px" },
+            backgroundImage:
+              'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
           }}
         >
           <Box
@@ -296,6 +298,8 @@ export default function Instruction() {
                   marginTop: "10px",
                   display: "flex",
                   alignItems: "center",
+                  backgroundImage:
+                    'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
                 }}
               >
                 <StepLabel>

@@ -80,53 +80,74 @@ const Result = (props) => {
 
   return (
     <>
-      <SearchContainer>
-        <Box sx={{ width: "auto" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          backgroundImage:
+            'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
+        }}
+      >
+        <SearchContainer>
           <Box
             sx={{
-              borderBottom: 1,
-              borderColor: "divider",
               display: "flex",
-              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "100vw",
             }}
           >
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab label="Search by ingredients" {...a11yProps(0)} />
-              <Tab label="Search by keywords" {...a11yProps(1)} />
-              <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
-            </Tabs>
+            <Box sx={{ width: "100%" }}>
+              <Box
+                sx={{
+                  borderBottom: 1,
+                  borderColor: "divider",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                  variant="scrollable"
+                  scrollButtons
+                  allowScrollButtonsMobile
+                >
+                  <Tab label="Search by ingredients" {...a11yProps(0)} />
+                  <Tab label="Search by keywords" {...a11yProps(1)} />
+                  <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
+                </Tabs>
+              </Box>
+              <TabPanel value={value} index={0}>
+                <FilterForm
+                  options={props.ingredients}
+                  filterKeywords={filterKeywords}
+                  inputFilterKeywords={inputFilterKeywords}
+                  onChange={changeFilterHandler}
+                  onInputChange={changeInputFilterHandler}
+                  onClick={submitFilterHandler}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <KeywordForm
+                  enteredSearch={enteredSearch}
+                  changeHandler={changeHandler}
+                  submitHandler={submitHandler}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <KeywordForm
+                  enteredSearch={enteredSearch}
+                  changeHandler={changeHandler}
+                  submitHandler={submitNonAlcoholicHandler}
+                  nonAlcoholic={true}
+                />
+              </TabPanel>
+            </Box>
           </Box>
-          <TabPanel value={value} index={0}>
-            <FilterForm
-              options={props.ingredients}
-              filterKeywords={filterKeywords}
-              inputFilterKeywords={inputFilterKeywords}
-              onChange={changeFilterHandler}
-              onInputChange={changeInputFilterHandler}
-              onClick={submitFilterHandler}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <KeywordForm
-              enteredSearch={enteredSearch}
-              changeHandler={changeHandler}
-              submitHandler={submitHandler}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <KeywordForm
-              enteredSearch={enteredSearch}
-              changeHandler={changeHandler}
-              submitHandler={submitNonAlcoholicHandler}
-              nonAlcoholic={true}
-            />
-          </TabPanel>
-        </Box>
-      </SearchContainer>
+        </SearchContainer>
+      </Box>
       <Box
         noValidate
         component="div"
