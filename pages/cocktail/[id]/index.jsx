@@ -5,6 +5,7 @@ import { getCocktailDetails } from "../../../lib/details";
 import { getFavoriteId } from "../../../lib/favorite";
 import { getInventory } from "../../../lib/inventory";
 import { getCategoriesByFavId } from "../../../lib/category";
+import LocationProvider from "../../../providers/locationProvider";
 
 export async function getServerSideProps(context) {
   const cocktailId = context.query.id;
@@ -47,12 +48,14 @@ export async function getServerSideProps(context) {
 
 function Details(props) {
   return (
-    <LoggedinDetail
-      data={props.data}
-      favoriteId={props.favoriteId}
-      inventory={props.inventory}
-      categories={props.categories}
-    />
+    <LocationProvider>
+      <LoggedinDetail
+        data={props.data}
+        favoriteId={props.favoriteId}
+        inventory={props.inventory}
+        categories={props.categories}
+      />
+    </LocationProvider>
   );
 }
 
