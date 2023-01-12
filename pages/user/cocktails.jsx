@@ -42,7 +42,11 @@ const Cocktails = (props) => {
         />
       </Link>
 
-      <ImageListItemBar title={item.strDrink} subtitle={item.strCategory} sx={{marginBottom: '6px'}}/>
+      <ImageListItemBar 
+        title={item.strDrink} 
+        subtitle={item.strCategory} 
+        sx={{marginBottom: '6px'}}
+      />
     </ImageListItem>
   ));
   console.log('results:', results)
