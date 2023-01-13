@@ -10,6 +10,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Button from '@mui/material/Button';
 import { NextLinkComposed } from "../../src/Link";
+import Image from "next/image";
 // import { unstable_getServerSession } from "next-auth/next";
 // import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -60,7 +61,7 @@ function User(props) {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      items: 3,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -71,7 +72,58 @@ function User(props) {
   let items = props.data;
   if (session) {
     return (
-      <Box sx={{ marginTop: "104px" }}>
+      <Box sx={{ paddingTop: "104px", backgroundImage: 'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")' }}>
+        <Box sx={{
+          display: 'flex', 
+          ustifyContent: 'center', 
+          gap: {md: 5, xs: 2}, 
+          // paddingTop: {md: '6vh', xs: '3vh'}, 
+          height: {md: '200px'},
+          flexDirection: {xs: "column", md: "row"},
+          justifyContent: "center",
+          alignItems: 'center',
+        }}>
+          
+          <Box sx={{}}>
+            <Button
+            component={NextLinkComposed}
+            to={{
+              pathname: '/user/cocktails',
+            }} 
+            variant="outlined"
+            sx={{padding: {md: '20px', xs: '20px 8px'}}}
+            >
+              <Image src={'/../public/cocktail1.png'} width={100} height={100} />
+              <Typography sx={{}}>Cocktails you can make</Typography>
+            </Button>
+          </Box>
+          <Box sx={{}}>
+            <Button
+              component={NextLinkComposed}
+              to={{
+                pathname: '/user/favorites',
+              }} 
+              variant="outlined"
+              sx={{padding: '20px'}}
+              >
+                <Image src={'/../public/cocktail2.png'} width={100} height={100} />
+                <Typography sx={{}}>Go to your favorites</Typography>
+            </Button>
+          </Box>
+          <Box sx={{}}>
+            <Button
+              component={NextLinkComposed}
+              to={{
+                pathname: '/user/inventory',
+              }} 
+              variant="outlined"
+              sx={{padding: '20px', marginBottom: {xs: '20px', md: 0}}}
+              >
+                <Image src={'/../public/cocktail3.png'} width={100} height={100} />
+                <Typography sx={{}}>Go to your inventory</Typography>
+            </Button>
+          </Box>
+        </Box>
         <Box sx={{ display: "flex", justifyContent: "center", backgroundColor: 'rgb(245, 241, 231)' }}>
           <Box sx={{ textAlign: "center", width: "100%", marginTop: '20px' }}>
             <Typography
@@ -82,10 +134,10 @@ function User(props) {
                 margin: "10px",
               }}
             >
-              Recommended For You
+              Picked For You
             </Typography>
-            <Typography sx={{marginBottom: '50px'}}>
-              Here are some recommended recipes for you based on your inventory items!
+            <Typography sx={{margin: '10px', marginBottom: {md: '50px', xs: '20px'}}}>
+              We picked some recipes for you based on your inventory items!
             </Typography>
             {items.length > 0 ? 
               <Carousel responsive={responsive}>
@@ -101,34 +153,7 @@ function User(props) {
             }
           </Box>
         </Box>
-        <Box sx={{display: 'flex', justifyContent: 'center', gap: 5, paddingTop: '6vh'}}>
-          <Button
-            component={NextLinkComposed}
-            to={{
-              pathname: '/user/cocktails',
-            }} 
-            variant="outlined" 
-            sx={{borderRadius: '20px'}}
-          >
-            Cocktails you can make
-          </Button>
-          <Button 
-            component={NextLinkComposed}
-            to={{
-              pathname: '/user/favorites',
-            }} 
-            variant="outlined" 
-            sx={{borderRadius: '20px'}}
-          >Go to your favorites</Button>
-          <Button 
-            component={NextLinkComposed}
-            to={{
-              pathname: '/user/inventory',
-            }} 
-            variant="outlined" 
-            sx={{borderRadius: '20px'}}
-          >Go to your inventory</Button>
-        </Box>
+        
       </Box>
     );
   }
