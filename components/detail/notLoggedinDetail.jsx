@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Box from "@mui/material/Box";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import theme from "../../src/theme";
-import { Facebook, Twitter } from "@mui/icons-material";
-import CopyToClipboardButton from "../copyUrl";
 import { useNotLoggedInDetailData } from "../../hooks/useDetailData";
+import PageContainer from "./pageContainer";
+import LocationProvider from "../../providers/locationProvider";
+import BottomButtons from "./bottomButtons";
+import CocktailPhoto from "./cocktailPhoto";
 
 function NotLoggedinDetail(props) {
   const {
@@ -19,39 +21,9 @@ function NotLoggedinDetail(props) {
   const measurement = getIngredients(props.data, "strMeasure");
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        backgroundImage:
-          'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
-        paddingTop: "10vh",
-      }}
-    >
-      <Box
-        sx={{
-          color: theme.palette.primary.contrastText,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "start",
-          gap: "5vw",
-          marginLeft: "5vw",
-          marginRight: "5vw",
-          paddingLeft: "5vw",
-          paddingRight: "5vw",
-          paddingTop: "10vh",
-          paddingBottom: "5vh",
-          border: "5px double #C8963E",
-        }}
-      >
-        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
-          <Image
-            src={thumb}
-            alt="Picture of the author"
-            width={500}
-            height={500}
-            layout="responsive"
-          />
-        </Box>
+    <LocationProvider>
+      <PageContainer>
+        <CocktailPhoto thumb={thumb} />
         <Box
           sx={{
             width: "100%",
@@ -97,28 +69,10 @@ function NotLoggedinDetail(props) {
             </Typography>
             <p>{instructions}</p>
           </Box>
-          <Box sx={{ display: "flex" }}>
-            <CopyToClipboardButton />
-            <Button
-              title="Share on facebook"
-              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Facebook sx={{ fill: theme.palette.primary.contrastText }} />
-            </Button>
-            <Button
-              title="Share on Twitter"
-              href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Twitter sx={{ fill: theme.palette.primary.contrastText }} />
-            </Button>
-          </Box>
+          <BottomButtons />
         </Box>
-      </Box>
-    </Box>
+      </PageContainer>
+    </LocationProvider>
   );
 }
 

@@ -1,23 +1,26 @@
 // import * as React from "react";
 import { useContext } from "react";
-import LoggedinDetail from "../../../components/detail/loggedinDetail";
 import { getSession } from "next-auth/react";
 import { getCocktailDetails } from "../../../lib/details";
 import { getFavoriteId } from "../../../lib/favorite";
 import { getInventory } from "../../../lib/inventory";
 import { getCategoriesByFavId } from "../../../lib/category";
 import LocationProvider from "../../../providers/locationProvider";
+import LoggedinDetail from "../../../components/detail/loggedinDetail";
+import PageContainer from "../../../components/detail/pageContainer";
 import { inventoryContext } from "../../../providers/InventoryProvider";
 
 function Details(props) {
   return (
     <LocationProvider>
-      <LoggedinDetail
-        data={props.data}
-        favoriteId={props.favoriteId}
-        inventory={props.inventory}
-        categories={props.categories}
-      />
+      <PageContainer>
+        <LoggedinDetail
+          data={props.data}
+          favoriteId={props.favoriteId}
+          inventory={props.inventory}
+          categories={props.categories}
+        />
+      </PageContainer>
     </LocationProvider>
   );
 }
