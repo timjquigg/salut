@@ -6,7 +6,6 @@ import axios from "axios";
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 export default function useInventoryData(serverInventory, user) {
-  const { data: session, status } = useSession();
   const [startingInventory, setStartingInventory] = useState(serverInventory);
 
   const { inventory } = useContext(inventoryContext);

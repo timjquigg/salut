@@ -54,18 +54,11 @@ const ResultList = (props) => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
+          width={matches ? "357" : "451"}
           height={matches ? "375" : "450"}
           object-fit="cover"
           position="relative"
         />
-        {/* <Image
-          src={item.strDrinkThumb}
-          alt={item.strDrink}
-          fill
-          // height={220}
-          // width={200}
-        /> */}
       </Link>
 
       <ImageListItemBar
@@ -87,15 +80,8 @@ const ResultList = (props) => {
           : props.drink.length
       } out of ${props.drink.length} Results`}</p>
       <ImageList
-        sx={{
-          width: itemListWidth,
-          height: props.drink.length > 3 ? 1000 : 470,
-          backgroundImage:
-            'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
-          p: 3,
-        }}
+        sx={{ width: { itemListWidth }, height: "70%" }}
         cols={matches ? 1 : 3}
-        // cols={3}
         gap={10}
       >
         {results}

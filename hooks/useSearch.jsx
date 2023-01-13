@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 const useSearch = () => {
   const router = useRouter();
@@ -58,23 +60,17 @@ const useSearch = () => {
   };
 
   const addFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/postFavorite", {
-      method: "POST",
-      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const payload = { cocktailId, userId };
+    console.log("add:", payload);
+    console.log("/api/favorites");
+    await axios.post("/api/favorites", payload);
   };
 
   const removeFavorite = async (userId, cocktailId) => {
-    const response = await fetch("/api/removeFavorite", {
-      method: "DELETE",
-      body: JSON.stringify({ userId: userId, cocktailId: cocktailId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const payload = { cocktailId, userId };
+    console.log("delete:", payload);
+    console.log("/api/favorites");
+    await axios.delete("/api/favorites", { data: payload });
   };
 
   return {

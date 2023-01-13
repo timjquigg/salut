@@ -5,7 +5,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { getFavorites, getUserId } from "../../lib/favorite";
-import { Box, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import {
   getAllCategoriesByUser,
   getCategoryContentsByUser,
@@ -13,10 +13,16 @@ import {
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
 import Image from "next/image";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import ExpandCircleDownTwoToneIcon from "@mui/icons-material/ExpandCircleDownTwoTone";
 
 const Favorites = (props) => {
   const [recipes, setRecipes] = useState(props.recipes);
   const [categories, setCategories] = useState(props.categories);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   const categoryList = (categories) => {
     setCategories(categories);
   };
@@ -43,11 +49,19 @@ const Favorites = (props) => {
       }}
     >
       <Link href={`/cocktail/${item.idDrink}`}>
-        <Image
+        {/* <Image
           src={`${item.strDrinkThumb}`}
           alt={item.strDrink}
           width="335"
           height="350"
+          object-fit="cover"
+          position="relative"
+        /> */}
+        <Image
+          src={item.strDrinkThumb}
+          alt={item.strDrink}
+          width={matches ? "351" : "435"}
+          height={matches ? "375" : "450"}
           object-fit="cover"
           position="relative"
         />
@@ -62,8 +76,7 @@ const Favorites = (props) => {
         title={item.strDrink}
         subtitle={item.strCategory}
         sx={{
-          backgroundColor: "rgba(110, 110, 110, 0.8)",
-          marginBottom: '6px'
+          marginBottom: "6px",
         }}
       />
     </ImageListItem>
@@ -84,10 +97,18 @@ const Favorites = (props) => {
         userId={props.userId}
       />
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ImageList sx={{ width: "100%", height: "80%" }} cols={3}>
+        <ImageList sx={{ width: "100%", height: "80%" }} cols={matches ? 1 : 3}>
           {results}
         </ImageList>
       </Box>
+      <Button
+        variant="outlined"
+        size="medium"
+        sx={{ m: 2 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        Back to top
+      </Button>
     </Box>
   );
 };

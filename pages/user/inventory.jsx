@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { useContext } from "react";
 import { Typography, Box, Paper, Button, Divider } from "@mui/material";
 import { getIngredients, getInventory } from "../../lib/inventory";
@@ -6,11 +6,11 @@ import { getUserId } from "../../lib/user";
 import VerticalTabs from "../../components/inventory/verticalTabs";
 import { useSession } from "next-auth/react";
 import useInventoryData from "../../hooks/useInventoryData";
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import { inventoryContext } from "../../providers/InventoryProvider";
-import { getCocktailsBasedOnInventory } from '../../lib/cocktail';
+import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
 import { NextLinkComposed } from "../../src/Link";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -23,13 +23,13 @@ function Inventory(props) {
   const { inventory } = useContext(inventoryContext);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
-  
+
   const action = (
     <React.Fragment>
       <IconButton
@@ -66,7 +66,13 @@ function Inventory(props) {
         <VerticalTabs>{categories}</VerticalTabs>
         <Button
           variant="contained"
-          sx={{ mx: "auto", marginTop: '20px', color: '#fff', width: '150px', borderRadius: '20px' }}
+          sx={{
+            mx: "auto",
+            marginTop: "20px",
+            color: "#fff",
+            width: "150px",
+            borderRadius: "20px",
+          }}
           onClick={() => {
             save();
             setOpen(true);
@@ -93,7 +99,7 @@ function Inventory(props) {
           my: {xs: '30px', md: 0},
         }}
       >
-        <Typography sx={{margin: '20px', fontSize: 'large'}}>
+        <Typography sx={{ margin: "20px", fontSize: "large" }}>
           Your Inventory List
         <Divider sx={{mt: '15px'}} />
         </Typography>
@@ -111,10 +117,10 @@ function Inventory(props) {
           <Button
             component={NextLinkComposed}
             to={{
-              pathname: '/user/cocktails',
-            }} 
-            variant="contained" 
-            sx={{borderRadius: '20px', color: '#fff',}}
+              pathname: "/user/cocktails",
+            }}
+            variant="contained"
+            sx={{ borderRadius: "20px", color: "#fff" }}
           >
             What can I make?
           </Button>

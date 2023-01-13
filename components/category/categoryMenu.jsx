@@ -5,6 +5,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import CategoryMenuItems from "./categoryMenuItem";
 
+import ExpandCircleDownOutlinedIcon from "@mui/icons-material/ExpandCircleDownOutlined";
+
 const ITEM_HEIGHT = 48;
 
 const CategoryMenu = (props) => {
@@ -32,10 +34,11 @@ const CategoryMenu = (props) => {
           right: "5px",
         }}
       >
-        <MoreVertIcon
+        <ExpandCircleDownOutlinedIcon
           sx={{
-            fontSize: "30px",
+            fontSize: "40px",
             backgroundColor: "rgba(255,255,255, .9)",
+            borderWidth: "thin",
             borderRadius: "100px",
           }}
         />

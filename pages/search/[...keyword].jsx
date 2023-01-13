@@ -7,7 +7,7 @@ import {
 import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import useSearch from "../../custom_hook/useSearch";
+import useSearch from "../../hooks/useSearch";
 import KeywordForm from "../../components/search/keywordForm";
 import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
@@ -17,9 +17,6 @@ import { getFavoriteByUser } from "../../lib/favorite";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import theme from "../../src/theme";
-import { Paper } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -84,8 +81,6 @@ const Result = (props) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          backgroundImage:
-            'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
         }}
       >
         <SearchContainer>
