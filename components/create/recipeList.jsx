@@ -4,16 +4,15 @@ import { useContext } from "react";
 import { newCocktailContext } from "../../providers/newCocktailProvider";
 
 export default function RecipeList(props) {
-  const { recipe, updateRecipe } = useContext(newCocktailContext);
+  const { recipe, updateRecipe, nextId } = useContext(newCocktailContext);
 
   const onClick = () => {
-    const id = Math.max(...Object.keys(recipe)) + 1;
-    updateRecipe(id, "", "");
+    updateRecipe(nextId(), "", "");
   };
 
-  const numIngredients = Object.keys(recipe).length;
+  const numIngredients = recipe.length;
 
-  const recipeList = Object.keys(recipe).map((el, index) => {
+  const recipeList = recipe.map((el, index) => {
     return <RecipeListItem key={index} id={index} />;
   });
 

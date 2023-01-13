@@ -4,7 +4,8 @@ import { newCocktailContext } from "../../providers/newCocktailProvider";
 
 export default function RecipeListItem(props) {
   const id = props.id;
-  const { ingredients, updateRecipe, recipe } = useContext(newCocktailContext);
+  const { ingredients, updateRecipe, removeRecipeItem, recipe } =
+    useContext(newCocktailContext);
   const [selectedIngredient, setSelectedIngredient] = useState(
     recipe[id].ingredient
   );
@@ -12,7 +13,20 @@ export default function RecipeListItem(props) {
   const [measurement, setmeasurement] = useState(recipe[id].measurement);
 
   const handleClick = () => {
-    updateRecipe(id, selectedIngredient, measurement);
+    if (id < recipe.length - 1) {
+      setSelectedIngredient(recipe[id + 1].ingredient);
+    }
+    removeRecipeItem(id, selectedIngredient, measurement);
+  };
+
+  const updateIngredient = (newValue) => {
+    updateRecipe(id, newValue, measurement);
+    setSelectedIngredient(newValue);
+  };
+
+  const updateMeasurement = (value) => {
+    updateRecipe(id, selectedIngredient, value);
+    setmeasurement(value);
   };
 
   return (
@@ -20,7 +34,7 @@ export default function RecipeListItem(props) {
       <Autocomplete
         value={selectedIngredient || null}
         onChange={(event, newValue) => {
-          setSelectedIngredient(newValue);
+          updateIngredient(newValue);
         }}
         inputValue={ingredientInput}
         onInputChange={(event, newInputValue) => {
@@ -36,9 +50,11 @@ export default function RecipeListItem(props) {
       <TextField
         label="Measurement"
         value={measurement}
-        onChange={(event) => setmeasurement(event.target.value)}
+        onChange={(event) => updateMeasurement(event.target.value)}
       />
-      <Button onClick={handleClick}>Add/Update</Button>
+      <Button variant={id > 0 ? "contained" : "disabled"} onClick={handleClick}>
+        Remove
+      </Button>
     </Box>
   );
 }
