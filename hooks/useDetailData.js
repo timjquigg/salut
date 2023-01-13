@@ -9,12 +9,16 @@ export default function useDetailData(user, cocktailId, ingredient) {
 
   const addFavorite = async (user, cocktailId) => {
     const payload = { cocktailId, userId: user };
-    await axios.post("/api/postFavorite", payload);
+    console.log("add:", payload);
+    console.log("/api/favorites");
+    await axios.post("/api/favorites", payload);
   };
 
   const removeFavorite = async (user, cocktailId) => {
     const payload = { cocktailId, userId: user };
-    await axios.delete("/api/removeFavorite");
+    console.log("delete:", payload);
+    console.log("/api/favorites");
+    await axios.delete("/api/favorites", { data: payload });
   };
 
   const addInventory = async (user, ingredient) => {
