@@ -2,7 +2,7 @@ import { getAllIngredients } from "../../lib/search";
 import KeywordForm from "../../components/search/keywordForm";
 import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
-import useSearch from "../../custom_hook/useSearch";
+import useSearch from "../../hooks/useSearch";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -118,14 +118,14 @@ const Search = (props) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width: "100vw"
+            width: "100vw",
           }}
         >
           <Typography
             sx={{
               fontFamily: theme.typography.fontFamily[0],
-              fontSize: {sm: "40px", xs: "35px"},
-              marginTop: {xs: "20px", lg: 'none'}
+              fontSize: { sm: "40px", xs: "35px" },
+              marginTop: { xs: "20px", lg: "none" },
             }}
           >
             Look for recipes

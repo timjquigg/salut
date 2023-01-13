@@ -7,7 +7,7 @@ import {
 import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import useSearch from "../../custom_hook/useSearch";
+import useSearch from "../../hooks/useSearch";
 import KeywordForm from "../../components/search/keywordForm";
 import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
