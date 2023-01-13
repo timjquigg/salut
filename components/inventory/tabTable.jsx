@@ -61,7 +61,7 @@ export function TabTable(props) {
           tabIndex={-1}
           key={ingredient}
           selected={isItemSelected}
-          // style={{ maxhHeight: '70vh' }}
+          style={{ maxhHeight: '70vh' }}
         >
           <Checkbox
             color="primary"
@@ -76,7 +76,7 @@ export function TabTable(props) {
     });
 
   return (
-    <Box sx={{ width: "30vw", padding: '30px', paddingRight: '50px' }}>
+    <Box sx={{ width: {md: "30vw", xs: "60vw"}, pt: {xs: '20px'}, padding: {sm: '30px'}, paddingRight: {lg: '50px', xs: '5px'}}}>
       <TableContainer sx={{ height: "100%" }}>
         <Table>
           {/* <TableHead sx={{ width: '100%', textAlign: 'center', justifySelf: 'center'}}>
