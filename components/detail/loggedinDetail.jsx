@@ -1,4 +1,3 @@
-// import * as React from "react";
 import { useState, useContext } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -11,57 +10,44 @@ import {
   Chip,
   Stack,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import {
+  FavoriteBorder,
+  Favorite,
+  Facebook,
+  Twitter,
+} from "@mui/icons-material";
 import theme from "../../src/theme";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import CopyToClipboardButton from "../copyUrl";
 import CheckBox from "./checkbox";
 import MapContainer from "../maps/mapContainer";
 import GetLocation from "../maps/getLocation";
 import { locationContext } from "../../providers/locationProvider";
-
-import useDetailData from "../../hooks/useDetailData";
-// import { inventoryContext } from "../../providers/InventoryProvider";
+import { useLoggedInDetailData } from "../../hooks/useDetailData";
 
 function LoggedinDetail(props) {
   const { showMap } = useContext(locationContext);
   const [selected, setSelected] = useState(props.favoriteId ? true : false);
-  // const { inventory, updateInventory } = useContext(inventoryContext);
   const { data: session, status } = useSession();
   const router = useRouter();
-  // console.log('id:', router.query.id)
   const inventory = props.inventory;
-  // console.log(inventory);
+  const {
+    strDrink: cocktailName,
+    strDrinkThumb: thumb,
+    strInstructions: instructions,
+  } = props.data;
 
-  const cocktailName = props.data.strDrink;
-  const thumb = props.data.strDrinkThumb;
-  const instructions = props.data.strInstructions;
-
-  const getIngredients = (str) => {
-    const output = [];
-    const data = props.data;
-    let ingKeys = Object.keys(data).filter((key) => key.includes(str));
-
-    for (let key of ingKeys) {
-      if (data[key] !== null) {
-        output.push(data[key]);
-      }
-    }
-    return output;
-  };
-
-  const ingredients = getIngredients("strIngredient");
-  const measurement = getIngredients("strMeasure");
+  const {
+    addFavorite,
+    removeFavorite,
+    addInventory,
+    removeInventory,
+    getIngredients,
+  } = useLoggedInDetailData({ data: props.data });
 
   const invUppercase = [];
   inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
-
-  // inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
-
-  const { addFavorite, removeFavorite, addInventory, removeInventory } =
-    useDetailData();
+  const ingredients = getIngredients(props.data, "strIngredient");
+  const measurement = getIngredients(props.data, "strMeasure");
 
   return (
     <>
@@ -135,9 +121,9 @@ function LoggedinDetail(props) {
                   }}
                 >
                   {selected ? (
-                    <FavoriteIcon sx={{ color: "red" }} />
+                    <Favorite sx={{ color: "red" }} />
                   ) : (
-                    <FavoriteBorderIcon sx={{ color: "red" }} />
+                    <FavoriteBorder sx={{ color: "red" }} />
                   )}
                 </ToggleButton>
               </Box>
@@ -223,9 +209,7 @@ function LoggedinDetail(props) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <FacebookIcon
-                  sx={{ fill: theme.palette.primary.contrastText }}
-                />
+                <Facebook sx={{ fill: theme.palette.primary.contrastText }} />
               </Button>
               <Button
                 title="Share on Twitter"
@@ -233,9 +217,7 @@ function LoggedinDetail(props) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <TwitterIcon
-                  sx={{ fill: theme.palette.primary.contrastText }}
-                />
+                <Twitter sx={{ fill: theme.palette.primary.contrastText }} />
               </Button>
             </Box>
             <GetLocation />

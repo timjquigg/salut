@@ -1,32 +1,22 @@
-import * as React from "react";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
 import theme from "../../src/theme";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import { Facebook, Twitter } from "@mui/icons-material";
 import CopyToClipboardButton from "../copyUrl";
+import { useNotLoggedInDetailData } from "../../hooks/useDetailData";
 
 function NotLoggedinDetail(props) {
-  const cocktailName = props.data.strDrink;
-  const thumb = props.data.strDrinkThumb;
-  const instructions = props.data.strInstructions;
+  const {
+    strDrink: cocktailName,
+    strDrinkThumb: thumb,
+    strInstructions: instructions,
+  } = props.data;
 
-  const getIngredients = (str) => {
-    const output = [];
-    const data = props.data;
-    let ingKeys = Object.keys(data).filter((key) => key.includes(str));
+  const { getIngredients } = useNotLoggedInDetailData({ data: props.data });
 
-    for (let key of ingKeys) {
-      if (data[key] !== null) {
-        output.push(data[key]);
-      }
-    }
-    return output;
-  };
-
-  const ingredients = getIngredients("strIngredient");
-  const measurement = getIngredients("strMeasure");
+  const ingredients = getIngredients(props.data, "strIngredient");
+  const measurement = getIngredients(props.data, "strMeasure");
 
   return (
     <Box
@@ -115,7 +105,7 @@ function NotLoggedinDetail(props) {
               target="_blank"
               rel="noreferrer"
             >
-              <FacebookIcon sx={{ fill: theme.palette.primary.contrastText }} />
+              <Facebook sx={{ fill: theme.palette.primary.contrastText }} />
             </Button>
             <Button
               title="Share on Twitter"
@@ -123,7 +113,7 @@ function NotLoggedinDetail(props) {
               target="_blank"
               rel="noreferrer"
             >
-              <TwitterIcon sx={{ fill: theme.palette.primary.contrastText }} />
+              <Twitter sx={{ fill: theme.palette.primary.contrastText }} />
             </Button>
           </Box>
         </Box>
