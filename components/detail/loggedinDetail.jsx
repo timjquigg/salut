@@ -38,7 +38,9 @@ function LoggedinDetail(props) {
 
   return (
     <>
-      <CocktailPhoto thumb={thumb} />
+      <Box  sx={{display: {xs: 'none', md: 'block'}}}>
+        <CocktailPhoto thumb={thumb} />
+      </Box>
       <RightSideContainer>
         <CocktailTitle cocktailName={cocktailName}>
           <FavoriteButton
@@ -47,7 +49,9 @@ function LoggedinDetail(props) {
             cocktailId={router.query.id}
           ></FavoriteButton>
         </CocktailTitle>
-
+        <Box  sx={{display: {xs: 'block', md: 'none'}}}>
+          <CocktailPhoto thumb={thumb} />
+        </Box>
         <CategoryDisplay categories={props.categories} />
 
         <Ingredients ingredients={ingredients} measurement={measurement}>

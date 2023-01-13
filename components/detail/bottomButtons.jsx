@@ -7,9 +7,10 @@ import GetLocation from "../maps/getLocation";
 
 export default function BottomButtons() {
   return (
-    <>
-      <Box sx={{ display: "flex" }}>
-        <CopyToClipboardButton />
+    <Box sx={{ display: "flex", flexDirection: "column"}}>
+      <GetLocation />
+      <Box sx={{ display: "flex", mt: "15px" }}>
+        <CopyToClipboardButton/>
         <Button
           title="Share on facebook"
           href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
@@ -27,7 +28,6 @@ export default function BottomButtons() {
           <Twitter sx={{ fill: theme.palette.primary.contrastText }} />
         </Button>
       </Box>
-      <GetLocation />
-    </>
+    </Box>
   );
 }

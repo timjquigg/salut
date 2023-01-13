@@ -17,7 +17,6 @@ import Image from "next/image";
 export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
   const data = await getCocktailsBasedOnInventory(getUserId(sessionToken));
-  // console.log('data:', data)
   return {
     props: {
       data,
@@ -26,7 +25,6 @@ export async function getServerSideProps(context) {
 }
 
 function Item(props) {
-  // console.log(props.item.strDrinkThumb)
   return (
     <Box
       sx={{
@@ -47,7 +45,6 @@ function Item(props) {
 }
 
 function User(props) {
-  // console.log(props.data)
   // https://www.transparenttextures.com/patterns/gradient-squares.png
   const responsive = {
     superLargeDesktop: {
@@ -93,7 +90,7 @@ function User(props) {
             variant="outlined"
             sx={{padding: {md: '20px', xs: '20px 8px'}}}
             >
-              <Image src={'/../public/cocktail1.png'} width={100} height={100} />
+              <Image src={'/../public/cocktail1.png'} width={100} height={100} alt=""/>
               <Typography sx={{}}>Cocktails you can make</Typography>
             </Button>
           </Box>
@@ -106,7 +103,7 @@ function User(props) {
               variant="outlined"
               sx={{padding: '20px'}}
               >
-                <Image src={'/../public/cocktail2.png'} width={100} height={100} />
+                <Image src={'/../public/cocktail2.png'} width={100} height={100} alt=""/>
                 <Typography sx={{}}>Go to your favorites</Typography>
             </Button>
           </Box>
@@ -119,7 +116,7 @@ function User(props) {
               variant="outlined"
               sx={{padding: '20px', marginBottom: {xs: '20px', md: 0}}}
               >
-                <Image src={'/../public/cocktail3.png'} width={100} height={100} />
+                <Image src={'/../public/cocktail3.png'} width={100} height={100} alt=""/>
                 <Typography sx={{}}>Go to your inventory</Typography>
             </Button>
           </Box>
@@ -136,15 +133,17 @@ function User(props) {
             >
               Picked For You
             </Typography>
-            <Typography sx={{margin: '10px', marginBottom: {md: '50px', xs: '20px'}}}>
-              We picked some recipes for you based on your inventory items!
-            </Typography>
             {items.length > 0 ? 
-              <Carousel responsive={responsive}>
-                {items.map((item, i) => (
-                  <Item key={i} item={item} />
-                ))}
-              </Carousel> :
+              <>
+                <Typography sx={{margin: '10px', marginBottom: {md: '50px', xs: '20px'}}}>
+                  We picked some recipes for you based on your inventory items!
+                </Typography>
+                <Carousel responsive={responsive}>
+                  {items.map((item, i) => (
+                    <Item key={i} item={item} />
+                  ))}
+                </Carousel>
+              </> :
               <Typography
                sx={{marginBottom: '50px'}}
               >

@@ -14,6 +14,7 @@ import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
 import { NextLinkComposed } from "../../src/Link";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import theme from "../../src/theme";
 
 function Inventory(props) {
   const [open, setOpen] = React.useState(false);
@@ -55,6 +56,16 @@ function Inventory(props) {
         flexDirection: {xs: 'column', md: 'row'}
       }}
     >
+      <Typography
+        sx={{
+          fontSize: { sm: "30px", xs: "25px" },
+          fontFamily: theme.typography.fontFamily[0],
+          color: "#022140",
+          margin: "10px",
+        }}
+      >
+        Your Inventory
+      </Typography>
       <Paper
         sx={{
           width: {md: '40%', sm: '80%', xs: '90%'},
