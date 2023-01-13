@@ -7,6 +7,10 @@ import PageContainer from "./pageContainer";
 import LocationProvider from "../../providers/locationProvider";
 import BottomButtons from "./bottomButtons";
 import CocktailPhoto from "./cocktailPhoto";
+import RightSideContainer from "./rightSideContainer";
+import CocktailTitle from "./cockTailTitle";
+import Ingredients from "./ingredients";
+import Directions from "./directions";
 
 function NotLoggedinDetail(props) {
   const {
@@ -24,53 +28,12 @@ function NotLoggedinDetail(props) {
     <LocationProvider>
       <PageContainer>
         <CocktailPhoto thumb={thumb} />
-        <Box
-          sx={{
-            width: "100%",
-            height: "auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "start",
-            alignItems: "start",
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <Typography
-              sx={{
-                fontFamily: theme.typography.fontFamily[0],
-                fontSize: "40px",
-              }}
-            >
-              {cocktailName}
-            </Typography>
-          </Box>
-          <Box sx={{ marginTop: "2rem", display: "flex", gap: 5 }}>
-            <Box>
-              <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
-                Ingredients
-              </Typography>
-              <Box sx={{ display: "flex", gap: "10px" }}>
-                <Box>
-                  {ingredients.map((ingredient, i) => (
-                    <p key={i}>{ingredient}</p>
-                  ))}
-                </Box>
-                <Box>
-                  {measurement.map((m, i) => (
-                    <p key={i}>{m}</p>
-                  ))}
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ marginTop: "1rem" }}>
-            <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
-              Directions
-            </Typography>
-            <p>{instructions}</p>
-          </Box>
+        <RightSideContainer>
+          <CocktailTitle cocktailName={cocktailName} />
+          <Ingredients ingredients={ingredients} measurement={measurement} />
+          <Directions instructions={instructions} />
           <BottomButtons />
-        </Box>
+        </RightSideContainer>
       </PageContainer>
     </LocationProvider>
   );

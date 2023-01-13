@@ -130,7 +130,7 @@ export async function getServerSideProps(context) {
       props: {
         ingredients,
         categories,
-        // inventory,
+        inventory,
         cocktailId,
       },
     };

@@ -1,5 +1,3 @@
-import removeHandler from "../removeFavorite";
-
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
