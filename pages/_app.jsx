@@ -10,6 +10,8 @@ import Layout from "../components/layout";
 import { SessionProvider } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import InventoryProvider from "../providers/InventoryProvider";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -61,7 +63,11 @@ function Auth({ children }) {
   const { status } = useSession({ required: true });
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return children;

@@ -164,8 +164,10 @@ function About() {
           <br />
           We are aware that there are applications that already has the same
           functionality as ours. We however made an app that is less
-          initmidating, more enjoyable to use, and pleasing to the eyes. After a
-          week of coding and brainstorming, Salut! was created.
+          initmidating, more enjoyable to use, and pleasing to the eyes.
+          <br />
+          <br />
+          After a week of coding and brainstorming, Salut! was created.
         </Typography>
       </Box>
 
@@ -223,8 +225,8 @@ function About() {
             Lastly, we also would like to emphasize the utilization of
             ingredients that has been lying or in the liquor cabinet for so
             long. Not only it limits wastage of liquor as it starts to degrade
-            after opening, you would be able to maximize the value of the
-            alcohol.
+            after opening, you would be able to maximize every bottle of alcohol
+            and maybe discover a new cocktail!
             <br />
             <br />
             With all that being said, glad to have you with us! We will be

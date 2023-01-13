@@ -49,14 +49,6 @@ const Favorites = (props) => {
       }}
     >
       <Link href={`/cocktail/${item.idDrink}`}>
-        {/* <Image
-          src={`${item.strDrinkThumb}`}
-          alt={item.strDrink}
-          width="335"
-          height="350"
-          object-fit="cover"
-          position="relative"
-        /> */}
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
