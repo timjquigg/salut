@@ -1,4 +1,5 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton, Tooltip } from "@mui/material";
+import { AddCircle } from "@mui/icons-material";
 import RecipeListItem from "./recipeListItem";
 import { useContext } from "react";
 import { newCocktailContext } from "../../providers/newCocktailProvider";
@@ -19,12 +20,15 @@ export default function RecipeList(props) {
   return (
     <Box>
       {recipeList}
-      <Button
-        variant={numIngredients < 15 ? "contained" : "disabled"}
-        onClick={onClick}
-      >
-        Add Item
-      </Button>
+      <Tooltip title="Add an Ingredient">
+        <IconButton
+          variant={numIngredients < 15 ? "contained" : "disabled"}
+          onClick={onClick}
+          color="primary"
+        >
+          <AddCircle />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 }

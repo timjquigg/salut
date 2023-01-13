@@ -2,11 +2,11 @@ import { useContext, useState } from "react";
 import { TextField } from "@mui/material";
 import { newCocktailContext } from "../../providers/newCocktailProvider";
 
-export default function AddPhoto(props) {
-  const { photo, setPhoto } = useContext(newCocktailContext);
+export default function AddDirections(props) {
+  const { directions, setDirections } = useContext(newCocktailContext);
   const [error, setError] = useState(false);
   const handleChange = (value) => {
-    setPhoto(value);
+    setDirections(value);
     if (value === "") {
       setError(true);
       return;
@@ -20,18 +20,22 @@ export default function AddPhoto(props) {
         <TextField
           required
           error
-          helperText="Must Include Photo Link"
-          label="Link to Photo"
+          helperText="Recipe Must Include Directions"
+          label="Recipe Directions"
           margin="normal"
-          value={photo}
+          multiline={true}
+          rows={2}
+          value={directions}
           onChange={(e) => handleChange(e.target.value)}
         />
       ) : (
         <TextField
           required
-          label="Link to Photo"
+          label="Recipe Directions"
           margin="normal"
-          value={photo}
+          multiline={true}
+          rows={2}
+          value={directions}
           onChange={(e) => handleChange(e.target.value)}
         />
       )}

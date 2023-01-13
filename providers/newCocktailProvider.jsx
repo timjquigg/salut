@@ -8,9 +8,9 @@ export default function NewCocktailProvider(props) {
   const cocktailNames = cocktails.map((el) => el.strDrink);
 
   const [recipe, setRecipe] = useState([{ ingredient: "", measurement: "" }]);
-  const [description, setDescription] = useState("");
+  const [directions, setDirections] = useState("");
   const [title, setTitle] = useState("");
-  const [picture, setPicture] = useState("");
+  const [photo, setPhoto] = useState("");
 
   const updateRecipe = (id, ingredient, measurement) => {
     setRecipe((prev) => {
@@ -43,6 +43,10 @@ export default function NewCocktailProvider(props) {
     nextId,
     title,
     setTitle,
+    photo,
+    setPhoto,
+    directions,
+    setDirections,
     ingredients: ingredientNames,
     cocktails: cocktailNames,
   };
