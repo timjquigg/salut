@@ -7,6 +7,7 @@ import {
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const { user, additions, deletions } = req.body;
+    console.log({ user }, { additions }, { deletions });
     if (additions.length > 0) {
       await addToInventory(user, additions);
     }

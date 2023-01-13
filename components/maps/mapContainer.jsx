@@ -14,7 +14,6 @@ function MapContainer() {
 
   return (
     <Dialog fullWidth={true} maxWidth="md" onClose={handleClose} open={showMap}>
-      {/* <Typography>Map Container</Typography> */}
       <Box
         sx={{
           width: "100%",

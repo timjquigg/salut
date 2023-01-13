@@ -9,10 +9,9 @@ const getLiquoreStores = async (location) => {
   const args = {
     params: {
       key: apiKey,
-      keyword: "Liquor Store",
+      keyword: "Liquor wine beer Store",
       location: { lat: location.latitude, lng: location.longitude },
-      // opennow: true,
-      radius: 2000,
+      radius: 5000,
     },
   };
 

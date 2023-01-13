@@ -28,7 +28,7 @@ export function TabTable(props) {
   };
 
   const handleClick = (event, name) => {
-    updateInventory(event, name);
+    updateInventory(name);
   };
 
   const isSelected = (name) => inventory.indexOf(name) !== -1;
