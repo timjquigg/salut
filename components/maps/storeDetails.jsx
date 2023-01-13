@@ -1,13 +1,16 @@
-import { Box, Card, Rating, Typography } from "@mui/material";
+import { Box, Button, Card, Rating, Typography } from "@mui/material";
 import { useContext } from "react";
 import { locationContext } from "../../providers/locationProvider";
 
 function StoreDetails() {
-  const { stores, currentStore, setCurrentStore } = useContext(locationContext);
+  const { position, currentStore } = useContext(locationContext);
 
   function getLabelText() {
     return `${currentStore.rating} Star${currentStore.value !== 1 ? "s" : ""}`;
   }
+
+  const destination = new URLSearchParams(currentStore.name).toString();
+  const directionLink = `https://www.google.com/maps/dir/?api=1&destination=${destination}&destination_place_id=${currentStore.place_id}`;
 
   return (
     <Box sx={{ width: "30%" }}>
@@ -33,6 +36,9 @@ function StoreDetails() {
             getLabelText={getLabelText}
             readOnly={true}
           />
+          <Button variant="contained" href={directionLink} target="_blank">
+            Get Directions
+          </Button>
         </Card>
       )}
     </Box>
