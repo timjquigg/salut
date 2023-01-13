@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useContext } from "react";
-import { Typography, Box, Paper, Button } from "@mui/material";
+import { Typography, Box, Paper, Button, Divider } from "@mui/material";
 import { getIngredients, getInventory } from "../../lib/inventory";
 import { getUserId } from "../../lib/user";
 import VerticalTabs from "../../components/inventory/verticalTabs";
@@ -12,6 +12,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { inventoryContext } from "../../providers/InventoryProvider";
 import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
 import { NextLinkComposed } from "../../src/Link";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 function Inventory(props) {
   const [open, setOpen] = React.useState(false);
@@ -45,17 +47,19 @@ function Inventory(props) {
     <Box
       textAlign="center"
       sx={{
-        mt: "104px",
+        pt: "104px",
         width: "100%",
         display: "flex",
-        height: "80vh",
+        height: {md: "100vh"},
+        backgroundImage: 'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
+        flexDirection: {xs: 'column', md: 'row'}
       }}
     >
       <Paper
         sx={{
-          width: "40%",
+          width: {md: '40%', sm: '80%', xs: '90%'},
           mx: "auto",
-          height: "100%",
+          height: {md: '90%', xs: '80vh'},
         }}
       >
         {/* <Typography>Ingredients</Typography> */}
@@ -86,23 +90,30 @@ function Inventory(props) {
       </Paper>
       <Paper
         sx={{
-          width: "40%",
+          width: {md: '40%', sm: '80%', xs: '90%'},
           mx: "auto",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
+          height: {md: '90%', xs: '90vh'},
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          my: {xs: '30px', md: 0},
         }}
       >
         <Typography sx={{ margin: "20px", fontSize: "large" }}>
           Your Inventory List
+        <Divider sx={{mt: '15px'}} />
         </Typography>
-        <Box>
-          {inventory.map((item, i) => (
-            <Typography key={i}>{item}</Typography>
-          ))}
-        </Box>
-        <Box sx={{ marginBottom: "15px" }}>
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+        >
+        {inventory.map((item, i) => (
+          <Typography key={i}>
+            {item}
+          </Typography>
+        ))}
+        </Tabs>
+        <Box sx={{my: '15px'}}>
           <Button
             component={NextLinkComposed}
             to={{
