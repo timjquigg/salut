@@ -1,11 +1,12 @@
-import {
-  getCocktail,
-  getAllIngredients,
-  getFilterCocktailsStrict,
-  getNonAlcoholicDrinks,
-} from "../../lib/search";
+// import {
+//   getCocktail,
+//   getAllIngredients,
+//   getFilterCocktailsStrict,
+//   getNonAlcoholicDrinks,
+// } from "../../lib/search";
+// import { getFavoriteByUser } from "../../lib/favorite";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import useSearch from "../../hooks/useSearch";
 import KeywordForm from "../../components/search/keywordForm";
@@ -13,7 +14,7 @@ import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
 import ResultList from "../../components/search/resultList";
 import { useSession } from "next-auth/react";
-import { getFavoriteByUser } from "../../lib/favorite";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -51,9 +52,38 @@ function a11yProps(index) {
   };
 }
 
-const Result = (props) => {
-  const { data: session, status } = useSession();
+const Result = () => {
+  const router = useRouter();
   const [value, setValue] = useState(0);
+  const [cocktailList, setCocktailList] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const { data: session, status } = useSession();
+  const keyword = router.query.keyword;
+
+  useEffect(() => {
+    async function getCocktailList() {
+      if (session) {
+        const response = await fetch(
+          `/api/search?userId=${session.user.id}&keywords=${keyword}`
+        );
+        const data = await response.json();
+        // console.log("Data HAHA:", data);
+        const { drink, ingredients, favorites } = data;
+        setCocktailList(drink);
+        setIngredientList(ingredients);
+        setFavorites(favorites);
+      } else {
+        const response = await fetch(`/api/search?keywords=${keyword}`);
+        const data = await response.json();
+        // console.log("Data HAHA:", data);
+        const { drink, ingredients } = data;
+        setCocktailList(drink);
+        setIngredientList(ingredients);
+      }
+    }
+    getCocktailList();
+  }, [keyword, session]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -116,7 +146,7 @@ const Result = (props) => {
               </Box>
               <TabPanel value={value} index={0}>
                 <FilterForm
-                  options={props.ingredients}
+                  options={ingredientList}
                   filterKeywords={filterKeywords}
                   inputFilterKeywords={inputFilterKeywords}
                   onChange={changeFilterHandler}
@@ -156,52 +186,52 @@ const Result = (props) => {
         }}
       >
         <ResultList
-          drink={props.drink}
+          drink={cocktailList}
           addFavorite={addFavorite}
           removeFavorite={removeFavorite}
           isLoggedIn={session ? true : false}
           itemDisplay={itemDisplay}
           seeMoreHandler={seeMoreHandler}
           session={session}
-          favorites={props.favorites}
+          favorites={favorites}
         />
       </Box>
     </>
   );
 };
 
-export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  const keyword = context.query.keyword;
-  // console.log("KW", keyword.includes("Non-Alcoholic"));
-  let data;
-  if (keyword.length > 1 && !keyword.includes("Non-Alcoholic")) {
-    const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
-    data = await getFilterCocktailsStrict(filterKeywords);
-  } else if (keyword.includes("Non-Alcoholic") && keyword.length === 2) {
-    const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
-    data = await getNonAlcoholicDrinks(filterKeywords[1] || []);
-  } else {
-    data = await getCocktail(keyword[0]);
-  }
-  const ingredientData = await getAllIngredients();
+// export async function getServerSideProps(context) {
+//   const sessionToken = context.req.cookies["next-auth.session-token"];
+//   const keyword = context.query.keyword;
+//   // console.log("KW", keyword.includes("Non-Alcoholic"));
+//   let data;
+//   if (keyword.length > 1 && !keyword.includes("Non-Alcoholic")) {
+//     const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
+//     data = await getFilterCocktailsStrict(filterKeywords);
+//   } else if (keyword.includes("Non-Alcoholic") && keyword.length === 2) {
+//     const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
+//     data = await getNonAlcoholicDrinks(filterKeywords[1] || []);
+//   } else {
+//     data = await getCocktail(keyword[0]);
+//   }
+//   const ingredientData = await getAllIngredients();
 
-  if (sessionToken) {
-    const userFavorites = await getFavoriteByUser(sessionToken);
-    return {
-      props: {
-        drink: data,
-        ingredients: ingredientData,
-        favorites: userFavorites,
-      },
-    };
-  }
+//   if (sessionToken) {
+//     const userFavorites = await getFavoriteByUser(sessionToken);
+//     return {
+//       props: {
+//         drink: data,
+//         ingredients: ingredientData,
+//         favorites: userFavorites,
+//       },
+//     };
+//   }
 
-  return {
-    props: {
-      drink: data,
-      ingredients: ingredientData,
-    },
-  };
-}
+//   return {
+//     props: {
+//       drink: data,
+//       ingredients: ingredientData,
+//     },
+//   };
+// }
 export default Result;

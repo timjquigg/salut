@@ -1,9 +1,10 @@
-import { getAllIngredients } from "../../lib/search";
+// import { getAllIngredients } from "../../lib/search";
+// import { getPopularCocktails } from "../../lib/carousel";
 import KeywordForm from "../../components/search/keywordForm";
 import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
 import useSearch from "../../hooks/useSearch";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -12,7 +13,6 @@ import Box from "@mui/material/Box";
 import theme from "../../src/theme";
 import CocktailCard from "../../components/cocktailCard";
 import Carousel from "react-multi-carousel";
-import { getPopularCocktails } from "../../lib/carousel";
 import "react-multi-carousel/lib/styles.css";
 
 function Item(props) {
@@ -69,12 +69,26 @@ function a11yProps(index) {
   };
 }
 
-const Search = (props) => {
+const Search = () => {
   const [value, setValue] = useState(0);
+  const [recipes, setRecipes] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    async function getIngredients() {
+      const response = await fetch(`/api/ingredients`);
+      const data = await response.json();
+      // console.log("Data HAHAHA:", data);
+      const { recipes, ingredients } = data;
+      setIngredients(ingredients);
+      setRecipes(recipes);
+    }
+    getIngredients();
+  }, []);
 
   const {
     enteredSearch,
@@ -108,7 +122,8 @@ const Search = (props) => {
     },
   };
 
-  let items = props.recipes;
+  // let items = props.recipes;
+  let items = recipes;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -154,7 +169,7 @@ const Search = (props) => {
             </Box>
             <TabPanel value={value} index={0}>
               <FilterForm
-                options={props.ingredients}
+                options={ingredients}
                 filterKeywords={filterKeywords}
                 inputFilterKeywords={inputFilterKeywords}
                 onChange={changeFilterHandler}
@@ -206,15 +221,15 @@ const Search = (props) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const data = await getAllIngredients();
-  const recipes = await getPopularCocktails();
-  return {
-    props: {
-      ingredients: data,
-      recipes,
-    },
-  };
-}
+// export async function getServerSideProps(context) {
+//   const data = await getAllIngredients();
+//   const recipes = await getPopularCocktails();
+//   return {
+//     props: {
+//       ingredients: data,
+//       recipes,
+//     },
+//   };
+// }
 
 export default Search;

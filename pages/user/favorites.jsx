@@ -16,7 +16,6 @@ import CategoryMenu from "../../components/category/categoryMenu";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import ExpandCircleDownTwoToneIcon from "@mui/icons-material/ExpandCircleDownTwoTone";
 
 const Favorites = (props) => {
   const [recipes, setRecipes] = useState(props.recipes);
