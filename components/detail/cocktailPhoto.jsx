@@ -6,7 +6,7 @@ export default function CocktailPhoto(props) {
     <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
       <Image
         src={props.thumb}
-        alt="Picture of the author"
+        alt="Picture of the cocktail"
         width={500}
         height={500}
         layout="responsive"

@@ -13,6 +13,7 @@ export default function PageContainer(props) {
         backgroundImage:
           'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
         paddingTop: "10vh",
+        paddingBottom: {xs: "5vh", md: 0}
       }}
     >
       <Box
@@ -26,9 +27,9 @@ export default function PageContainer(props) {
           marginRight: "5vw",
           paddingLeft: "5vw",
           paddingRight: "5vw",
-          paddingTop: "10vh",
+          paddingTop: {md: "10vh", xs: "3vh"},
           paddingBottom: "5vh",
-          border: "3px double #C8963E",
+          border: "4px double #C8963E",
         }}
       >
         {props.children}

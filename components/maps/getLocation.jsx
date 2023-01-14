@@ -7,13 +7,13 @@ import { NearMe } from "@mui/icons-material";
 
 const styles = {
   signupButton: {
-    background: "linear-gradient(45deg, #fe6b79 30%, #ff8e53 90%)",
+    background: "#c75d0e",
     borderRadius: "3px",
     border: 0,
     color: "#fff",
-    height: "48px",
-    padding: "0 30px",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    height: "36px",
+    padding: "0 20px",
+    boxShadow: "0 3px 5px 2px rgba(199, 93, 14, .3)",
   },
 };
 

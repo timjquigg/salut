@@ -9,17 +9,18 @@ export default function CategoryDisplay(props) {
         key={category}
         label={category}
         sx={{
-          border: "solid",
-          borderWidth: "thin",
-          backgroundColor: "rgba(200,150,62,0.7)",
+          border: "solid 1px #c75d0e",
+          color: "#c75d0e",
+          backgroundColor: "transparent",
+          mb: "3px"
         }}
       />
     );
   });
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Stack direction="row" spacing={1}>
+    <Box sx={{ width: {md: "30vw", xs: "80vw"}, display: "flex", marginBottom: "5px" }}>
+      <Stack direction="row" spacing={1} flexWrap="wrap">
         {categoryChips}
       </Stack>
     </Box>

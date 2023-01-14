@@ -20,13 +20,13 @@ export const Cho = Chonburi({
   display: "swap",
 });
 
-export const DM = Shrikhand({
+export const SH = Shrikhand({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
 });
 
-const serif = DM.style.fontFamily
+const serif =SH.style.fontFamily
 
 export const Open_sans = Open_Sans({
   weight: ["300", "400", "500", "600", "700"],
