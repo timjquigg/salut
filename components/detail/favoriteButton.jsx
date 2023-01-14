@@ -28,8 +28,10 @@ export default function FavoriteButton(props) {
         onClick={() => {
           if (!selected) {
             addFavorite(userId, cocktailId);
+            props.setNewLikes(prev => prev + 1)
           } else {
             removeFavorite(userId, cocktailId);
+            props.setNewLikes(prev => prev - 1)
           }
         }}
         sx={{
