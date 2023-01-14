@@ -9,6 +9,9 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import CategoryDeleteButton from "./categoryDeleteButton";
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const filter = createFilterOptions();
 
@@ -18,6 +21,28 @@ function CategoryForm(props) {
   const [deleteOpen, toggleDeleteOpen] = useState(false);
   const [dialogValue, setDialogValue] = useState("");
   // console.log(props.categories);
+  const [snackOpen, setSnackOpen] = useState(false);
+
+  const handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackOpen(false);
+  };
+
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleSnackClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
+  
 
   const addCategory = async (category, userId) => {
     const response = await fetch("/api/category", {
@@ -122,10 +147,22 @@ function CategoryForm(props) {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Submit</Button>
+            <Button 
+              type="submit"
+              onClick={() => {setSnackOpen(true)}}
+            >
+              Submit
+            </Button>
           </DialogActions>
         </form>
       </Dialog>
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackClose}
+        message="Category Saved!"
+        action={action}
+      />
 
       <Dialog open={deleteOpen}>
         <DialogTitle>Select a Category</DialogTitle>

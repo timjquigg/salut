@@ -3,15 +3,22 @@ import { Box } from "@mui/system";
 import { ToggleButton } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useLoggedInDetailData } from "../../hooks/useDetailData";
+import { styled } from "@mui/material/styles";
 
 export default function FavoriteButton(props) {
   const { favoriteId, userId, cocktailId } = props;
   const [selected, setSelected] = useState(favoriteId ? true : false);
+  const StyledToggleButton = styled(ToggleButton)({
+    "&.Mui-selected, &.Mui-selected:hover": {
+      color: "transparent",
+      backgroundColor: "transparent",
+    },
+  });
 
   const { addFavorite, removeFavorite } = useLoggedInDetailData();
   return (
     <Box>
-      <ToggleButton
+      <StyledToggleButton
         color="primary"
         value="check"
         selected={selected}
@@ -25,13 +32,20 @@ export default function FavoriteButton(props) {
             removeFavorite(userId, cocktailId);
           }
         }}
+        sx={{
+          border: "none",
+          backgroundColor: "none",
+          "&:selected": {
+            backgroundColor: "none",
+          },
+        }}
       >
         {selected ? (
-          <Favorite sx={{ color: "red" }} />
+          <Favorite sx={{ color: "red", fontSize: 40 }} />
         ) : (
-          <FavoriteBorder sx={{ color: "red" }} />
+          <FavoriteBorder sx={{fontSize: 40 }} />
         )}
-      </ToggleButton>
+      </StyledToggleButton>
     </Box>
   );
 }

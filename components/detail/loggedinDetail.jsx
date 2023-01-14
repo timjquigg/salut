@@ -1,7 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Typography, Box, Chip, Stack } from "@mui/material";
-import CheckBox from "./checkbox";
+import { Typography, Box } from "@mui/material";
 import BottomButtons from "./bottomButtons";
 import { useLoggedInDetailData } from "../../hooks/useDetailData";
 import CocktailPhoto from "./cocktailPhoto";
@@ -9,11 +8,14 @@ import RightSideContainer from "./rightSideContainer";
 import CocktailTitle from "./cockTailTitle";
 import FavoriteButton from "./favoriteButton";
 import CategoryDisplay from "./categoryDisplay";
-import Ingredients from "./ingredients";
-import Inventory from "./inventory";
+import { IngredientsWithInventory } from "./ingredients";
 import Directions from "./directions";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 function LoggedinDetail(props) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   const { data: session, status } = useSession();
   const router = useRouter();
   const inventory = props.inventory;
@@ -21,13 +23,20 @@ function LoggedinDetail(props) {
     strDrink: cocktailName,
     strDrinkThumb: thumb,
     strInstructions: instructions,
+    Favorite: favorites
   } = props.data;
 
+  const bigThumbnail = matches
+    ? <></>
+    : <CocktailPhoto thumb={thumb}/>
+
+  const smallThumbnail = matches
+    ? <CocktailPhoto thumb={thumb}/>
+    : <></>
+  
+  const likes = favorites.length;
+
   const {
-    addFavorite,
-    removeFavorite,
-    addInventory,
-    removeInventory,
     getIngredients,
   } = useLoggedInDetailData({ data: props.data });
 
@@ -38,25 +47,29 @@ function LoggedinDetail(props) {
 
   return (
     <>
-      <CocktailPhoto thumb={thumb} />
+      {bigThumbnail}
       <RightSideContainer>
-        <CocktailTitle cocktailName={cocktailName}>
-          <FavoriteButton
-            favoriteId={props.favoriteId}
-            userId={session.user.id}
-            cocktailId={router.query.id}
-          ></FavoriteButton>
-        </CocktailTitle>
+        <Box sx={{display: "flex", alignItems: "end", gap: {xs: 0, sm: 5}}}>
+          <CocktailTitle cocktailName={cocktailName} />
+            <FavoriteButton
+              favoriteId={props.favoriteId}
+              userId={session.user.id}
+              cocktailId={router.query.id}
+            ></FavoriteButton>
+        </Box>
+          <CategoryDisplay categories={props.categories} />
+        {smallThumbnail}
+        <Typography sx={{mt: {xs: 1, md: 0}}}>
+          {likes}
+          {likes === 1 ? 
+            " like" : 
+            " likes"
+          }
+        </Typography>
 
-        <CategoryDisplay categories={props.categories} />
-
-        <Ingredients ingredients={ingredients} measurement={measurement}>
-          <Inventory
-            ingredients={ingredients}
-            inventory={inventory}
-            userId={session.user.id}
-          ></Inventory>
-        </Ingredients>
+        <IngredientsWithInventory ingredients={ingredients} measurement={measurement} inventory={inventory}
+            userId={session.user.id}> 
+        </IngredientsWithInventory>
         <Directions instructions={instructions} />
         <BottomButtons />
       </RightSideContainer>

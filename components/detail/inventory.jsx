@@ -24,7 +24,7 @@ export default function Inventory(props) {
   return (
     <Box>
       <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
-        Your Inventory
+        Inventory
       </Typography>
       <Box
         sx={{

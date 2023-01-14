@@ -16,6 +16,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import StyledAvatar from "./styledAvatar";
 import { signOut } from "next-auth/react";
+import Image from 'next/image';
 
 const drawerWidth = 240;
 
@@ -37,7 +38,12 @@ function Navbar(props) {
       }}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
-        <img src="../salut_logo.png" alt="logo" height="60px" />
+        <Image 
+          src="/../public/salut_logo.png" 
+          alt="logo" 
+          height={60}
+          width={160} 
+        />
       </Typography>
       <Divider />
       <List>
@@ -168,7 +174,12 @@ function Navbar(props) {
                 pathname: "/",
               }}
             >
-              <img src="../salut_logo.png" alt="logo" height="50px" />
+              <Image 
+                src="/../public/salut_logo.png" 
+                alt="logo" 
+                height={50}
+                width={150}
+              />
             </Button>
           </Box>
           <IconButton

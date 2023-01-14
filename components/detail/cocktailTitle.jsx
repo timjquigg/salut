@@ -4,7 +4,7 @@ import theme from "../../src/theme";
 
 export default function CocktailTitle(props) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
+    <Box sx={{ display: "flex" }}>
       <Typography
         sx={{
           fontFamily: theme.typography.fontFamily[0],
