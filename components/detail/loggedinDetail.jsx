@@ -12,6 +12,7 @@ import { IngredientsWithInventory } from "./ingredients";
 import Directions from "./directions";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useState } from "react";
 
 function LoggedinDetail(props) {
   const theme = useTheme();
@@ -35,6 +36,7 @@ function LoggedinDetail(props) {
     : <></>
   
   const likes = favorites.length;
+  const [newLikes, setNewLikes] = useState(likes)
 
   const {
     getIngredients,
@@ -55,13 +57,14 @@ function LoggedinDetail(props) {
               favoriteId={props.favoriteId}
               userId={session.user.id}
               cocktailId={router.query.id}
+              setNewLikes={setNewLikes}
             ></FavoriteButton>
         </Box>
           <CategoryDisplay categories={props.categories} />
         {smallThumbnail}
         <Typography sx={{mt: {xs: 1, md: 0}}}>
-          {likes}
-          {likes === 1 ? 
+          {newLikes}
+          {newLikes === 1 ? 
             " like" : 
             " likes"
           }

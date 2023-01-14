@@ -48,12 +48,11 @@ function Inventory(props) {
     <Box
       textAlign="center"
       sx={{
-        pt: "104px",
+        pt: "90px",
         width: "100%",
         display: "flex",
-        height: {md: "100vh"},
         backgroundImage: 'url("https://www.transparenttextures.com/patterns/inspiration-geometry.png")',
-        flexDirection: {xs: 'column', md: 'row'}
+        flexDirection: 'column'
       }}
     >
       <Typography
@@ -66,77 +65,79 @@ function Inventory(props) {
       >
         Your Inventory
       </Typography>
-      <Paper
-        sx={{
-          width: {md: '40%', sm: '80%', xs: '90%'},
-          mx: "auto",
-          height: {md: '90%', xs: '80vh'},
-        }}
-      >
-        {/* <Typography>Ingredients</Typography> */}
-        <VerticalTabs>{categories}</VerticalTabs>
-        <Button
-          variant="contained"
+      <Box sx={{display: "flex", flexDirection: {xs: "column", md: "row"},  height: {md: "85vh"}}}>
+        <Paper
           sx={{
+            width: {md: '40%', sm: '80%', xs: '90%'},
             mx: "auto",
-            marginTop: "20px",
-            color: "#fff",
-            width: "150px",
-            borderRadius: "20px",
-          }}
-          onClick={() => {
-            save();
-            setOpen(true);
+            height: {md: '90%', xs: '80vh'},
           }}
         >
-          Save
-        </Button>
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message="Inventory Saved!"
-          action={action}
-        />
-      </Paper>
-      <Paper
-        sx={{
-          width: {md: '40%', sm: '80%', xs: '90%'},
-          mx: "auto",
-          height: {md: '90%', xs: '90vh'},
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          my: {xs: '30px', md: 0},
-        }}
-      >
-        <Typography sx={{ margin: "20px", fontSize: "large" }}>
-          Your Inventory List
-        <Divider sx={{mt: '15px'}} />
-        </Typography>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-        >
-        {inventory.map((item, i) => (
-          <Typography key={i}>
-            {item}
-          </Typography>
-        ))}
-        </Tabs>
-        <Box sx={{my: '15px'}}>
+          {/* <Typography>Ingredients</Typography> */}
+          <VerticalTabs>{categories}</VerticalTabs>
           <Button
-            component={NextLinkComposed}
-            to={{
-              pathname: "/user/cocktails",
-            }}
             variant="contained"
-            sx={{ borderRadius: "20px", color: "#fff" }}
+            sx={{
+              mx: "auto",
+              marginTop: "20px",
+              color: "#fff",
+              width: "150px",
+              borderRadius: "20px",
+            }}
+            onClick={() => {
+              save();
+              setOpen(true);
+            }}
           >
-            What can I make?
+            Save
           </Button>
-        </Box>
-      </Paper>
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            message="Inventory Saved!"
+            action={action}
+          />
+        </Paper>
+        <Paper
+          sx={{
+            width: {md: '40%', sm: '80%', xs: '90%'},
+            mx: "auto",
+            height: {md: '90%', xs: '90vh'},
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            my: {xs: '30px', md: 0},
+          }}
+        >
+          <Typography sx={{ margin: "20px", fontSize: "large" }}>
+            Your Inventory List
+          <Divider sx={{mt: '15px'}} />
+          </Typography>
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+          >
+          {inventory.map((item, i) => (
+            <Typography key={i}>
+              {item}
+            </Typography>
+          ))}
+          </Tabs>
+          <Box sx={{my: '15px'}}>
+            <Button
+              component={NextLinkComposed}
+              to={{
+                pathname: "/user/cocktails",
+              }}
+              variant="contained"
+              sx={{ borderRadius: "20px", color: "#fff" }}
+            >
+              What can I make?
+            </Button>
+          </Box>
+        </Paper>
+      </Box>
     </Box>
   );
 }

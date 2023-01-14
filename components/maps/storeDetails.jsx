@@ -36,7 +36,7 @@ function StoreDetails() {
             getLabelText={getLabelText}
             readOnly={true}
           />
-          <Button variant="contained" href={directionLink} target="_blank">
+          <Button variant="outlined" href={directionLink} target="_blank">
             Get Directions
           </Button>
         </Card>
