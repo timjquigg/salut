@@ -10,6 +10,8 @@ import Directions from "./directions";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { Typography } from "@mui/material";
+import LocalBarIcon from "@mui/icons-material/LocalBar";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function NotLoggedinDetail(props) {
   const theme = useTheme();
@@ -38,11 +40,14 @@ function NotLoggedinDetail(props) {
         {bigThumbnail}
         <RightSideContainer>
           <CocktailTitle cocktailName={cocktailName} />
-          <Typography sx={{ mt: { xs: 0, md: 0 } }}>
+          {smallThumbnail}
+          <Typography
+            sx={{ mt: { xs: 0, md: 0 }, display: "flex", alignItems: "center" }}
+          >
             {likes}
             {likes === 1 ? " like" : " likes"}
+            <FavoriteIcon sx={{ fontSize: "medium", color: "red" }} />
           </Typography>
-          {smallThumbnail}
           <Ingredients ingredients={ingredients} measurement={measurement} />
           <Directions instructions={instructions} />
           <BottomButtons />

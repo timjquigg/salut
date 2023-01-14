@@ -201,10 +201,10 @@ const UserCocktails = () => {
               sx={{ m: 2 }}
               component={NextLinkComposed}
               to={{
-                pathname: "/user/inventory",
+                pathname: "/cocktail/create",
               }}
             >
-              Go to inventory
+              Create recipe
             </Button>
           </Box>
         )}

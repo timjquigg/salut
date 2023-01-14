@@ -5,8 +5,10 @@ import AddTitle from "./addTitle";
 import AddPhoto from "./addPhoto";
 import AddDirections from "./addDirections";
 import { newCocktailContext } from "../../providers/newCocktailProvider";
+import { useRouter } from "next/router";
 
 export default function Form(props) {
+  const router = useRouter();
   const { title, recipe, photo, directions, userId } =
     useContext(newCocktailContext);
   const error = {
@@ -30,6 +32,7 @@ export default function Form(props) {
         "Content-Type": "application/json",
       },
     });
+    return router.push("/user/created");
   };
 
   const onClick = () => {
@@ -67,12 +70,23 @@ export default function Form(props) {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        width: { xs: "90vw", sm: "auto" },
+        mt: { md: "-50px" },
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CocktailTitle cocktailName="Create a Recipe" />
+      </Box>
       <AddTitle />
       <RecipeList />
       <AddPhoto />
       <AddDirections />
-      <Button variant="contained" onClick={onClick}>
+      <Button variant="contained" onClick={onClick} sx={{ color: "#fff" }}>
         Submit
       </Button>
     </Box>

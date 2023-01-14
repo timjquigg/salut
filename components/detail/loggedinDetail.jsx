@@ -13,6 +13,7 @@ import Directions from "./directions";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function LoggedinDetail(props) {
   const theme = useTheme();
@@ -53,9 +54,12 @@ function LoggedinDetail(props) {
         </Box>
         <CategoryDisplay categories={props.categories} />
         {smallThumbnail}
-        <Typography sx={{ mt: { xs: 1, md: 0 } }}>
+        <Typography
+          sx={{ mt: { xs: 1, md: 0 }, display: "flex", alignItems: "center" }}
+        >
           {newLikes}
           {newLikes === 1 ? " like" : " likes"}
+          <FavoriteIcon sx={{ fontSize: "medium", color: "red" }} />
         </Typography>
 
         <IngredientsWithInventory
