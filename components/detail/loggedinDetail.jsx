@@ -5,7 +5,7 @@ import BottomButtons from "./bottomButtons";
 import { useLoggedInDetailData } from "../../hooks/useDetailData";
 import CocktailPhoto from "./cocktailPhoto";
 import RightSideContainer from "./rightSideContainer";
-import CocktailTitle from "./cockTailTitle";
+import CocktailTitle from "./cocktailTitle";
 import FavoriteButton from "./favoriteButton";
 import CategoryDisplay from "./categoryDisplay";
 import { IngredientsWithInventory } from "./ingredients";
@@ -24,23 +24,17 @@ function LoggedinDetail(props) {
     strDrink: cocktailName,
     strDrinkThumb: thumb,
     strInstructions: instructions,
-    Favorite: favorites
+    Favorite: favorites,
   } = props.data;
 
-  const bigThumbnail = matches
-    ? <></>
-    : <CocktailPhoto thumb={thumb}/>
+  const bigThumbnail = matches ? <></> : <CocktailPhoto thumb={thumb} />;
 
-  const smallThumbnail = matches
-    ? <CocktailPhoto thumb={thumb}/>
-    : <></>
-  
+  const smallThumbnail = matches ? <CocktailPhoto thumb={thumb} /> : <></>;
+
   const likes = favorites.length;
-  const [newLikes, setNewLikes] = useState(likes)
+  const [newLikes, setNewLikes] = useState(likes);
 
-  const {
-    getIngredients,
-  } = useLoggedInDetailData({ data: props.data });
+  const { getIngredients } = useLoggedInDetailData({ data: props.data });
 
   const invUppercase = [];
   inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
@@ -51,28 +45,28 @@ function LoggedinDetail(props) {
     <>
       {bigThumbnail}
       <RightSideContainer>
-        <Box sx={{display: "flex", alignItems: "end", gap: {xs: 0, sm: 5}}}>
+        <Box sx={{ display: "flex", alignItems: "end", gap: { xs: 0, sm: 5 } }}>
           <CocktailTitle cocktailName={cocktailName} />
-            <FavoriteButton
-              favoriteId={props.favoriteId}
-              userId={session.user.id}
-              cocktailId={router.query.id}
-              setNewLikes={setNewLikes}
-            ></FavoriteButton>
+          <FavoriteButton
+            favoriteId={props.favoriteId}
+            userId={session.user.id}
+            cocktailId={router.query.id}
+            setNewLikes={setNewLikes}
+          ></FavoriteButton>
         </Box>
-          <CategoryDisplay categories={props.categories} />
+        <CategoryDisplay categories={props.categories} />
         {smallThumbnail}
-        <Typography sx={{mt: {xs: 1, md: 0}}}>
+        <Typography sx={{ mt: { xs: 1, md: 0 } }}>
           {newLikes}
-          {newLikes === 1 ? 
-            " like" : 
-            " likes"
-          }
+          {newLikes === 1 ? " like" : " likes"}
         </Typography>
 
-        <IngredientsWithInventory ingredients={ingredients} measurement={measurement} inventory={inventory}
-            userId={session.user.id}> 
-        </IngredientsWithInventory>
+        <IngredientsWithInventory
+          ingredients={ingredients}
+          measurement={measurement}
+          inventory={inventory}
+          userId={session.user.id}
+        ></IngredientsWithInventory>
         <Directions instructions={instructions} />
         <BottomButtons />
       </RightSideContainer>

@@ -7,7 +7,7 @@ import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { NextLinkComposed } from "../../src/Link";
+import { NextLinkComposed } from "../../src/link";
 import Image from "next/image";
 
 const TutorialStepper = () => {

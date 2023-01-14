@@ -1,8 +1,7 @@
 import * as React from "react";
-import theme from "../../src/theme";
-import { NextLinkComposed } from "../../src/Link";
+import { NextLinkComposed } from "../../src/link";
 import { NavButton } from "./navButton";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Box, AppBar, Toolbar, Button, ButtonGroup } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CssBaseline from "@mui/material/CssBaseline";
