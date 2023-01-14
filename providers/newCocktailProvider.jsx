@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const newCocktailContext = createContext();
 
 export default function NewCocktailProvider(props) {
-  const { ingredients, cocktails } = props;
+  const { ingredients, cocktails, userId } = props;
   const ingredientNames = ingredients.map((el) => el.strIngredient);
   const cocktailNames = cocktails.map((el) => el.strDrink);
 
@@ -24,9 +24,9 @@ export default function NewCocktailProvider(props) {
     console.log(id);
     setRecipe((prev) => {
       const newRecipe = [...prev];
-      console.log(newRecipe);
+      // console.log(newRecipe);
       newRecipe.splice(id, 1);
-      console.log(newRecipe);
+      // console.log(newRecipe);
       return newRecipe;
     });
   };
@@ -49,6 +49,7 @@ export default function NewCocktailProvider(props) {
     setDirections,
     ingredients: ingredientNames,
     cocktails: cocktailNames,
+    userId,
   };
   return (
     <newCocktailContext.Provider value={providerData}>
