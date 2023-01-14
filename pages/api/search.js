@@ -10,8 +10,8 @@ import { getFavoriteByUserId } from "../../lib/favorite";
 
 async function Handler(req, res) {
   if (req.method === "GET") {
-    const { userId, keywords } = req.query;
-
+    const { userId, keywords, count } = req.query;
+    console.log(req.query);
     const keywordArray = keywords.split(",");
     let data;
     if (keywordArray.length > 1 && !keywordArray.includes("Non-Alcoholic")) {
@@ -26,20 +26,25 @@ async function Handler(req, res) {
     } else {
       data = await getCocktail(keywordArray[0]);
     }
+    const dataLength = data.length;
+    const displayedData = data.slice(0, count);
 
     const ingredientData = await getAllIngredients();
-    console.log(ingredientData);
+    // console.log(ingredientData);
 
     if (userId) {
       const userFavorites = await getFavoriteByUserId(userId);
       res.status(200).json({
-        drink: data,
+        drink: displayedData,
         ingredients: ingredientData,
         favorites: userFavorites,
+        dataLength,
       });
     }
 
-    res.status(200).json({ drink: data, ingredients: ingredientData });
+    res
+      .status(200)
+      .json({ drink: data, ingredients: ingredientData, dataLength });
   }
 }
 
