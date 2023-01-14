@@ -12,14 +12,19 @@ export const inventoryContext = createContext();
 export default function InventoryProvider(props) {
   const { data: session, status } = useSession();
   const [inventory, setInventory] = useState([]);
+  const [categories, setCategories] = useState([]);
   const userId = session.user.id;
 
   useEffect(() => {
     console.log("getting inventory");
-    axios.get(`api/inventory/${userId}`).then((res) => {
-      setInventory(res.data);
+    Promise.all([
+      axios.get(`api/inventory/${userId}`),
+      axios.get(`api/inventory?${userId}`),
+    ]).then((all) => {
+      setInventory(all[0].data);
+      setCategories(all[1].data.categories);
     });
-  }, []);
+  }, [userId]);
   // Shared State object:
 
   const updateInventory = (name) => {
@@ -42,7 +47,7 @@ export default function InventoryProvider(props) {
     setInventory(newInventory);
   };
 
-  const providerData = { inventory, updateInventory };
+  const providerData = { inventory, updateInventory, categories };
 
   return (
     <inventoryContext.Provider value={providerData}>

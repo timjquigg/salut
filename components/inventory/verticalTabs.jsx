@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { TabPanel } from "./tabPanel";
+import { inventoryContext } from "../../providers/InventoryProvider";
 
 export default function VerticalTabs(props) {
   const [value, setValue] = useState(0);
 
-  const categories = props.children;
+  const { categories } = useContext(inventoryContext);
 
   const sortedCategories = Object.keys(categories).sort();
 

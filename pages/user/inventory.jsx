@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { Typography, Box, Paper, Button, Divider } from "@mui/material";
-import { getIngredients, getInventory } from "../../lib/inventory";
-import { getUserId } from "../../lib/user";
 import VerticalTabs from "../../components/inventory/verticalTabs";
 import { useSession } from "next-auth/react";
 import useInventoryData from "../../hooks/useInventoryData";
@@ -16,9 +14,8 @@ import theme from "../../src/theme";
 
 function Inventory(props) {
   const [open, setOpen] = useState(false);
-  const { categories } = props;
   const { data: session, status } = useSession();
-  const { save } = useInventoryData(props.inventory, session.user.id);
+  const { save } = useInventoryData();
   const { inventory } = useContext(inventoryContext);
 
   const handleClose = (event, reason) => {
@@ -78,7 +75,7 @@ function Inventory(props) {
             height: { md: "90%", xs: "80vh" },
           }}
         >
-          <VerticalTabs>{categories}</VerticalTabs>
+          <VerticalTabs />
           <Button
             variant="contained"
             sx={{
@@ -141,21 +138,5 @@ function Inventory(props) {
   );
 }
 Inventory.auth = true;
-
-export async function getServerSideProps(context) {
-  const { ingredients, categories } = await getIngredients();
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  if (sessionToken) {
-    const inventory = await getInventory(getUserId(sessionToken));
-    return {
-      props: {
-        ingredients,
-        categories,
-        inventory,
-      },
-    };
-  }
-  return { props: {} };
-}
 
 export default Inventory;
