@@ -24,7 +24,7 @@ function CheckBox(props) {
         }
       }}
       sx={{
-        padding: '8.4px',
+        padding: 0,
         border: 'none',
         "&.Mui-selected, &.Mui-selected:hover": {
           backgroundColor: 'transparent'

@@ -12,6 +12,7 @@ import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
 import theme from "../../src/theme";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { NextLinkComposed } from "../../src/Link";
 
 const Cocktails = (props) => {
   const recipes = props.recipes;
@@ -36,14 +37,6 @@ const Cocktails = (props) => {
       }}
     >
       <Link href={`/cocktail/${item.idDrink}`}>
-        {/* <Image
-          src={`${item.strDrinkThumb}`}
-          alt={item.strDrink}
-          width="335"
-          height="350"
-          object-fit="cover"
-          position="relative"
-        /> */}
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
@@ -81,24 +74,38 @@ const Cocktails = (props) => {
       >
         Cocktails You Can Make
       </Typography>
-      <Typography
-        sx={{
-          marginBottom: "50px",
-          m: { xs: 2 },
-          fontSize: { xs: "12px", sm: "18px" },
-        }}
-      >
-        Here are all the cocktails you can make with what you have in your
-        inventory.
-      </Typography>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         {results.length > 0 ? (
-          <ImageList
-            sx={{ width: "100%", height: "80%" }}
-            cols={matches ? 1 : 3}
-          >
-            {results}
-          </ImageList>
+          <>
+            <Typography
+              sx={{
+                marginBottom: "50px",
+                m: { xs: 2 },
+                fontSize: { xs: "15px", sm: "18px" },
+                textAlign: "center"
+              }}
+            >
+              Here are all the cocktails you can make with what you have in your
+              inventory.
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <ImageList
+                sx={{ width: {sm: "90%", sx: "100%"}, height: "80%" }}
+                cols={matches ? 1 : 3}
+              >
+                {results}
+              </ImageList>
+            </Box>
+            <Button
+              variant="outlined"
+              size="medium"
+              sx={{ m: 2 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Back to top
+            </Button>
+          </>
         ) : (
           <Box
             sx={{
@@ -108,7 +115,7 @@ const Cocktails = (props) => {
               width: { xs: "80%", s: "90%" },
             }}
           >
-            <Typography sx={{ fontSize: { xs: "12px", sm: "18px" } }}>
+            <Typography sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}>
               You don&apos;t have enough items in your inventory to make any
               cocktail at the moment.
               <br />
@@ -119,20 +126,24 @@ const Cocktails = (props) => {
             <Image
               src={"/../public/noCocktailToShow.svg"}
               alt="No Cocktails"
-              width={matches ? 450 : 500}
-              height={matches ? 450 : 500}
+              width={matches ? 400 : 500}
+              height={matches ? 400 : 500}
             />
+            <Button
+              variant="outlined"
+              size="medium"
+              sx={{ m: 2 }}
+              component={NextLinkComposed}
+              to={{
+                pathname: '/user/inventory',
+              }} 
+            >
+              Go to inventory
+            </Button>
           </Box>
         )}
       </Box>
-      <Button
-        variant="outlined"
-        size="medium"
-        sx={{ m: 2 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        Back to top
-      </Button>
+      
     </Box>
   );
 };

@@ -10,6 +10,7 @@ import {
   getAllCategoriesByUser,
   getCategoryContentsByUser,
 } from "../../lib/category";
+import Typography from "@mui/material/Typography";
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
 import Image from "next/image";
@@ -82,6 +83,16 @@ const Favorites = (props) => {
         alignItems: "center",
       }}
     >
+      <Typography
+        sx={{
+          fontSize: { sm: "30px", xs: "25px" },
+          fontFamily: theme.typography.fontFamily[0],
+          color: "#022140",
+          margin: "10px",
+        }}
+      >
+        Your Favorite Recipes
+      </Typography>
       <CategoryForm
         categories={categories}
         setCategories={categoryList}
