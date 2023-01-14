@@ -56,7 +56,7 @@ function About() {
                   textAlign: "center",
                 }}
               >
-                Making cocktails shouldn't be intimidating
+                Making cocktails shouldn&apos;t be intimidating
               </Typography>
               <Typography
                 sx={{
@@ -159,7 +159,7 @@ function About() {
           season. The three of us meet and talked about how easy it would be if
           there is an app that tells what cocktails you can make with whatever
           you have in your pantry. For example, the leftover liquors for
-          Christmas, what cocktails can be made this coming New Year's Eve?
+          Christmas, what cocktails can be made this coming New Year&apos;s Eve?
           <br />
           <br />
           We are aware that there are applications that already has the same
@@ -209,11 +209,11 @@ function About() {
               textAlign: "justify",
             }}
           >
-            Going back to "Making cocktails shouldn't be intimidating". Our goal
-            is to make it accessible for everyone. We primarily target home
-            baristas to get ideas on what drinks they can make at home. Based on
-            the ingredients they have, they can see what they can make at the
-            moment or see what they still need.
+            Going back to &apos;Making cocktails shouldn&apos;t be
+            intimidating&apos;. Our goal is to make it accessible for everyone.
+            We primarily target home baristas to get ideas on what drinks they
+            can make at home. Based on the ingredients they have, they can see
+            what they can make at the moment or see what they still need.
             <br />
             <br />
             Although, you could also be just curious what drinks you could make
