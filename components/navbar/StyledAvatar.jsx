@@ -8,6 +8,7 @@ import {
   Liquor,
   Dashboard,
   Home,
+  NoteAdd,
 } from "@mui/icons-material";
 
 import {
@@ -57,7 +58,6 @@ function StyledAvatar(props) {
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
           <MenuItem
-            // disableGutters
             component={NextLinkComposed}
             to={{
               pathname: "/",
@@ -69,7 +69,6 @@ function StyledAvatar(props) {
             <ListItemText>Home</ListItemText>
           </MenuItem>
           <MenuItem
-            // disableGutters
             component={NextLinkComposed}
             to={{
               pathname: "/user",
@@ -103,6 +102,17 @@ function StyledAvatar(props) {
               <Liquor fontSize="small" />
             </ListItemIcon>
             <ListItemText>Inventory</ListItemText>
+          </MenuItem>
+          <MenuItem
+            component={NextLinkComposed}
+            to={{
+              pathname: "/cocktail/create",
+            }}
+          >
+            <ListItemIcon>
+              <NoteAdd fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Add a Recipe</ListItemText>
           </MenuItem>
           <Divider />
           <MenuItem onClick={() => signOut({ callbackUrl: "/" })}>
