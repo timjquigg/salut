@@ -28,7 +28,7 @@ const TutorialStepper = () => {
       label: "Update your inventory",
       description: `When starting, it is encouraged to go to the inventory page and update the inventory.
       Clicking the user icon, a drop down button menu will appear that contains the pages the user have access to.`,
-      gif: "/../public/gif.gif",
+      gif: "/gif.gif",
     },
     {
       label: "Search for cocktails",
@@ -37,21 +37,21 @@ const TutorialStepper = () => {
        The search bar has 3 modes: Search by keyword that
         lets you type any keyword/keywords, search by ingredients which will help you in selecting multiple ingredients, and 
         search non-alcoholic drinks which will only show non-alcoholic drinks`,
-      gif: "/../public/gif.gif",
+      gif: "/gif.gif",
     },
     {
       label: "Add recipes to your favorites",
       description: `After getting the results of your search. On the top right part of the images, there is a heart icon that
       you can click to add that cocktail as a favorite. Clicking on the image also takes you to the detail page where you can see all
       the information for that cocktail.`,
-      gif: "/../public/gif.gif",
+      gif: "/gif.gif",
     },
     {
       label: "Categorizing your favorites",
       description: `Selecting a cocktail as favorite will be collected in the favorites page, it can be navigated by clicking
       the "Favorites" in the user menu. There, you can create and delete a category as well as categorize a cocktail. Clicking
       on the category name will filter the cocktails that belongs to that category.`,
-      gif: "/../public/gif.gif",
+      gif: "/gif.gif",
     },
   ];
 

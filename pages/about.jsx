@@ -72,10 +72,10 @@ function About() {
                 beverages.
                 <br />
                 <br />
-                Making cocktails shouldn&apos;t be intimidating.
-                Regardless of your need of cocktail recipes. A party, a small
-                gathering, a potluck, or just want to make a drink right now; we
-                are here to cater to your need.
+                Making cocktails shouldn&apos;t be intimidating. Regardless of
+                your need of cocktail recipes. A party, a small gathering, a
+                potluck, or just want to make a drink right now; we are here to
+                cater to your need.
               </Typography>
             </Box>
             <Typography
@@ -83,17 +83,15 @@ function About() {
                 color: "#022140",
                 fontSize: { sm: 30, xs: 15 },
                 fontFamily: theme.typography.fontFamily[0],
-                mt: {xs: "100px", sm: 0},
-                mb: {xs: "-90px"}
+                mt: { xs: "100px", sm: 0 },
+                mb: { xs: "-90px" },
               }}
             >
               Our Team
             </Typography>
-            <Box
-              sx={{ marginTop: { sm: "-150px", xs: 0 } }}
-            >
+            <Box sx={{ marginTop: { sm: "-150px", xs: 0 } }}>
               <Image
-                src="/../public/team-nobg.png"
+                src="/team-nobg.png"
                 alt="Picture of the team"
                 width={matches ? 350 : 450}
                 height={matches ? 350 : 450}
@@ -132,8 +130,15 @@ function About() {
         </Box>
       </Box>
 
-      <Box sx={{height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <Box sx={{width: {xs: "90vw", sm: "70vw", md: "50vw", lg: "45vw"} }}>
+      <Box
+        sx={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ width: { xs: "90vw", sm: "70vw", md: "50vw", lg: "45vw" } }}>
           <Typography
             sx={{
               color: "#022140",
@@ -154,12 +159,13 @@ function About() {
               margin: { xs: 3, sm: 4 },
             }}
           >
-            We started doing this app together as our final project at Lighthouse
-            Labs. The planning of what project to make started after the holiday
-            season. The three of us meet and talked about how easy it would be if
-            there is an app that tells what cocktails you can make with whatever
-            you have in your pantry. For example, the leftover liquors for
-            Christmas, what cocktails can be made this coming New Year&apos;s Eve?
+            We started doing this app together as our final project at
+            Lighthouse Labs. The planning of what project to make started after
+            the holiday season. The three of us meet and talked about how easy
+            it would be if there is an app that tells what cocktails you can
+            make with whatever you have in your pantry. For example, the
+            leftover liquors for Christmas, what cocktails can be made this
+            coming New Year&apos;s Eve?
             <br />
             <br />
             We are aware that there are applications that already has the same
@@ -202,7 +208,9 @@ function About() {
           >
             Our Goal
           </Typography>
-          <Box sx={{width: {xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw"} }}>
+          <Box
+            sx={{ width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" } }}
+          >
             <Typography
               sx={{
                 color: "#022140",
@@ -213,23 +221,25 @@ function About() {
               }}
             >
               Going back to &apos;Making cocktails shouldn&apos;t be
-              intimidating&apos;. Our goal is to make it accessible for everyone.
-              We primarily target home baristas to get ideas on what drinks they
-              can make at home. Based on the ingredients they have, they can see
-              what they can make at the moment or see what they still need.
+              intimidating&apos;. Our goal is to make it accessible for
+              everyone. We primarily target home baristas to get ideas on what
+              drinks they can make at home. Based on the ingredients they have,
+              they can see what they can make at the moment or see what they
+              still need.
               <br />
               <br />
-              Although, you could also be just curious what drinks you could make
-              with one or two ingredients. Like drinks with Lemons? We can also
-              help you with that. We also encourage exploring other cocktails that
-              users can make, it could be their next favorite drink!
+              Although, you could also be just curious what drinks you could
+              make with one or two ingredients. Like drinks with Lemons? We can
+              also help you with that. We also encourage exploring other
+              cocktails that users can make, it could be their next favorite
+              drink!
               <br />
               <br />
               Lastly, we also would like to emphasize the utilization of
               ingredients that has been lying or in the liquor cabinet for so
               long. Not only it limits wastage of liquor as it starts to degrade
-              after opening, you would be able to maximize every bottle of alcohol
-              and maybe discover a new cocktail!
+              after opening, you would be able to maximize every bottle of
+              alcohol and maybe discover a new cocktail!
               <br />
               <br />
               With all that being said, glad to have you with us! We will be

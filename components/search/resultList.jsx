@@ -94,7 +94,7 @@ const ResultList = (props) => {
             No Drinks Found
           </Typography>
           <Image
-            src={"/../public/noDrinksFound.svg"}
+            src={"/noDrinksFound.svg"}
             alt="No Drinks"
             width={errorSize}
             height={errorSize}

@@ -39,12 +39,7 @@ function Navbar(props) {
       }}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
-        <Image
-          src="/../public/salut_logo.png"
-          alt="logo"
-          height={60}
-          width={160}
-        />
+        <Image src="/salut_logo.png" alt="logo" height={60} width={160} />
       </Typography>
       <Divider />
       <List>
@@ -198,12 +193,7 @@ function Navbar(props) {
                 pathname: "/",
               }}
             >
-              <Image
-                src="/../public/salut_logo.png"
-                alt="logo"
-                height={50}
-                width={150}
-              />
+              <Image src="/salut_logo.png" alt="logo" height={50} width={150} />
             </Button>
           </Box>
           <IconButton

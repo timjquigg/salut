@@ -125,7 +125,7 @@ const Cocktails = (props) => {
             </Typography>
 
             <Image
-              src={"/../public/noCocktailToShow.svg"}
+              src={"/noCocktailToShow.svg"}
               alt="No Cocktails"
               width={matches ? 400 : 500}
               height={matches ? 400 : 500}

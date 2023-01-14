@@ -95,12 +95,7 @@ function User(props) {
               variant="outlined"
               sx={{ padding: { md: "20px", xs: "20px 8px" } }}
             >
-              <Image
-                src={"/../public/cocktail1.png"}
-                width={100}
-                height={100}
-                alt=""
-              />
+              <Image src={"/cocktail1.png"} width={100} height={100} alt="" />
               <Typography sx={{}}>Cocktails you can make</Typography>
             </Button>
           </Box>
@@ -113,12 +108,7 @@ function User(props) {
               variant="outlined"
               sx={{ padding: "20px" }}
             >
-              <Image
-                src={"/../public/cocktail2.png"}
-                width={100}
-                height={100}
-                alt=""
-              />
+              <Image src={"/cocktail2.png"} width={100} height={100} alt="" />
               <Typography sx={{}}>Go to your favorites</Typography>
             </Button>
           </Box>
@@ -131,12 +121,7 @@ function User(props) {
               variant="outlined"
               sx={{ padding: "20px", marginBottom: { xs: "20px", md: 0 } }}
             >
-              <Image
-                src={"/../public/cocktail3.png"}
-                width={100}
-                height={100}
-                alt=""
-              />
+              <Image src={"/cocktail3.png"} width={100} height={100} alt="" />
               <Typography sx={{}}>Go to your inventory</Typography>
             </Button>
           </Box>
