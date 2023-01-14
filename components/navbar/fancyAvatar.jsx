@@ -23,7 +23,7 @@ import {
   ListItemText,
 } from "@mui/material";
 
-function StyledAvatar(props) {
+export default function FancyAvatar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -126,5 +126,3 @@ function StyledAvatar(props) {
     </>
   );
 }
-
-export default StyledAvatar;

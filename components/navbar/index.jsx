@@ -15,7 +15,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import StyledAvatar from "./styledAvatar";
+import FancyAvatar from "./fancyAvatar";
 
 const drawerWidth = 240;
 
@@ -230,7 +230,7 @@ function Navbar(props) {
             </NavButton>
             {status === "authenticated" && (
               <>
-                <StyledAvatar
+                <FancyAvatar
                   component={NextLinkComposed}
                   path="/user"
                   name={session.user.name}
