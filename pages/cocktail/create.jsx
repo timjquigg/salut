@@ -3,7 +3,7 @@ import PageContainer from "../../components/detail/pageContainer";
 import { getIngredients } from "../../lib/inventory";
 import { getCocktailNames } from "../../lib/cocktail";
 import { getUserId } from "../../lib/user";
-import CocktailTitle from "../../components/detail/cockTailTitle";
+import CocktailTitle from "../../components/detail/cocktailTitle";
 import NewCocktailProvider from "../../providers/newCocktailProvider";
 import Form from "../../components/create/form";
 
