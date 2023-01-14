@@ -27,7 +27,7 @@ export const authOptions = {
   pages: {
     signIn: "/auth/signin",
     error: "/auth/signin",
-    newUser: "/auth/newUser",
+    newUser: "/user/instructions",
   },
 };
 
