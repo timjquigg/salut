@@ -16,7 +16,6 @@ function Create(props) {
         userId={props.userId}
       >
         <PageContainer>
-          <CocktailTitle cocktailName="Create a Recipe" />
           <Form />
         </PageContainer>
       </NewCocktailProvider>

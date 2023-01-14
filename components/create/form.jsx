@@ -6,6 +6,7 @@ import AddPhoto from "./addPhoto";
 import AddDirections from "./addDirections";
 import { newCocktailContext } from "../../providers/newCocktailProvider";
 import { useRouter } from "next/router";
+import CocktailTitle from "../detail/cocktailTitle";
 
 export default function Form(props) {
   const router = useRouter();
