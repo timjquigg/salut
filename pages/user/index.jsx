@@ -1,7 +1,7 @@
-import React from "react";
+// import { getCocktailsBasedOnInventory } from "../../lib/carousel";
+// import { getUserId } from "../../lib/user";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { getCocktailsBasedOnInventory } from "../../lib/carousel";
-import { getUserId } from "../../lib/user";
 import Typography from "@mui/material/Typography";
 import { useSession } from "next-auth/react";
 import CocktailCard from "../../components/cocktailCard";
@@ -12,15 +12,15 @@ import Button from "@mui/material/Button";
 import { NextLinkComposed } from "../../src/link";
 import Image from "next/image";
 
-export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  const data = await getCocktailsBasedOnInventory(getUserId(sessionToken));
-  return {
-    props: {
-      data,
-    },
-  };
-}
+// export async function getServerSideProps(context) {
+//   const sessionToken = context.req.cookies["next-auth.session-token"];
+//   const data = await getCocktailsBasedOnInventory(getUserId(sessionToken));
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
 
 function Item(props) {
   return (
@@ -42,8 +42,7 @@ function Item(props) {
   );
 }
 
-function User(props) {
-  // https://www.transparenttextures.com/patterns/gradient-squares.png
+function User() {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -64,7 +63,21 @@ function User(props) {
     },
   };
   const { data: session } = useSession();
-  let items = props.data;
+  const [cocktails, setCocktails] = useState([])
+
+  useEffect(() => {
+    async function getCreatedCocktails() {
+      if (session) {
+        const response = await fetch(`/api/carousel?userId=${session.user.id}`);
+        const data = await response.json();
+        setCocktails(data.cocktails);
+        // console.log("Data BUWHAHAHAHA:", data.cocktails);
+      }
+    }
+    getCreatedCocktails();
+  }, [session]);
+
+  
   if (session) {
     return (
       <Box
@@ -144,7 +157,7 @@ function User(props) {
             >
               Picked For You
             </Typography>
-            {items.length > 0 ? (
+            {cocktails.length > 0 ? (
               <>
                 <Typography
                   sx={{
@@ -155,7 +168,7 @@ function User(props) {
                   We picked some recipes for you based on your inventory items!
                 </Typography>
                 <Carousel responsive={responsive}>
-                  {items.map((item, i) => (
+                  {cocktails.map((item, i) => (
                     <Item key={i} item={item} />
                   ))}
                 </Carousel>
