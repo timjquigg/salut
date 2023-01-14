@@ -168,7 +168,9 @@ function CategoryForm(props) {
         <DialogTitle>Select a Category</DialogTitle>
         <DialogContent sx={{ display: "flex", flexDirection: "column" }}>
           <DialogContentText>
-            Select the category to be deleted
+            {props.categories.length !== 0
+              ? "Select the category to be deleted"
+              : "There are no categories yet"}
           </DialogContentText>
           {props.categories.map((category) => {
             return (

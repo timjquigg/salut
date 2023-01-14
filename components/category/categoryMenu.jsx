@@ -6,6 +6,7 @@ import { useState } from "react";
 import CategoryMenuItems from "./categoryMenuItem";
 
 import ExpandCircleDownOutlinedIcon from "@mui/icons-material/ExpandCircleDownOutlined";
+import { Typography } from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 
@@ -60,17 +61,23 @@ const CategoryMenu = (props) => {
           },
         }}
       >
-        {props.categories.map((category) => (
-          <CategoryMenuItems
-            key={category}
-            value={category}
-            category={category}
-            favId={props.favId}
-            userId={props.userId}
-            categoryContents={categoryContents}
-            setCategoryContents={setCategoryContents}
-          />
-        ))}
+        {props.categories.length !== 0 ? (
+          props.categories.map((category) => (
+            <CategoryMenuItems
+              key={category}
+              value={category}
+              category={category}
+              favId={props.favId}
+              userId={props.userId}
+              categoryContents={categoryContents}
+              setCategoryContents={setCategoryContents}
+            />
+          ))
+        ) : (
+          <Typography sx={{ color: "white", textAlign: "center", p: 2 }}>
+            No category yet
+          </Typography>
+        )}
       </Menu>
     </div>
   );

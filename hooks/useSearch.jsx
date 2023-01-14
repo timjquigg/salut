@@ -9,7 +9,7 @@ const useSearch = () => {
   const [filterKeywords, setFilterKeywords] = useState([]);
   const [inputFilterKeywords, setInputFilterKeywords] = useState();
   const [itemDisplay, setItemDisplay] = useState(12);
-  console.log(enteredSearch);
+  // console.log(enteredSearch);
   const pathFormatter = (filtersArr) => {
     let url = "/search";
     filtersArr.forEach((filter) => {

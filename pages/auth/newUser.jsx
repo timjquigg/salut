@@ -19,7 +19,7 @@ const Signin = ({ providers, previousPage }) => {
         onClick={() => clickHandler(provider.id)}
         variant="contained"
       >
-        Sign in with {provider.name} 
+        Sign in with {provider.name}
       </Button>
     );
   });
@@ -27,7 +27,7 @@ const Signin = ({ providers, previousPage }) => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
-        Welcome New User!
+        Welcome New User
       </Typography>
     </Container>
   );
