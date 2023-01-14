@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import RecipeList from "./recipeList";
 import AddTitle from "./addTitle";
 import AddPhoto from "./addPhoto";
-import CocktailTitle from "../detail/cockTailTitle";
 import AddDirections from "./addDirections";
 import { newCocktailContext } from "../../providers/newCocktailProvider";
 
@@ -41,13 +40,6 @@ export default function Form(props) {
       hasError = true;
     }
 
-    // if (!recipe[0].ingredient || !recipe[0].measurement) {
-    //   console.log("Missing Ingredient or Amount");
-    //   error.recipe = true;
-    //   hasError = true;
-    // }
-    // console.log(recipe);
-
     recipe.forEach((recipe) => {
       if (!recipe.ingredient || !recipe.measurement) {
         console.log("Missing ingredient/measurement");
@@ -76,7 +68,6 @@ export default function Form(props) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <CocktailTitle cocktailName="Create a Recipe" />
       <AddTitle />
       <RecipeList />
       <AddPhoto />

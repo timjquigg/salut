@@ -3,6 +3,7 @@ import PageContainer from "../../components/detail/pageContainer";
 import { getIngredients } from "../../lib/inventory";
 import { getCocktailNames } from "../../lib/cocktail";
 import { getUserId } from "../../lib/user";
+import CocktailTitle from "../../components/detail/cockTailTitle";
 import NewCocktailProvider from "../../providers/newCocktailProvider";
 import Form from "../../components/create/form";
 
@@ -15,6 +16,7 @@ function Create(props) {
         userId={props.userId}
       >
         <PageContainer>
+          <CocktailTitle cocktailName="Create a Recipe" />
           <Form />
         </PageContainer>
       </NewCocktailProvider>
