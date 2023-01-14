@@ -3,7 +3,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import FavIcon from "./favIcon";
 import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
@@ -19,6 +19,8 @@ const ResultList = (props) => {
     : props.drink.length > 3
     ? 1375
     : props.drink.length * 450;
+
+  const errorSize = matches ? 350 : 500;
 
   const imagePath = (id) => {
     if (id.includes("/public")) {
@@ -74,11 +76,31 @@ const ResultList = (props) => {
 
   return (
     <>
-      <p>{`Displaying ${
-        props.itemDisplay < props.drink.length
-          ? props.itemDisplay
-          : props.drink.length
-      } out of ${props.drink.length} Results`}</p>
+      {props.drink.length !== 0 ? (
+        <p>{`Displaying ${
+          props.itemDisplay < props.drink.length
+            ? props.itemDisplay
+            : props.drink.length
+        } out of ${props.drink.length} Results`}</p>
+      ) : (
+        <Box sx={{}}>
+          <Typography
+            sx={{
+              fontSize: { sm: "30px", xs: "20px" },
+              textAlign: "center",
+              mb: -10,
+            }}
+          >
+            No Drinks Found
+          </Typography>
+          <Image
+            src={"/../public/noDrinksFound.svg"}
+            alt="No Drinks"
+            width={errorSize}
+            height={errorSize}
+          />
+        </Box>
+      )}
       <ImageList
         sx={{ width: { itemListWidth }, height: "70%" }}
         cols={matches ? 1 : 3}
@@ -93,14 +115,16 @@ const ResultList = (props) => {
       ) : (
         ""
       )}
-      <Button
-        variant="outlined"
-        size="medium"
-        sx={{ m: 2 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        Back to top
-      </Button>
+      {props.drink.length !== 0 && (
+        <Button
+          variant="outlined"
+          size="medium"
+          sx={{ m: 2 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          Back to top
+        </Button>
+      )}
     </>
   );
 };

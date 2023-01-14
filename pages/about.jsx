@@ -56,7 +56,7 @@ function About() {
                   textAlign: "center",
                 }}
               >
-                Making cocktails shouldn't be intimidating
+                Making cocktails shouldn&apos;t be intimidating
               </Typography>
               <Typography
                 sx={{
@@ -159,13 +159,15 @@ function About() {
           season. The three of us meet and talked about how easy it would be if
           there is an app that tells what cocktails you can make with whatever
           you have in your pantry. For example, the leftover liquors for
-          Christmas, what cocktails can be made this coming New Year's Eve?
+          Christmas, what cocktails can be made this coming New Year&apos;s Eve?
           <br />
           <br />
           We are aware that there are applications that already has the same
           functionality as ours. We however made an app that is less
-          initmidating, more enjoyable to use, and pleasing to the eyes. After a
-          week of coding and brainstorming, Salut! was created.
+          initmidating, more enjoyable to use, and pleasing to the eyes.
+          <br />
+          <br />
+          After a week of coding and brainstorming, Salut! was created.
         </Typography>
       </Box>
 
@@ -207,11 +209,11 @@ function About() {
               textAlign: "justify",
             }}
           >
-            Going back to "Making cocktails shouldn't be intimidating". Our goal
-            is to make it accessible for everyone. We primarily target home
-            baristas to get ideas on what drinks they can make at home. Based on
-            the ingredients they have, they can see what they can make at the
-            moment or see what they still need.
+            Going back to &apos;Making cocktails shouldn&apos;t be
+            intimidating&apos;. Our goal is to make it accessible for everyone.
+            We primarily target home baristas to get ideas on what drinks they
+            can make at home. Based on the ingredients they have, they can see
+            what they can make at the moment or see what they still need.
             <br />
             <br />
             Although, you could also be just curious what drinks you could make
@@ -223,8 +225,8 @@ function About() {
             Lastly, we also would like to emphasize the utilization of
             ingredients that has been lying or in the liquor cabinet for so
             long. Not only it limits wastage of liquor as it starts to degrade
-            after opening, you would be able to maximize the value of the
-            alcohol.
+            after opening, you would be able to maximize every bottle of alcohol
+            and maybe discover a new cocktail!
             <br />
             <br />
             With all that being said, glad to have you with us! We will be
