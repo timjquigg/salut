@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SearchContainer from "./searchContainer";
+import IconButton from "@mui/material/IconButton";
 
 const KeywordForm = (props) => {
   return (
@@ -25,7 +26,7 @@ const KeywordForm = (props) => {
         value={props.enteredSearch}
         onChange={props.changeHandler}
         sx={{
-          width: {sm: "50vw", xs: "80vw"},
+          width: { sm: "50vw", xs: "80vw" },
         }}
       />
       <Button
