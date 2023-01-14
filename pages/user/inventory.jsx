@@ -10,10 +10,8 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { inventoryContext } from "../../providers/InventoryProvider";
-import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
 import { NextLinkComposed } from "../../src/link";
 import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import theme from "../../src/theme";
 
 function Inventory(props) {
@@ -149,13 +147,11 @@ export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies["next-auth.session-token"];
   if (sessionToken) {
     const inventory = await getInventory(getUserId(sessionToken));
-    const cocktailId = await getCocktailsBasedOnInventory(inventory);
     return {
       props: {
         ingredients,
         categories,
         inventory,
-        cocktailId,
       },
     };
   }
