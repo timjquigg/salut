@@ -62,9 +62,9 @@ model VerificationToken {
 
 model Favorite {
   id         String   @id @default(uuid())
-  User       User     @relation(fields: [userId], references: [id])
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
-  cocktail   Cocktail @relation(fields: [cocktailId], references: [idDrink])
+  cocktail   Cocktail @relation(fields: [cocktailId], references: [idDrink], onDelete: Cascade)
   cocktailId String
   categories CategoriesOnFavorite[]
 

@@ -16,7 +16,7 @@ async function Handler(req, res) {
         script[`strIngredient${i + 1}`] = recipe.ingredient;
         script[`strMeasure${i + 1}`] = recipe.measurement;
       });
-      // console.log("SCRIPT:", script);
+
       return script;
     };
     const ingredientScript = makeIngredientScript();
@@ -28,7 +28,13 @@ async function Handler(req, res) {
   }
 
   if (req.method === "DELETE") {
-    // NEED TO IMPLEMENT
+    console.log("drinkID", req.body);
+    const deleteCocktail = await prisma.cocktail.delete({
+      where: {
+        idDrink: req.body.cocktailId,
+      },
+    });
+    res.status(200).json({ message: "Cocktail deleted" });
   }
 }
 
