@@ -1,18 +1,17 @@
+import { useContext } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Box, Typography, Button } from "@mui/material";
 import Image from "next/image";
-import { getInventory } from "../../lib/inventory";
-import { getUserId } from "../../lib/user";
-import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { NextLinkComposed } from "../../src/link";
+import { inventoryContext } from "../../providers/InventoryProvider";
 
 const Cocktails = (props) => {
-  const recipes = props.recipes;
+  const { recipes } = useContext(inventoryContext);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -51,7 +50,6 @@ const Cocktails = (props) => {
       />
     </ImageListItem>
   ));
-  console.log("results:", results);
   return (
     <Box
       sx={{
@@ -148,16 +146,6 @@ const Cocktails = (props) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  const inventory = await getInventory(getUserId(sessionToken));
-  const recipes = await getCocktailsBasedOnInventory(inventory);
-  return {
-    props: {
-      inventory,
-      recipes,
-    },
-  };
-}
+Cocktails.auth = true;
 
 export default Cocktails;

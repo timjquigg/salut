@@ -13,41 +13,41 @@ export default function InventoryProvider(props) {
   const { data: session, status } = useSession();
   const [inventory, setInventory] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const userId = session.user.id;
 
   useEffect(() => {
     console.log("getting inventory");
+    const params = new URLSearchParams({ userId });
     Promise.all([
       axios.get(`api/inventory/${userId}`),
-      axios.get(`api/inventory?${userId}`),
+      axios.get(`api/inventory?${params}`),
     ]).then((all) => {
       setInventory(all[0].data);
       setCategories(all[1].data.categories);
+      setRecipes(all[1].data.recipes);
+      console.log(all[1].data.recipes);
     });
   }, [userId]);
   // Shared State object:
 
   const updateInventory = (name) => {
-    const inventoryIndex = inventory.indexOf(name);
-    let newInventory = [];
-
-    if (inventoryIndex === -1) {
-      newInventory = newInventory.concat(inventory, name);
-    } else if (inventoryIndex === 0) {
-      newInventory = newInventory.concat(inventory.slice(1));
-    } else if (inventoryIndex === inventory.length - 1) {
-      newInventory = newInventory.concat(inventory.slice(0, -1));
-    } else if (inventoryIndex > 0) {
-      newInventory = newInventory.concat(
-        inventory.slice(0, inventoryIndex),
-        inventory.slice(inventoryIndex + 1)
-      );
+    if (inventory.includes(name)) {
+      const payload = { user: userId, additions: [], deletions: name };
+      axios.post("api/inventory", payload).then((res) => {
+        setInventory(res.data);
+      });
+      return;
     }
-
-    setInventory(newInventory);
+    const payload = { user: userId, additions: [name], deletions: [] };
+    axios.post("api/inventory", payload).then((res) => {
+      setInventory(res.data);
+    });
+    return;
   };
 
-  const providerData = { inventory, updateInventory, categories };
+  console.log("recipes on provider:", recipes);
+  const providerData = { inventory, updateInventory, categories, recipes };
 
   return (
     <inventoryContext.Provider value={providerData}>

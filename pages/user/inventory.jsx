@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useContext } from "react";
 import { Typography, Box, Paper, Button, Divider } from "@mui/material";
 import VerticalTabs from "../../components/inventory/verticalTabs";
-import { useSession } from "next-auth/react";
-import useInventoryData from "../../hooks/useInventoryData";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -14,8 +12,6 @@ import theme from "../../src/theme";
 
 function Inventory(props) {
   const [open, setOpen] = useState(false);
-  const { data: session, status } = useSession();
-  const { save } = useInventoryData();
   const { inventory } = useContext(inventoryContext);
 
   const handleClose = (event, reason) => {
@@ -76,22 +72,7 @@ function Inventory(props) {
           }}
         >
           <VerticalTabs />
-          <Button
-            variant="contained"
-            sx={{
-              mx: "auto",
-              marginTop: "20px",
-              color: "#fff",
-              width: "150px",
-              borderRadius: "20px",
-            }}
-            onClick={() => {
-              save();
-              setOpen(true);
-            }}
-          >
-            Save
-          </Button>
+
           <Snackbar
             open={open}
             autoHideDuration={6000}
