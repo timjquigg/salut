@@ -1,6 +1,5 @@
 import { getAllCategoryDrinksByUser } from "../../lib/category";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from "../../lib/prismadb";
 
 async function Handler(req, res) {
   if (req.method === "GET") {
@@ -33,12 +32,10 @@ async function Handler(req, res) {
       });
     });
 
-    // console.log("output:", output);
     res.status(200).json(output);
   }
 
   if (req.method === "POST") {
-    // console.log("req.body", req.body);
     const findCategoryId = await prisma.category.findFirst({
       where: {
         userId: req.body.userId,
@@ -51,12 +48,10 @@ async function Handler(req, res) {
         categoryId: findCategoryId.id,
       },
     });
-    // console.log(findCategoryId);
     res.status(201).json({ message: "cocktail added to category" });
   }
 
   if (req.method === "DELETE") {
-    // console.log("req.body", req.body);
     const findCategoryId = await prisma.category.findFirst({
       where: {
         userId: req.body.userId,
@@ -75,7 +70,6 @@ async function Handler(req, res) {
         id: findCategoryOnFavoriteId.id,
       },
     });
-    // console.log(findCategoryonFavoriteId);
 
     res.status(201).json({ message: "cocktail removed to category" });
   }

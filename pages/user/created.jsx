@@ -115,7 +115,7 @@ const UserCocktails = () => {
       </Dialog>
     </ImageListItem>
   ));
-  console.log("results:", results);
+  // console.log("results:", results);
   return (
     <Box
       sx={{

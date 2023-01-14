@@ -1,8 +1,8 @@
 import { signIn, getProviders } from "next-auth/react";
-import { ButtonGroup, Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { Container, Stack } from "@mui/system";
-import Image from 'next/image';
+import { Stack } from "@mui/system";
+import Image from "next/image";
 import theme from "../../src/theme";
 
 const Signin = ({ providers, query }) => {
@@ -17,20 +17,34 @@ const Signin = ({ providers, query }) => {
         onClick={() => clickHandler(provider.id)}
         variant="contained"
         sx={{
-          backgroundColor: '#fff', 
-          borderRadius: '5px',
-          width: {xs: '70%', sm: '100%'},
-          '&:hover': {
-          background: "#DCDCDC", 
-          }
-        }}  
+          backgroundColor: "#fff",
+          borderRadius: "5px",
+          width: { xs: "70%", sm: "100%" },
+          "&:hover": {
+            background: "#DCDCDC",
+          },
+        }}
       >
-        <Box sx={{width: '100%', display: 'flex', alignItems: 'center'}}>
-          {provider.name === "Google" ? 
-          <Image src="https://authjs.dev/img/providers/google.svg" width="30" height="30" alt=""/> : 
-          <Image src="https://authjs.dev/img/providers/facebook.svg" width="30" height="30" alt=""/>
-          }
-          <Box sx={{marginLeft: {sm: '5rem', xs: '1rem'}}}>{query === "signin" ? "Sign in with" : "Sign up with"} {provider.name}</Box>
+        <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
+          {provider.name === "Google" ? (
+            <Image
+              src="https://authjs.dev/img/providers/google.svg"
+              width="30"
+              height="30"
+              alt=""
+            />
+          ) : (
+            <Image
+              src="https://authjs.dev/img/providers/facebook.svg"
+              width="30"
+              height="30"
+              alt=""
+            />
+          )}
+          <Box sx={{ marginLeft: { sm: "5rem", xs: "1rem" } }}>
+            {query === "signin" ? "Sign in with" : "Sign up with"}{" "}
+            {provider.name}
+          </Box>
         </Box>
       </Button>
     );
@@ -60,36 +74,73 @@ const Signin = ({ providers, query }) => {
   };
 
   return (
-    <Box sx={{margin: 0, padding: 0, width: '100vw', minHeight: '100vh', display: 'flex'}}>
-      <Box sx={{
-        width:  {lg: '50%'}, 
-        backgroundImage: 'url("../signin.jpeg")', 
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}></Box>
-      <Box sx={{
-        width: {lg: '50%', xs: '100%'}, 
-        backgroundImage: {xs: 'linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("../signin.jpeg")', lg: 'none'},
-        backgroundSize: "cover",
-        backgroundPosition: 'left',
-        display: 'flex', 
-        flexDirection: 'column',
-        alignItems: 'center'
-       }}>
+    <Box
+      sx={{
+        margin: 0,
+        padding: 0,
+        width: "100vw",
+        minHeight: "100vh",
+        display: "flex",
+      }}
+    >
+      <Box
+        sx={{
+          width: { lg: "50%" },
+          backgroundImage: 'url("../signin.jpeg")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></Box>
+      <Box
+        sx={{
+          width: { lg: "50%", xs: "100%" },
+          backgroundImage: {
+            xs: 'linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("../signin.jpeg")',
+            lg: "none",
+          },
+          backgroundSize: "cover",
+          backgroundPosition: "left",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         {query === "signin" && (
-          <Typography variant="h4" gutterBottom sx={{ textAlign: "center", marginTop: '150px', fontFamily: theme.typography.fontFamily[0], marginBottom: '70px' }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              textAlign: "center",
+              marginTop: "150px",
+              fontFamily: theme.typography.fontFamily[0],
+              marginBottom: "70px",
+            }}
+          >
             Sign in Options
           </Typography>
         )}
         {query === "signup" && (
-          <Typography variant="h4" gutterBottom sx={{ textAlign: "center", marginTop: '150px', fontFamily: theme.typography.fontFamily[0], marginBottom: '70px' }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              textAlign: "center",
+              marginTop: "150px",
+              fontFamily: theme.typography.fontFamily[0],
+              marginBottom: "70px",
+            }}
+          >
             Sign up Options
           </Typography>
         )}
         <Box textAlign="center">
           <Stack
             orientation="vertical"
-            sx={{ width: {sm: "400px", xs: "380px"},textAlign: "center", alignItems: 'center' }}
+            sx={{
+              width: { sm: "400px", xs: "380px" },
+              textAlign: "center",
+              alignItems: "center",
+            }}
             spacing={2}
           >
             {providerButtons}

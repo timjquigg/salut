@@ -1,7 +1,5 @@
 const { Client } = require("@googlemaps/google-maps-services-js");
-const axios = require("axios");
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-// const baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json";
 
 const client = new Client({});
 
@@ -25,7 +23,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     const results = await getLiquoreStores(location);
     const parsedResults = results.data.results;
-    console.log(parsedResults[0].geometry);
+    // console.log(parsedResults[0].geometry);
     res.json(parsedResults);
   }
 }

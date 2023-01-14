@@ -1,22 +1,22 @@
-import * as React from "react";
 import { useState, useEffect } from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-// import { getFavorites, getUserId } from "../../lib/favorite";
-// import {
-//   getAllCategoriesByUser,
-//   getCategoryContentsByUser,
-// } from "../../lib/category";
-import { Box, Button } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import Image from "next/image";
+import {
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import { useSession } from "next-auth/react";
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import axios from "axios";
+
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState([]);
@@ -29,16 +29,14 @@ const Favorites = () => {
 
   useEffect(() => {
     async function getCocktailList() {
-      if (session) {
-        const response = await fetch(`/api/category?userId=${session.user.id}`);
-        const data = await response.json();
-        console.log("Data HAHAHAHA:", data);
-        const { categoryContents, categories, recipes, userId } = data;
-        setRecipes(recipes);
-        setCategories(categories);
-        setCategoryContents(categoryContents);
-        setUserId(userId);
-      }
+      const response = await axios.get(
+        `/api/category?userId=${session.user.id}`
+      );
+      const { categoryContents, categories, recipes, userId } = response.data;
+      setRecipes(recipes);
+      setCategories(categories);
+      setCategoryContents(categoryContents);
+      setUserId(userId);
     }
     getCocktailList();
   }, [session]);
@@ -51,13 +49,13 @@ const Favorites = () => {
     setRecipes(cocktails);
   };
 
-  const imagePath = (id) => {
-    if (id.includes("/public")) {
-      const newId = id.replace("/public", "");
-      return newId;
-    }
-    return id;
-  };
+  // const imagePath = (id) => {
+  //   if (id.includes("/public")) {
+  //     const newId = id.replace("/public", "");
+  //     return newId;
+  //   }
+  //   return id;
+  // };
 
   const results = recipes.map((item) => (
     <ImageListItem
@@ -136,26 +134,5 @@ const Favorites = () => {
   );
 };
 Favorites.auth = true;
-
-// export async function getServerSideProps(context) {
-//   const sessionToken = context.req.cookies["next-auth.session-token"];
-//   if (sessionToken) {
-//     const categoryContents = await getCategoryContentsByUser(sessionToken);
-//     const userId = await getUserId(sessionToken);
-//     const categoriesByUser = await getAllCategoriesByUser(sessionToken);
-//     const recipes = await getFavorites(sessionToken);
-//     const categories = categoriesByUser.map((el) => el.name);
-
-//     return {
-//       props: {
-//         recipes,
-//         userId,
-//         categories,
-//         categoryContents,
-//       },
-//     };
-//   }
-//   return { props: {} };
-// }
 
 export default Favorites;

@@ -12,9 +12,7 @@ export default async function handler(req, res) {
 
     const { ingredents, categories } = await getIngredients();
     const inventory = await getInventory(userId);
-    console.log("inventory in api", inventory);
     const recipes = await getCocktailsBasedOnInventory(inventory);
-    console.log("recipes in API", recipes);
 
     res.status(200).send({ categories, recipes });
     return;

@@ -19,7 +19,6 @@ function LoggedinDetail(props) {
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const { data: session, status } = useSession();
   const router = useRouter();
-  const inventory = props.inventory;
   const {
     strDrink: cocktailName,
     strDrinkThumb: thumb,
@@ -36,8 +35,6 @@ function LoggedinDetail(props) {
 
   const { getIngredients } = useLoggedInDetailData({ data: props.data });
 
-  const invUppercase = [];
-  inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
   const ingredients = getIngredients(props.data, "strIngredient");
   const measurement = getIngredients(props.data, "strMeasure");
 
@@ -64,7 +61,6 @@ function LoggedinDetail(props) {
         <IngredientsWithInventory
           ingredients={ingredients}
           measurement={measurement}
-          inventory={inventory}
           userId={session.user.id}
         ></IngredientsWithInventory>
         <Directions instructions={instructions} />
