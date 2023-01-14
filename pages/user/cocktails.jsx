@@ -1,5 +1,3 @@
-import * as React from "react";
-import { useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -9,10 +7,9 @@ import Image from "next/image";
 import { getInventory } from "../../lib/inventory";
 import { getUserId } from "../../lib/user";
 import { getCocktailsBasedOnInventory } from "../../lib/cocktail";
-import theme from "../../src/theme";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { NextLinkComposed } from "../../src/Link";
+import { NextLinkComposed } from "../../src/link";
 
 const Cocktails = (props) => {
   const recipes = props.recipes;
@@ -74,8 +71,10 @@ const Cocktails = (props) => {
       >
         Cocktails You Can Make
       </Typography>
-      
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         {results.length > 0 ? (
           <>
             <Typography
@@ -83,7 +82,7 @@ const Cocktails = (props) => {
                 marginBottom: "50px",
                 m: { xs: 2 },
                 fontSize: { xs: "15px", sm: "18px" },
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               Here are all the cocktails you can make with what you have in your
@@ -91,7 +90,7 @@ const Cocktails = (props) => {
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <ImageList
-                sx={{ width: {sm: "90%", sx: "100%"}, height: "80%" }}
+                sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
                 cols={matches ? 1 : 3}
               >
                 {results}
@@ -115,7 +114,9 @@ const Cocktails = (props) => {
               width: { xs: "80%", s: "90%" },
             }}
           >
-            <Typography sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}>
+            <Typography
+              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+            >
               You don&apos;t have enough items in your inventory to make any
               cocktail at the moment.
               <br />
@@ -135,15 +136,14 @@ const Cocktails = (props) => {
               sx={{ m: 2 }}
               component={NextLinkComposed}
               to={{
-                pathname: '/user/inventory',
-              }} 
+                pathname: "/user/inventory",
+              }}
             >
               Go to inventory
             </Button>
           </Box>
         )}
       </Box>
-      
     </Box>
   );
 };

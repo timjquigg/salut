@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NextLinkComposed } from "../../src/Link";
+import { NextLinkComposed } from "../../src/link";
 import { signOut } from "next-auth/react";
 
 import {
