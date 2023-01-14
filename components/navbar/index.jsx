@@ -13,9 +13,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import StyledAvatar from "./styledAvatar";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import StyledAvatar from "./styledAvatar";
 
 const drawerWidth = 240;
 
