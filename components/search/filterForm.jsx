@@ -18,7 +18,7 @@ const FilterForm = (props) => {
         onChange={props.onChange}
         onInputChange={props.changeInputFilterHandler}
         sx={{
-          width: {sm: "50vw", xs: "80vw"},
+          width: { sm: "50vw", xs: "80vw" },
         }}
         renderInput={(params) => (
           <TextField
@@ -35,7 +35,10 @@ const FilterForm = (props) => {
       />
       <Button
         variant="contained"
-        onClick={props.onClick}
+        onClick={() => {
+          props.onClick();
+          props.setNumItemDisplay(12);
+        }}
         sx={{
           width: "200px",
           height: "50px",

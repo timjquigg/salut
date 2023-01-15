@@ -31,7 +31,10 @@ const KeywordForm = (props) => {
       />
       <Button
         variant="contained"
-        onClick={props.submitHandler}
+        onClick={() => {
+          props.submitHandler();
+          props.setNumItemDisplay(12);
+        }}
         sx={{
           width: "200px",
           height: "50px",
