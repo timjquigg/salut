@@ -96,7 +96,7 @@ model Inventory {
   User           User       @relation(fields: [userId], references: [id])
   userId         String
   ingredient     Ingredient @relation(fields: [nameIngredient], references: [strIngredient])
-  nameIngredient String     
+  nameIngredient String
 
   @@unique([userId, nameIngredient])
 }
