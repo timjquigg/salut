@@ -219,8 +219,7 @@ const Result = () => {
           position: "relative",
         }}
       >
-        {(cocktailList.length !== 0 && !isValidating) ||
-        (cocktailList.length !== 0 && !isLoading) ? (
+        {cocktailList.length !== 0 ? (
           <p>{`Displaying ${
             cocktailList.length < dataLength ? cocktailList.length : dataLength
           } out of ${dataLength} Results`}</p>
@@ -244,8 +243,8 @@ const Result = () => {
           </Box>
         )}
 
-        {error && <p>Something went wrong...</p>}
-        {!error && (
+        {/* {error && <p>Something went wrong...</p>} */}
+        {cocktailList.length !== 0 && (
           <ResultList
             drink={cocktailList}
             addFavorite={addFavorite}
@@ -264,6 +263,7 @@ const Result = () => {
               justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
+              p: 2,
             }}
           >
             <LocalBarIcon />
