@@ -97,6 +97,8 @@ model Inventory {
   userId         String
   ingredient     Ingredient @relation(fields: [nameIngredient], references: [strIngredient])
   nameIngredient String     @unique
+
+  @@unique([userId, nameIngredient])
 }
 
 model Ingredient {

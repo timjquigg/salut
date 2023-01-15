@@ -22,6 +22,7 @@ const Cocktails = (props) => {
   //   }
   //   return id;
   // };
+
   const results = recipes.map((item) => (
     <ImageListItem
       key={item.idDrink}
