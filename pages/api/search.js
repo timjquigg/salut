@@ -11,7 +11,7 @@ import { getFavoriteByUserId } from "../../lib/favorite";
 async function Handler(req, res) {
   if (req.method === "GET") {
     const { userId, keywords, count } = req.query;
-    console.log(req.query);
+    // console.log(req.query);
     const keywordArray = keywords.split(",");
     let data;
     if (keywordArray.length > 1 && !keywordArray.includes("Non-Alcoholic")) {

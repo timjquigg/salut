@@ -12,53 +12,79 @@ export function IngredientsWithInventory(props) {
   const lines = (ingredients, measurement, userId) => {
     const result = [];
     for (let i = 0; i < ingredients.length; i++) {
-      result.push({ingredient: ingredients[i], measurement: measurement[i], userId: userId})
+      result.push({
+        ingredient: ingredients[i],
+        measurement: measurement[i],
+        userId: userId,
+      });
     }
-    console.log(result)
-    return result.map(((eachLine, i) => {
+    // console.log(result)
+    return result.map((eachLine, i) => {
       return (
-        <Box key={i} sx={{width: {md: "30vw", xs: "80vw"}, display: "flex", gap: 1, justifyContent: "space-between", alignItems: "center"}}>
+        <Box
+          key={i}
+          sx={{
+            width: { md: "30vw", xs: "80vw" },
+            display: "flex",
+            gap: 1,
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Box>
-            {i === 0 ? 
-            <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
-              Ingredients
-            </Typography>
-            : <Typography></Typography>
-            }
-            <Box sx={{display: "flex", gap: 1}}>
-              <Typography sx={{my: 0}}>{eachLine.ingredient}</Typography>
-              <Typography sx={{my: 0}}>{eachLine.measurement}</Typography>
+            {i === 0 ? (
+              <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
+                Ingredients
+              </Typography>
+            ) : (
+              <Typography></Typography>
+            )}
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <Typography sx={{ my: 0 }}>{eachLine.ingredient}</Typography>
+              <Typography sx={{ my: 0 }}>{eachLine.measurement}</Typography>
             </Box>
           </Box>
-          <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            {i === 0 ? 
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {i === 0 ? (
               <Typography sx={{ fontWeight: "bold", fontSize: "1rem" }}>
                 Inventory
               </Typography>
-              : 
-              <Typography sx={{ fontWeight: "bold", lineHeight: 0, visibility: "hidden" }}>
+            ) : (
+              <Typography
+                sx={{ fontWeight: "bold", lineHeight: 0, visibility: "hidden" }}
+              >
                 Inventory
               </Typography>
-            }
+            )}
             <CheckBox
-              isInventory={invUppercase.includes(eachLine.ingredient.toUpperCase())}
-              addInventory={() => addInventory(eachLine.userId, eachLine.ingredient)}
-              removeInventory={() => removeInventory(eachLine.userId, eachLine.ingredient)}
+              isInventory={invUppercase.includes(
+                eachLine.ingredient.toUpperCase()
+              )}
+              addInventory={() =>
+                addInventory(eachLine.userId, eachLine.ingredient)
+              }
+              removeInventory={() =>
+                removeInventory(eachLine.userId, eachLine.ingredient)
+              }
             />
           </Box>
         </Box>
-      )
-    }))
-  }
+      );
+    });
+  };
 
-  const list = lines(ingredients, measurement, userId)
-  console.log("list:", list)
+  const list = lines(ingredients, measurement, userId);
+  console.log("list:", list);
 
   return (
-    <Box sx={{ marginTop: "2rem", display: "flex", gap: {md: 5, xs: 0} }}> 
-      <Box>
-        {list}
-      </Box>
+    <Box sx={{ marginTop: "2rem", display: "flex", gap: { md: 5, xs: 0 } }}>
+      <Box>{list}</Box>
       {props.children}
     </Box>
   );
@@ -90,4 +116,3 @@ export function Ingredients(props) {
     </Box>
   );
 }
-

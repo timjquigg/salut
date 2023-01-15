@@ -62,7 +62,7 @@ const Result = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const errorSize = matches ? 350 : 500;
-  console.log("DATA:", dataLength);
+  // console.log("DATA:", dataLength);
   useEffect(() => {
     async function getCocktailList() {
       if (session) {
