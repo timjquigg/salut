@@ -37,7 +37,9 @@ const FilterForm = (props) => {
         variant="contained"
         onClick={() => {
           props.onClick();
-          props.setNumItemDisplay(12);
+          if (props.setNumItemDisplay) {
+            props.setNumItemDisplay(12);
+          }
         }}
         sx={{
           width: "200px",
