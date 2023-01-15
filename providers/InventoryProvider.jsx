@@ -15,7 +15,6 @@ export default function InventoryProvider(props) {
   const [categories, setCategories] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const userId = session.user.id;
-  console.log(userId);
 
   useEffect(() => {
     const params = new URLSearchParams({ userId });

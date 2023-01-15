@@ -14,6 +14,9 @@ import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CircularProgress from "@mui/material/CircularProgress";
+import LocalBarIcon from "@mui/icons-material/LocalBar";
+import useSWR from "swr";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,32 +65,56 @@ const Result = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const errorSize = matches ? 350 : 500;
-  // console.log("DATA:", dataLength);
+  // console.log("SESSION:", session);
+  const queryURL = session
+    ? `/api/search?userId=${session.user.id}&keywords=${keyword}&count=${numItemDisplay}`
+    : `/api/search?keywords=${keyword}&count=${numItemDisplay}`;
+  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { data, error, isLoading, isValidating } = useSWR(queryURL, fetcher);
+
+  console.log("DATA DRINK", data);
+  // if (data) {
+  // setIngredientList(data.ingredients || []);
+  // setDataLength(data.dataLength || []);
+  // setFavorites(data.favorites || []);
+  // setCocktailList(data.drink || []);
+  // }
+
   useEffect(() => {
-    async function getCocktailList() {
+    // async function getCocktailList() {
+    //   if (session) {
+    //     const response = await fetch(
+    //       `/api/search?userId=${session.user.id}&keywords=${keyword}&count=${numItemDisplay}`
+    //     );
+    //     const datas = await response.json();
+    //     // console.log("Data HAHA:", data);
+    //     const { drink, ingredients, favorites, dataLength } = datas;
+    //     // setCocktailList(drink);
+    //     // setIngredientList(ingredients);
+    //     // setDataLength(dataLength);
+    //     // setFavorites(favorites);
+    //   } else {
+    //     const response = await fetch(
+    //       `/api/search?keywords=${keyword}&count=${numItemDisplay}`
+    //     );
+    //     const data = await response.json();
+    //     // console.log("Data HAHA:", data);
+    //     const { drink, ingredients } = data;
+    // if (isLoading) {
+    //   return <p>LOADING</p>;
+    // }
+    if (data) {
+      setCocktailList(data.drink);
+      setIngredientList(data.ingredients);
+      setDataLength(data.dataLength);
       if (session) {
-        const response = await fetch(
-          `/api/search?userId=${session.user.id}&keywords=${keyword}&count=${numItemDisplay}`
-        );
-        const data = await response.json();
-        // console.log("Data HAHA:", data);
-        const { drink, ingredients, favorites, dataLength } = data;
-        setCocktailList(drink);
-        setIngredientList(ingredients);
-        setDataLength(dataLength);
-        setFavorites(favorites);
-      } else {
-        const response = await fetch(`/api/search?keywords=${keyword}`);
-        const data = await response.json();
-        // console.log("Data HAHA:", data);
-        const { drink, ingredients } = data;
-        setCocktailList(drink);
-        setIngredientList(ingredients);
-        setDataLength(dataLength);
+        setFavorites(data.favorites);
       }
     }
-    getCocktailList();
-  }, [keyword, session, numItemDisplay, dataLength]);
+    //   }
+    // }
+    // getCocktailList();
+  }, [data, session]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -143,12 +170,19 @@ const Result = () => {
                   scrollButtons
                   allowScrollButtonsMobile
                 >
-                  <Tab label="Search by ingredients" {...a11yProps(0)} />
-                  <Tab label="Search by keywords" {...a11yProps(1)} />
+                  <Tab label="Search by keywords" {...a11yProps(0)} />
+                  <Tab label="Search by ingredients" {...a11yProps(1)} />
                   <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
+                <KeywordForm
+                  enteredSearch={enteredSearch}
+                  changeHandler={changeHandler}
+                  submitHandler={submitHandler}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
                 <FilterForm
                   options={ingredientList}
                   filterKeywords={filterKeywords}
@@ -156,13 +190,6 @@ const Result = () => {
                   onChange={changeFilterHandler}
                   onInputChange={changeInputFilterHandler}
                   onClick={submitFilterHandler}
-                />
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                <KeywordForm
-                  enteredSearch={enteredSearch}
-                  changeHandler={changeHandler}
-                  submitHandler={submitHandler}
                 />
               </TabPanel>
               <TabPanel value={value} index={2}>
@@ -212,16 +239,34 @@ const Result = () => {
             />
           </Box>
         )}
-        <ResultList
-          drink={cocktailList}
-          addFavorite={addFavorite}
-          removeFavorite={removeFavorite}
-          isLoggedIn={session ? true : false}
-          itemDisplay={itemDisplay}
-          seeMoreHandler={seeMoreHandler}
-          session={session}
-          favorites={favorites}
-        />{" "}
+
+        {error && <p>Something went wrong...</p>}
+        {isLoading && !error ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <LocalBarIcon />
+            <Typography>Please wait while we get your drinks</Typography>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <ResultList
+            drink={cocktailList}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
+            isLoggedIn={session ? true : false}
+            itemDisplay={itemDisplay}
+            seeMoreHandler={seeMoreHandler}
+            session={session}
+            favorites={favorites}
+          />
+        )}
+
         {cocktailList.length < dataLength ? (
           <Button
             variant="outlined"

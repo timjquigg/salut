@@ -162,12 +162,19 @@ const Search = () => {
                 scrollButtons
                 allowScrollButtonsMobile
               >
-                <Tab label="Search by ingredients" {...a11yProps(0)} />
-                <Tab label="Search by keywords" {...a11yProps(1)} />
+                <Tab label="Search by keywords" {...a11yProps(0)} />
+                <Tab label="Search by ingredients" {...a11yProps(1)} />
                 <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
+              <KeywordForm
+                enteredSearch={enteredSearch}
+                changeHandler={changeHandler}
+                submitHandler={submitHandler}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
               <FilterForm
                 options={ingredients}
                 filterKeywords={filterKeywords}
@@ -175,13 +182,6 @@ const Search = () => {
                 onChange={changeFilterHandler}
                 onInputChange={changeInputFilterHandler}
                 onClick={submitFilterHandler}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <KeywordForm
-                enteredSearch={enteredSearch}
-                changeHandler={changeHandler}
-                submitHandler={submitHandler}
               />
             </TabPanel>
             <TabPanel value={value} index={2}>

@@ -11,9 +11,9 @@ import { SessionProvider } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import InventoryProvider from "../providers/InventoryProvider";
 import CircularProgress from "@mui/material/CircularProgress";
+import LocalBarIcon from "@mui/icons-material/LocalBar";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
-import LocalBarIcon from "@mui/icons-material/LocalBar";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
