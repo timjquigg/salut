@@ -28,7 +28,7 @@ const TutorialStepper = () => {
       label: "Update your inventory",
       description: `When starting, it is encouraged to go to the inventory page and update the inventory.
       Clicking the user icon, a drop down button menu will appear that contains the pages the user have access to.`,
-      gif: "/gif.gif",
+      gif: "/inventoryGIF.gif",
     },
     {
       label: "Search for cocktails",
@@ -37,21 +37,23 @@ const TutorialStepper = () => {
        The search bar has 3 modes: Search by keyword that
         lets you type any keyword/keywords, search by ingredients which will help you in selecting multiple ingredients, and 
         search non-alcoholic drinks which will only show non-alcoholic drinks`,
-      gif: "/gif.gif",
+      gif: "/searchGIF.gif",
     },
     {
-      label: "Add recipes to your favorites",
+      label: "Add recipes to your favorites and categorize them",
       description: `After getting the results of your search. On the top right part of the images, there is a heart icon that
       you can click to add that cocktail as a favorite. Clicking on the image also takes you to the detail page where you can see all
-      the information for that cocktail.`,
-      gif: "/gif.gif",
-    },
-    {
-      label: "Categorizing your favorites",
-      description: `Selecting a cocktail as favorite will be collected in the favorites page, it can be navigated by clicking
+      the information for that cocktail. Selecting a cocktail as favorite will be collected in the favorites page, it can be navigated by clicking
       the "Favorites" in the user menu. There, you can create and delete a category as well as categorize a cocktail. Clicking
       on the category name will filter the cocktails that belongs to that category.`,
-      gif: "/gif.gif",
+      gif: "/favCatGIF.gif",
+    },
+    {
+      label: "Creating a cocktail recipe",
+      description: `You can also create a cocktail recipe! Just click the "Add a Recipe" menu. A form will show that needs to be filled
+      to create your cocktail. It uses the image URL as its accepted image value. After creating your recipe, you will be redirected
+      to your created cocktail page.`,
+      gif: "/cocktailmakeGIF.gif",
     },
   ];
 
@@ -96,7 +98,7 @@ const TutorialStepper = () => {
                 >
                   <Box
                     sx={{
-                      width: { xs: "100%", sm: "50%" },
+                      width: { xs: "100%", sm: "70%" },
                       height: { xs: "200px", sm: "450px" },
                       position: "relative",
                       overflow: "hidden",
