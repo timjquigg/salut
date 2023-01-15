@@ -21,12 +21,12 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { user, additions, deletions } = req.body;
     if (additions.length > 0) {
-      const inventory = await addToInventory(user, additions[0]);
-      res.status(200).send(inventory);
+      const data = await addToInventory(user, additions);
+      res.status(200).send(data);
       return;
     }
-    const inventory = await deleteFromInventory(user, deletions[0]);
-    res.status(200).send(inventory);
+    const data = await deleteFromInventory(user, deletions);
+    res.status(200).send(data);
     return;
   }
 }

@@ -31,14 +31,14 @@ export default function InventoryProvider(props) {
 
   const updateInventory = (name) => {
     if (inventory.includes(name)) {
-      const payload = { user: userId, additions: [], deletions: name };
+      const payload = { user: userId, additions: "", deletions: name };
       axios.post("api/inventory", payload).then((res) => {
         setInventory(res.data.inventory);
         setRecipes(res.data.recipes);
       });
       return;
     }
-    const payload = { user: userId, additions: [name], deletions: [] };
+    const payload = { user: userId, additions: name, deletions: "" };
     axios.post("api/inventory", payload).then((res) => {
       setInventory(res.data.inventory);
       setRecipes(res.data.recipes);
