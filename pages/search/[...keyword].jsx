@@ -219,7 +219,8 @@ const Result = () => {
           position: "relative",
         }}
       >
-        {cocktailList.length !== 0 ? (
+        {(cocktailList.length !== 0 && !isValidating) ||
+        (cocktailList.length !== 0 && !isLoading) ? (
           <p>{`Displaying ${
             cocktailList.length < dataLength ? cocktailList.length : dataLength
           } out of ${dataLength} Results`}</p>
@@ -256,7 +257,7 @@ const Result = () => {
             favorites={favorites}
           />
         )}
-        {isLoading && !data ? (
+        {isLoading ? (
           <Box
             sx={{
               display: "flex",

@@ -5,6 +5,7 @@ import SearchContainer from "./searchContainer";
 import IconButton from "@mui/material/IconButton";
 
 const KeywordForm = (props) => {
+  console.log(props);
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -33,7 +34,9 @@ const KeywordForm = (props) => {
         variant="contained"
         onClick={() => {
           props.submitHandler();
-          props.setNumItemDisplay(12);
+          if (props.setNumItemDisplay) {
+            props.setNumItemDisplay(12);
+          }
         }}
         sx={{
           width: "200px",
