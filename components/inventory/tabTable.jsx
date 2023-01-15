@@ -2,22 +2,17 @@ import { useState, useContext } from "react";
 import { inventoryContext } from "../../providers/InventoryProvider";
 import {
   Box,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TablePagination,
   TableRow,
-  TableHead,
   Checkbox,
 } from "@mui/material";
 
 export function TabTable(props) {
-  // console.log(props)
   const rows = props.rows;
-  const category = props.category;
-
   const { inventory, updateInventory } = useContext(inventoryContext);
 
   const [page, setPage] = useState(0);
@@ -61,7 +56,7 @@ export function TabTable(props) {
           tabIndex={-1}
           key={ingredient}
           selected={isItemSelected}
-          style={{ maxhHeight: '70vh' }}
+          style={{ maxhHeight: "70vh" }}
         >
           <Checkbox
             color="primary"
@@ -76,14 +71,16 @@ export function TabTable(props) {
     });
 
   return (
-    <Box sx={{ width: {md: "30vw", xs: "60vw"}, pt: {xs: '20px'}, padding: {sm: '30px'}, paddingRight: {lg: '50px', xs: '5px'}}}>
+    <Box
+      sx={{
+        width: { md: "30vw", xs: "60vw" },
+        pt: { xs: "20px" },
+        padding: { sm: "30px" },
+        paddingRight: { lg: "50px", xs: "5px" },
+      }}
+    >
       <TableContainer sx={{ height: "100%" }}>
         <Table>
-          {/* <TableHead sx={{ width: '100%', textAlign: 'center', justifySelf: 'center'}}>
-            
-              {category}
-            
-          </TableHead> */}
           <TableBody>{tableRows}</TableBody>
           {emptyRows > 0 && (
             <TableRow

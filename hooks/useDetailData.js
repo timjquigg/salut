@@ -9,7 +9,6 @@ export function useLoggedInDetailData(data, user, cocktailId, ingredient) {
 
   const getIngredients = (data, str) => {
     const output = [];
-    // const data = props.data;
     let ingKeys = Object.keys(data).filter((key) => key.includes(str));
 
     for (let key of ingKeys) {
@@ -34,25 +33,9 @@ export function useLoggedInDetailData(data, user, cocktailId, ingredient) {
     await axios.delete("/api/favorites", { data: payload });
   };
 
-  const addInventory = async (user, ingredient) => {
-    const payload = { user, additions: [ingredient], deletions: [] };
-    axios.post("/api/inventory", payload).then(() => {
-      updateInventory(ingredient);
-    });
-  };
-
-  const removeInventory = async (user, ingredient) => {
-    const payload = { user, additions: [], deletions: [ingredient] };
-    axios.post("/api/inventory", payload).then(() => {
-      updateInventory(ingredient);
-    });
-  };
-
   return {
     addFavorite,
     removeFavorite,
-    addInventory,
-    removeInventory,
     getIngredients,
   };
 }
@@ -60,7 +43,6 @@ export function useLoggedInDetailData(data, user, cocktailId, ingredient) {
 export function useNotLoggedInDetailData(data, str) {
   const getIngredients = (data, str) => {
     const output = [];
-    // const data = props.data;
     let ingKeys = Object.keys(data).filter((key) => key.includes(str));
 
     for (let key of ingKeys) {

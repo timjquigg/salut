@@ -12,14 +12,20 @@ export default function CategoryDisplay(props) {
           border: "solid 1px #c75d0e",
           color: "#c75d0e",
           backgroundColor: "transparent",
-          mb: "3px"
+          mb: "3px",
         }}
       />
     );
   });
 
   return (
-    <Box sx={{ width: {md: "30vw", xs: "80vw"}, display: "flex", marginBottom: "5px" }}>
+    <Box
+      sx={{
+        width: { md: "30vw", xs: "80vw" },
+        display: "flex",
+        marginBottom: "5px",
+      }}
+    >
       <Stack direction="row" spacing={1} flexWrap="wrap">
         {categoryChips}
       </Stack>

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { Paper, Typography } from "@mui/material";
 import theme from "../src/theme";
 import Button from "@mui/material/Button";
-import { NextLinkComposed } from "../src/Link";
+import { NextLinkComposed } from "../src/link";
 
 const styles = {
   signupButton: {
@@ -22,7 +22,7 @@ export default function Home() {
     <Box sx={{ display: "flex", height: "100vh" }}>
       <Box
         sx={{
-          width: {lg: '50%'},
+          width: { lg: "50%" },
           backgroundImage: 'url("../landing2.jpeg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -32,22 +32,25 @@ export default function Home() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: {lg: 'end', xs: 'center'},
-          textAlign: {lg: 'right', xs: 'center'},
-          width: {lg: '50%', xs: '100%'},
-          paddingRight: {lg: '5vw'},
-          backgroundImage: {xs: 'linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url("../landing2.jpeg")', lg: 'none'},
+          alignItems: { lg: "end", xs: "center" },
+          textAlign: { lg: "right", xs: "center" },
+          width: { lg: "50%", xs: "100%" },
+          paddingRight: { lg: "5vw" },
+          backgroundImage: {
+            xs: 'linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url("../landing2.jpeg")',
+            lg: "none",
+          },
           backgroundSize: "cover",
-          backgroundPosition: {sm: 'center'},
+          backgroundPosition: { sm: "center" },
         }}
       >
-        <Box sx={{ paddingTop: {sm: '150px', xs: '120px'} }}>
+        <Box sx={{ paddingTop: { sm: "150px", xs: "120px" } }}>
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 50},
+              fontSize: { xl: 95, lg: 90, md: 85, sm: 80, xs: 50 },
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: {md: '100px', xs: '70px'},
+              lineHeight: { md: "100px", xs: "70px" },
             }}
           >
             Interactive
@@ -55,9 +58,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 50},
+              fontSize: { xl: 95, lg: 90, md: 85, sm: 80, xs: 50 },
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: {md: '100px', xs: '70px'},
+              lineHeight: { md: "100px", xs: "70px" },
             }}
           >
             Cocktail
@@ -65,9 +68,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 95, lg: 90, md: 85, sm: 80, xs: 50},
+              fontSize: { xl: 95, lg: 90, md: 85, sm: 80, xs: 50 },
               fontFamily: theme.typography.fontFamily[0],
-              lineHeight: {md: '100px', xs: '70px'},
+              lineHeight: { md: "100px", xs: "70px" },
             }}
           >
             Cabinet
@@ -77,9 +80,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 28, lg: 25, xs: 18},
+              fontSize: { xl: 28, lg: 25, xs: 18 },
               fontFamily: theme.typography.fontFamily[1],
-              marginTop: {xs: '300px', sm: 0}
+              marginTop: { xs: "300px", sm: 0 },
             }}
           >
             You don&apos;t know what to drink tonight?
@@ -87,9 +90,9 @@ export default function Home() {
           <Typography
             sx={{
               color: "#022140",
-              fontSize: {xl: 28, lg: 25, xs: 18},
+              fontSize: { xl: 28, lg: 25, xs: 18 },
               fontFamily: theme.typography.fontFamily[1],
-              marginBottom: {sm: 7, xs: 3},
+              marginBottom: { sm: 7, xs: 3 },
             }}
           >
             We&apos;ve got your back.

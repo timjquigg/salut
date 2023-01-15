@@ -1,28 +1,45 @@
-import * as React from "react";
-import { useState } from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { getFavorites, getUserId } from "../../lib/favorite";
-import { Box, Button } from "@mui/material";
+import Image from "next/image";
 import {
-  getAllCategoriesByUser,
-  getCategoryContentsByUser,
-} from "../../lib/category";
-import Typography from "@mui/material/Typography";
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import { useSession } from "next-auth/react";
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
-import Image from "next/image";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import ExpandCircleDownTwoToneIcon from "@mui/icons-material/ExpandCircleDownTwoTone";
+import axios from "axios";
 
-const Favorites = (props) => {
-  const [recipes, setRecipes] = useState(props.recipes);
-  const [categories, setCategories] = useState(props.categories);
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+
+const Favorites = () => {
+  const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryContents, setCategoryContents] = useState([]);
+  const [userId, setUserId] = useState("");
+  const { data: session, status } = useSession();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    async function getCocktailList() {
+      const response = await axios.get(
+        `/api/category?userId=${session.user.id}`
+      );
+      const { categoryContents, categories, recipes, userId } = response.data;
+      setRecipes(recipes);
+      setCategories(categories);
+      setCategoryContents(categoryContents);
+      setUserId(userId);
+    }
+    getCocktailList();
+  }, [session]);
 
   const categoryList = (categories) => {
     setCategories(categories);
@@ -32,13 +49,14 @@ const Favorites = (props) => {
     setRecipes(cocktails);
   };
 
-  const imagePath = (id) => {
-    if (id.includes("/public")) {
-      const newId = id.replace("/public", "");
-      return newId;
-    }
-    return id;
-  };
+  // const imagePath = (id) => {
+  //   if (id.includes("/public")) {
+  //     const newId = id.replace("/public", "");
+  //     return newId;
+  //   }
+  //   return id;
+  // };
+
   const results = recipes.map((item) => (
     <ImageListItem
       key={item.idDrink}
@@ -63,7 +81,7 @@ const Favorites = (props) => {
         categories={categories}
         favId={item.favId}
         userId={item.userId}
-        categoryContents={props.categoryContents}
+        categoryContents={categoryContents}
       />
       <ImageListItemBar
         title={item.strDrink}
@@ -97,7 +115,7 @@ const Favorites = (props) => {
         categories={categories}
         setCategories={categoryList}
         filterCocktail={filterCocktail}
-        userId={props.userId}
+        userId={userId}
       />
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <ImageList sx={{ width: "100%", height: "80%" }} cols={matches ? 1 : 3}>
@@ -116,26 +134,5 @@ const Favorites = (props) => {
   );
 };
 Favorites.auth = true;
-
-export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  if (sessionToken) {
-    const categoryContents = await getCategoryContentsByUser(sessionToken);
-    const userId = await getUserId(sessionToken);
-    const categoriesByUser = await getAllCategoriesByUser(sessionToken);
-    const recipes = await getFavorites(sessionToken);
-    const categories = categoriesByUser.map((el) => el.name);
-
-    return {
-      props: {
-        recipes,
-        userId,
-        categories,
-        categoryContents,
-      },
-    };
-  }
-  return { props: {} };
-}
 
 export default Favorites;

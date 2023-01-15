@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NextLinkComposed } from "../../src/Link";
+import { NextLinkComposed } from "../../src/link";
 import { signOut } from "next-auth/react";
 
 import {
@@ -25,7 +25,7 @@ import {
   ListItemText,
 } from "@mui/material";
 
-function StyledAvatar(props) {
+export default function FancyAvatar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -154,5 +154,3 @@ function StyledAvatar(props) {
     </>
   );
 }
-
-export default StyledAvatar;

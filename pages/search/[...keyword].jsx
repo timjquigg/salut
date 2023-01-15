@@ -1,22 +1,19 @@
-import {
-  getCocktail,
-  getAllIngredients,
-  getFilterCocktailsStrict,
-  getNonAlcoholicDrinks,
-} from "../../lib/search";
 import * as React from "react";
-import { useState } from "react";
-import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 import useSearch from "../../hooks/useSearch";
 import KeywordForm from "../../components/search/keywordForm";
 import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
 import ResultList from "../../components/search/resultList";
 import { useSession } from "next-auth/react";
-import { getFavoriteByUser } from "../../lib/favorite";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { Box, Button, Typography } from "@mui/material";
+import Image from "next/image";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,9 +48,46 @@ function a11yProps(index) {
   };
 }
 
-const Result = (props) => {
-  const { data: session, status } = useSession();
+const Result = () => {
+  const router = useRouter();
   const [value, setValue] = useState(0);
+  const [cocktailList, setCocktailList] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [numItemDisplay, setNumItemDisplay] = useState(12);
+  const [dataLength, setDataLength] = useState(0);
+  const { data: session, status } = useSession();
+  const keyword = router.query.keyword;
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const errorSize = matches ? 350 : 500;
+  // console.log("DATA:", dataLength);
+  useEffect(() => {
+    async function getCocktailList() {
+      if (session) {
+        const response = await fetch(
+          `/api/search?userId=${session.user.id}&keywords=${keyword}&count=${numItemDisplay}`
+        );
+        const data = await response.json();
+        // console.log("Data HAHA:", data);
+        const { drink, ingredients, favorites, dataLength } = data;
+        setCocktailList(drink);
+        setIngredientList(ingredients);
+        setDataLength(dataLength);
+        setFavorites(favorites);
+      } else {
+        const response = await fetch(`/api/search?keywords=${keyword}`);
+        const data = await response.json();
+        // console.log("Data HAHA:", data);
+        const { drink, ingredients } = data;
+        setCocktailList(drink);
+        setIngredientList(ingredients);
+        setDataLength(dataLength);
+      }
+    }
+    getCocktailList();
+  }, [keyword, session, numItemDisplay, dataLength]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -116,7 +150,7 @@ const Result = (props) => {
               </Box>
               <TabPanel value={value} index={0}>
                 <FilterForm
-                  options={props.ingredients}
+                  options={ingredientList}
                   filterKeywords={filterKeywords}
                   inputFilterKeywords={inputFilterKeywords}
                   onChange={changeFilterHandler}
@@ -155,53 +189,65 @@ const Result = (props) => {
           position: "relative",
         }}
       >
+        {cocktailList.length !== 0 ? (
+          <p>{`Displaying ${
+            cocktailList.length < dataLength ? cocktailList.length : dataLength
+          } out of ${dataLength} Results`}</p>
+        ) : (
+          <Box sx={{}}>
+            <Typography
+              sx={{
+                fontSize: { sm: "30px", xs: "20px" },
+                textAlign: "center",
+                mb: -10,
+              }}
+            >
+              No Drinks Found
+            </Typography>
+            <Image
+              src={"/noDrinksFound.svg"}
+              alt="No Drinks"
+              width={errorSize}
+              height={errorSize}
+            />
+          </Box>
+        )}
         <ResultList
-          drink={props.drink}
+          drink={cocktailList}
           addFavorite={addFavorite}
           removeFavorite={removeFavorite}
           isLoggedIn={session ? true : false}
           itemDisplay={itemDisplay}
           seeMoreHandler={seeMoreHandler}
           session={session}
-          favorites={props.favorites}
-        />
+          favorites={favorites}
+        />{" "}
+        {cocktailList.length < dataLength ? (
+          <Button
+            variant="outlined"
+            size="medium"
+            onClick={() => {
+              setNumItemDisplay((prev) => prev + 12);
+            }}
+          >
+            See More
+          </Button>
+        ) : (
+          ""
+        )}
+        {cocktailList.length !== 0 && (
+          <Button
+            variant="outlined"
+            size="medium"
+            sx={{ m: 2 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Back to top
+          </Button>
+        )}
       </Box>
     </>
   );
 };
 
-export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  const keyword = context.query.keyword;
-  // console.log("KW", keyword.includes("Non-Alcoholic"));
-  let data;
-  if (keyword.length > 1 && !keyword.includes("Non-Alcoholic")) {
-    const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
-    data = await getFilterCocktailsStrict(filterKeywords);
-  } else if (keyword.includes("Non-Alcoholic") && keyword.length === 2) {
-    const filterKeywords = context.query.keyword.map((el) => el.toLowerCase());
-    data = await getNonAlcoholicDrinks(filterKeywords[1] || []);
-  } else {
-    data = await getCocktail(keyword[0]);
-  }
-  const ingredientData = await getAllIngredients();
-
-  if (sessionToken) {
-    const userFavorites = await getFavoriteByUser(sessionToken);
-    return {
-      props: {
-        drink: data,
-        ingredients: ingredientData,
-        favorites: userFavorites,
-      },
-    };
-  }
-
-  return {
-    props: {
-      drink: data,
-      ingredients: ingredientData,
-    },
-  };
-}
 export default Result;

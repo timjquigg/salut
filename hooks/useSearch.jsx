@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 const useSearch = () => {
@@ -9,7 +10,7 @@ const useSearch = () => {
   const [filterKeywords, setFilterKeywords] = useState([]);
   const [inputFilterKeywords, setInputFilterKeywords] = useState();
   const [itemDisplay, setItemDisplay] = useState(12);
-  // console.log(enteredSearch);
+
   const pathFormatter = (filtersArr) => {
     let url = "/search";
     filtersArr.forEach((filter) => {

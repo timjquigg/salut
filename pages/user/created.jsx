@@ -1,30 +1,30 @@
+// import { getUserId } from "../../lib/user";
+// import { getUserCreatedCocktails } from "../../lib/cocktail";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Box, Typography, Button } from "@mui/material";
 import Image from "next/image";
-import { getUserId } from "../../lib/user";
-import { getUserCreatedCocktails } from "../../lib/cocktail";
-import theme from "../../src/theme";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { NextLinkComposed } from "../../src/Link";
+import { NextLinkComposed } from "../../src/link";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
+import { useSession } from "next-auth/react";
 
-const UserCocktails = (props) => {
-  const [cocktails, setCocktails] = useState(props.cocktails);
+const UserCocktails = () => {
+  const [cocktails, setCocktails] = useState([]);
   const [open, toggleOpen] = useState(false);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const { data: session, status } = useSession();
 
   const imagePath = (id) => {
     if (id.includes("/public")) {
@@ -33,6 +33,18 @@ const UserCocktails = (props) => {
     }
     return id;
   };
+
+  useEffect(() => {
+    async function getCreatedCocktails() {
+      if (session) {
+        const response = await fetch(`/api/cocktail?userId=${session.user.id}`);
+        const data = await response.json();
+        setCocktails(data.cocktails);
+        // console.log("Data HAHAHAHA:", data.cocktails);
+      }
+    }
+    getCreatedCocktails();
+  }, [session]);
 
   const deleteCocktail = async (cocktailId) => {
     const response = await fetch("/api/createCocktail", {
@@ -103,7 +115,7 @@ const UserCocktails = (props) => {
       </Dialog>
     </ImageListItem>
   ));
-  console.log("results:", results);
+  // console.log("results:", results);
   return (
     <Box
       sx={{
@@ -201,16 +213,16 @@ const UserCocktails = (props) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const sessionToken = context.req.cookies["next-auth.session-token"];
-  const userId = await getUserId(sessionToken);
-  const cocktails = await getUserCreatedCocktails(userId.userId);
-  // console.log("user:", userId.cocktails);
-  return {
-    props: {
-      cocktails: cocktails,
-    },
-  };
-}
+// export async function getServerSideProps(context) {
+//   const sessionToken = context.req.cookies["next-auth.session-token"];
+//   const userId = await getUserId(sessionToken);
+//   const cocktails = await getUserCreatedCocktails(userId.userId);
+//   // console.log("user:", userId.cocktails);
+//   return {
+//     props: {
+//       cocktails: cocktails,
+//     },
+//   };
+// }
 
 export default UserCocktails;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -11,7 +12,6 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ResultList = (props) => {
-  // console.log(props);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   let itemListWidth = matches
@@ -30,7 +30,7 @@ const ResultList = (props) => {
     return id;
   };
 
-  let results = props.drink.slice(0, props.itemDisplay).map((item) => (
+  let results = props.drink.map((item) => (
     <ImageListItem
       key={item.idDrink}
       sx={{
@@ -76,31 +76,6 @@ const ResultList = (props) => {
 
   return (
     <>
-      {props.drink.length !== 0 ? (
-        <p>{`Displaying ${
-          props.itemDisplay < props.drink.length
-            ? props.itemDisplay
-            : props.drink.length
-        } out of ${props.drink.length} Results`}</p>
-      ) : (
-        <Box sx={{}}>
-          <Typography
-            sx={{
-              fontSize: { sm: "30px", xs: "20px" },
-              textAlign: "center",
-              mb: -10,
-            }}
-          >
-            No Drinks Found
-          </Typography>
-          <Image
-            src={"/../public/noDrinksFound.svg"}
-            alt="No Drinks"
-            width={errorSize}
-            height={errorSize}
-          />
-        </Box>
-      )}
       <ImageList
         sx={{ width: { itemListWidth }, height: "70%" }}
         cols={matches ? 1 : 3}
@@ -108,23 +83,6 @@ const ResultList = (props) => {
       >
         {results}
       </ImageList>
-      {props.drink.length > props.itemDisplay ? (
-        <Button variant="outlined" size="medium" onClick={props.seeMoreHandler}>
-          See More
-        </Button>
-      ) : (
-        ""
-      )}
-      {props.drink.length !== 0 && (
-        <Button
-          variant="outlined"
-          size="medium"
-          sx={{ m: 2 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          Back to top
-        </Button>
-      )}
     </>
   );
 };

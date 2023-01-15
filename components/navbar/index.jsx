@@ -1,8 +1,7 @@
 import * as React from "react";
-import theme from "../../src/theme";
-import { NextLinkComposed } from "../../src/Link";
+import { NextLinkComposed } from "../../src/link";
 import { NavButton } from "./navButton";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Box, AppBar, Toolbar, Button, ButtonGroup } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,9 +13,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import StyledAvatar from "./StyledAvatar";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import FancyAvatar from "./fancyAvatar";
 
 const drawerWidth = 240;
 
@@ -40,12 +39,7 @@ function Navbar(props) {
       }}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
-        <Image
-          src="/../public/salut_logo.png"
-          alt="logo"
-          height={60}
-          width={160}
-        />
+        <Image src="/salut_logo.png" alt="logo" height={60} width={160} />
       </Typography>
       <Divider />
       <List>
@@ -221,12 +215,7 @@ function Navbar(props) {
                 pathname: "/",
               }}
             >
-              <Image
-                src="/../public/salut_logo.png"
-                alt="logo"
-                height={50}
-                width={150}
-              />
+              <Image src="/salut_logo.png" alt="logo" height={50} width={150} />
             </Button>
           </Box>
           <IconButton
@@ -250,7 +239,7 @@ function Navbar(props) {
             </NavButton>
             {status === "authenticated" && (
               <>
-                <StyledAvatar
+                <FancyAvatar
                   component={NextLinkComposed}
                   path="/user"
                   name={session.user.name}
