@@ -15,13 +15,13 @@ const Cocktails = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const imagePath = (id) => {
-    if (id.includes("/public")) {
-      const newId = id.replace("/public", "");
-      return newId;
-    }
-    return id;
-  };
+  // const imagePath = (id) => {
+  //   if (id.includes("/public")) {
+  //     const newId = id.replace("/public", "");
+  //     return newId;
+  //   }
+  //   return id;
+  // };
   const results = recipes.map((item) => (
     <ImageListItem
       key={item.idDrink}

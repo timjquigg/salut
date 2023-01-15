@@ -1,10 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { useLoggedInDetailData } from "../../hooks/useDetailData";
 import CheckBox from "./checkbox";
+import { useContext } from "react";
+import { inventoryContext } from "../../providers/InventoryProvider";
 
 export function IngredientsWithInventory(props) {
   const { ingredients, measurement, userId } = props;
-  const { addInventory, removeInventory } = useLoggedInDetailData();
+  const { updateInventory } = useContext(inventoryContext);
 
   const lines = (ingredients, measurement, userId) => {
     const result = [];
@@ -61,12 +63,8 @@ export function IngredientsWithInventory(props) {
             )}
             <CheckBox
               ingredient={ingredients[i]}
-              addInventory={() =>
-                addInventory(eachLine.userId, eachLine.ingredient)
-              }
-              removeInventory={() =>
-                removeInventory(eachLine.userId, eachLine.ingredient)
-              }
+              addInventory={() => updateInventory(eachLine.ingredient)}
+              removeInventory={() => updateInventory(eachLine.ingredient)}
             />
           </Box>
         </Box>
