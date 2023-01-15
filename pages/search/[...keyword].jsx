@@ -248,12 +248,10 @@ const Result = () => {
               justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
-              width: "100vw",
-              height: "100vh",
             }}
           >
             <LocalBarIcon />
-            <Typography>Loading...</Typography>
+            <Typography>Please wait while we get your drinks</Typography>
             <CircularProgress />
           </Box>
         ) : (
