@@ -13,13 +13,13 @@ import Directions from "./directions";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function LoggedinDetail(props) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const { data: session, status } = useSession();
   const router = useRouter();
-  const inventory = props.inventory;
   const {
     strDrink: cocktailName,
     strDrinkThumb: thumb,
@@ -36,8 +36,6 @@ function LoggedinDetail(props) {
 
   const { getIngredients } = useLoggedInDetailData({ data: props.data });
 
-  const invUppercase = [];
-  inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
   const ingredients = getIngredients(props.data, "strIngredient");
   const measurement = getIngredients(props.data, "strMeasure");
 
@@ -56,15 +54,17 @@ function LoggedinDetail(props) {
         </Box>
         <CategoryDisplay categories={props.categories} />
         {smallThumbnail}
-        <Typography sx={{ mt: { xs: 1, md: 0 } }}>
+        <Typography
+          sx={{ mt: { xs: 1, md: 0 }, display: "flex", alignItems: "center" }}
+        >
           {newLikes}
           {newLikes === 1 ? " like" : " likes"}
+          <FavoriteIcon sx={{ fontSize: "medium", color: "red" }} />
         </Typography>
 
         <IngredientsWithInventory
           ingredients={ingredients}
           measurement={measurement}
-          inventory={inventory}
           userId={session.user.id}
         ></IngredientsWithInventory>
         <Directions instructions={instructions} />

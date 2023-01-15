@@ -1,24 +1,38 @@
-// import * as React from "react";
-import { useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
 import { getCocktailDetails } from "../../../lib/details";
-import { getFavoriteId } from "../../../lib/favorite";
-import { getInventory } from "../../../lib/inventory";
-import { getCategoriesByFavId } from "../../../lib/category";
 import LocationProvider from "../../../providers/locationProvider";
 import LoggedinDetail from "../../../components/detail/loggedinDetail";
 import PageContainer from "../../../components/detail/pageContainer";
-import { inventoryContext } from "../../../providers/InventoryProvider";
+import axios from "axios";
+
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 function Details(props) {
+  const { data: session, status } = useSession();
+
+  const [favoriteId, setFavoriteId] = useState();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const params = new URLSearchParams({
+      userId: session.user.id,
+      cocktailId: props.data.idDrink,
+    });
+    axios.get(`/api/favorites?${params}`).then((res) => {
+      setFavoriteId(res.data.favoriteId);
+      setCategories(res.data.categories);
+    });
+  }, [props.data.idDrink, session.user.id]);
+
   return (
     <LocationProvider>
       <PageContainer>
         <LoggedinDetail
           data={props.data}
-          favoriteId={props.favoriteId}
-          inventory={props.inventory}
-          categories={props.categories}
+          favoriteId={favoriteId}
+          categories={categories}
         />
       </PageContainer>
     </LocationProvider>
@@ -39,30 +53,13 @@ export async function getServerSideProps(context) {
       },
     };
   }
+
   const sessionToken = context.req.cookies["next-auth.session-token"];
   const data = await getCocktailDetails(cocktailId);
 
-  if (sessionToken) {
-    const favoriteId = await getFavoriteId(sessionToken, cocktailId);
-    const inventory = await getInventory(sessionToken);
-    let categories = [];
-    if (favoriteId) {
-      categories = await getCategoriesByFavId(favoriteId.id);
-    }
-
-    return {
-      props: {
-        data,
-        favoriteId,
-        inventory,
-        categories,
-      },
-    };
-  } else {
-    return {
-      props: {
-        data,
-      },
-    };
-  }
+  return {
+    props: {
+      data,
+    },
+  };
 }

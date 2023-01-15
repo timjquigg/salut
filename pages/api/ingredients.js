@@ -1,6 +1,3 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
-
 import { getAllIngredients } from "../../lib/search";
 import { getPopularCocktails } from "../../lib/carousel";
 

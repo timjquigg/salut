@@ -1,10 +1,9 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from "../../../lib/prismadb";
+import { getFavoriteIdClient } from "../../../lib/favorite";
+import { getCategoriesByFavId } from "../../../lib/category";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    console.log("POST");
-    console.log("req.body", req.body);
     const favorite = await prisma.favorite.create({
       data: {
         userId: req.body.userId,
@@ -16,17 +15,12 @@ async function handler(req, res) {
   }
 
   if (req.method === "DELETE") {
-    console.log("delete");
-    console.log("req.body", req.body);
-    console.log(req.body.userId, req.body.cocktailId);
-
     const findFavoriteId = await prisma.favorite.findFirst({
       where: {
         userId: req.body.userId,
         cocktailId: req.body.cocktailId,
       },
     });
-    console.log(findFavoriteId);
 
     const deleteFavorite = await prisma.favorite.delete({
       where: {
@@ -34,6 +28,18 @@ async function handler(req, res) {
       },
     });
     res.status(201).json({ message: "favorite removed!" });
+    return;
+  }
+
+  if (req.method === "GET") {
+    const { cocktailId, userId } = req.query;
+
+    const favoriteId = await getFavoriteIdClient(userId, cocktailId);
+    let categories = [];
+    if (favoriteId) {
+      categories = await getCategoriesByFavId(favoriteId.id);
+    }
+    res.status(201).send({ favoriteId, categories });
     return;
   }
 }

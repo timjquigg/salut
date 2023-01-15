@@ -1,13 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { useLoggedInDetailData } from "../../hooks/useDetailData";
 import CheckBox from "./checkbox";
+import { useContext } from "react";
+import { inventoryContext } from "../../providers/InventoryProvider";
 
 export function IngredientsWithInventory(props) {
-  const { ingredients, measurement, inventory, userId } = props;
-  const { addInventory, removeInventory } = useLoggedInDetailData();
-
-  const invUppercase = [];
-  inventory.map((inv) => invUppercase.push(inv.toUpperCase()));
+  const { ingredients, measurement, userId } = props;
+  const { updateInventory } = useContext(inventoryContext);
 
   const lines = (ingredients, measurement, userId) => {
     const result = [];
@@ -18,7 +17,7 @@ export function IngredientsWithInventory(props) {
         userId: userId,
       });
     }
-    // console.log(result)
+
     return result.map((eachLine, i) => {
       return (
         <Box
@@ -63,15 +62,9 @@ export function IngredientsWithInventory(props) {
               </Typography>
             )}
             <CheckBox
-              isInventory={invUppercase.includes(
-                eachLine.ingredient.toUpperCase()
-              )}
-              addInventory={() =>
-                addInventory(eachLine.userId, eachLine.ingredient)
-              }
-              removeInventory={() =>
-                removeInventory(eachLine.userId, eachLine.ingredient)
-              }
+              ingredient={ingredients[i]}
+              addInventory={() => updateInventory(eachLine.ingredient)}
+              removeInventory={() => updateInventory(eachLine.ingredient)}
             />
           </Box>
         </Box>
@@ -80,7 +73,6 @@ export function IngredientsWithInventory(props) {
   };
 
   const list = lines(ingredients, measurement, userId);
-  console.log("list:", list);
 
   return (
     <Box sx={{ marginTop: "2rem", display: "flex", gap: { md: 5, xs: 0 } }}>

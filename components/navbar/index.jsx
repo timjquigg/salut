@@ -65,7 +65,7 @@ function Navbar(props) {
             <ListItemText primary={"ABOUT"} />
           </ListItemButton>
         </ListItem>
-        <ListItem key={"instructions"} disablePadding>
+        {/* <ListItem key={"instructions"} disablePadding>
           <ListItemButton
             sx={{ textAlign: "center" }}
             component={NextLinkComposed}
@@ -75,10 +75,21 @@ function Navbar(props) {
           >
             <ListItemText primary={"INSTRUCTIONS"} />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         {status === "authenticated" && (
           <>
             <Divider />
+            <ListItem key={"instructions"} disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/user/instructions",
+                }}
+              >
+                <ListItemText primary={"GET STARTED"} />
+              </ListItemButton>
+            </ListItem>
             <ListItem key={"Dashboard"} disablePadding>
               <ListItemButton
                 sx={{ textAlign: "center" }}
@@ -123,6 +134,17 @@ function Navbar(props) {
                 <ListItemText primary={"CREATE A RECIPE"} />
               </ListItemButton>
             </ListItem>
+            <ListItem key={"Custom"} disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/user/created",
+                }}
+              >
+                <ListItemText primary={"CUSTOM RECIPES"} />
+              </ListItemButton>
+            </ListItem>
             <Divider />
             <ListItem key={"signout"} disablePadding>
               <ListItemButton
@@ -147,7 +169,7 @@ function Navbar(props) {
                 <ListItemText primary={"SIGN IN"} />
               </ListItemButton>
             </ListItem>
-            <ListItem key={"signup"} disablePadding>
+            {/* <ListItem key={"signup"} disablePadding>
               <ListItemButton
                 sx={{ textAlign: "center" }}
                 component={NextLinkComposed}
@@ -157,7 +179,7 @@ function Navbar(props) {
               >
                 <ListItemText primary={"SIGN UP"} />
               </ListItemButton>
-            </ListItem>
+            </ListItem> */}
           </>
         )}
       </List>
@@ -215,9 +237,6 @@ function Navbar(props) {
             <NavButton component={NextLinkComposed} path="/about">
               ABOUT
             </NavButton>
-            <NavButton component={NextLinkComposed} path="/user/instructions">
-              INSTRUCTIONS
-            </NavButton>
             {status === "authenticated" && (
               <>
                 <FancyAvatar
@@ -232,9 +251,6 @@ function Navbar(props) {
               <>
                 <NavButton component={NextLinkComposed} path="/auth/signin">
                   Sign In
-                </NavButton>
-                <NavButton component={NextLinkComposed} path="/auth/signup">
-                  Sign Up
                 </NavButton>
               </>
             )}

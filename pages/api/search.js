@@ -1,5 +1,3 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
 import {
   getCocktail,
   getAllIngredients,
@@ -11,7 +9,6 @@ import { getFavoriteByUserId } from "../../lib/favorite";
 async function Handler(req, res) {
   if (req.method === "GET") {
     const { userId, keywords, count } = req.query;
-    // console.log(req.query);
     const keywordArray = keywords.split(",");
     let data;
     if (keywordArray.length > 1 && !keywordArray.includes("Non-Alcoholic")) {
@@ -30,7 +27,6 @@ async function Handler(req, res) {
     const displayedData = data.slice(0, count);
 
     const ingredientData = await getAllIngredients();
-    // console.log(ingredientData);
 
     if (userId) {
       const userFavorites = await getFavoriteByUserId(userId);
@@ -40,11 +36,14 @@ async function Handler(req, res) {
         favorites: userFavorites,
         dataLength,
       });
+      return;
     }
 
-    res
-      .status(200)
-      .json({ drink: data, ingredients: ingredientData, dataLength });
+    res.status(200).json({
+      drink: data,
+      ingredients: ingredientData,
+      dataLength,
+    });
   }
 }
 

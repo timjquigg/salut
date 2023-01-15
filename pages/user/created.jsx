@@ -115,7 +115,7 @@ const UserCocktails = () => {
       </Dialog>
     </ImageListItem>
   ));
-  console.log("results:", results);
+  // console.log("results:", results);
   return (
     <Box
       sx={{
@@ -201,10 +201,10 @@ const UserCocktails = () => {
               sx={{ m: 2 }}
               component={NextLinkComposed}
               to={{
-                pathname: "/user/inventory",
+                pathname: "/cocktail/create",
               }}
             >
-              Go to inventory
+              Create recipe
             </Button>
           </Box>
         )}

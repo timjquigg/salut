@@ -9,6 +9,8 @@ import {
   Dashboard,
   Home,
   NoteAdd,
+  Description,
+  LocalBar
 } from "@mui/icons-material";
 
 import {
@@ -68,6 +70,19 @@ export default function FancyAvatar(props) {
             </ListItemIcon>
             <ListItemText>Home</ListItemText>
           </MenuItem>
+
+          <MenuItem
+            component={NextLinkComposed}
+            to={{
+              pathname: "/user/instructions",
+            }}
+          >
+            <ListItemIcon>
+              <Description fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Get Started</ListItemText>
+          </MenuItem>
+
           <MenuItem
             component={NextLinkComposed}
             to={{
@@ -114,6 +129,19 @@ export default function FancyAvatar(props) {
             </ListItemIcon>
             <ListItemText>Add a Recipe</ListItemText>
           </MenuItem>
+
+          <MenuItem
+            component={NextLinkComposed}
+            to={{
+              pathname: "/user/created",
+            }}
+          >
+            <ListItemIcon>
+              <LocalBar fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Custom Recipes</ListItemText>
+          </MenuItem>
+
           <Divider />
           <MenuItem onClick={() => signOut({ callbackUrl: "/" })}>
             <ListItemIcon>

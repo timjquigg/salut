@@ -29,7 +29,7 @@ export default function PageContainer(props) {
           paddingRight: "5vw",
           paddingTop: {md: "10vh", xs: "3vh"},
           paddingBottom: "5vh",
-          border: "4px double #C8963E",
+          // border: "4px double #C8963E",
         }}
       >
         {props.children}
