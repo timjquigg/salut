@@ -9,6 +9,7 @@ import { getFavoriteByUserId } from "../../lib/favorite";
 async function Handler(req, res) {
   if (req.method === "GET") {
     const { userId, keywords, count } = req.query;
+    console.log("QUERY:", req.query);
     const keywordArray = keywords.split(",");
     let data;
     if (keywordArray.length > 1 && !keywordArray.includes("Non-Alcoholic")) {
@@ -40,7 +41,7 @@ async function Handler(req, res) {
     }
 
     res.status(200).json({
-      drink: data,
+      drink: displayedData,
       ingredients: ingredientData,
       dataLength,
     });
