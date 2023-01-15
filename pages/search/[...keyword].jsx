@@ -180,6 +180,7 @@ const Result = () => {
                   enteredSearch={enteredSearch}
                   changeHandler={changeHandler}
                   submitHandler={submitHandler}
+                  setNumItemDisplay={setNumItemDisplay}
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
@@ -190,6 +191,7 @@ const Result = () => {
                   onChange={changeFilterHandler}
                   onInputChange={changeInputFilterHandler}
                   onClick={submitFilterHandler}
+                  setNumItemDisplay={setNumItemDisplay}
                 />
               </TabPanel>
               <TabPanel value={value} index={2}>
@@ -198,6 +200,7 @@ const Result = () => {
                   changeHandler={changeHandler}
                   submitHandler={submitNonAlcoholicHandler}
                   nonAlcoholic={true}
+                  setNumItemDisplay={setNumItemDisplay}
                 />
               </TabPanel>
             </Box>
@@ -241,7 +244,19 @@ const Result = () => {
         )}
 
         {error && <p>Something went wrong...</p>}
-        {isLoading && !error ? (
+        {!error && (
+          <ResultList
+            drink={cocktailList}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
+            isLoggedIn={session ? true : false}
+            itemDisplay={itemDisplay}
+            seeMoreHandler={seeMoreHandler}
+            session={session}
+            favorites={favorites}
+          />
+        )}
+        {isLoading && !data ? (
           <Box
             sx={{
               display: "flex",
@@ -255,18 +270,8 @@ const Result = () => {
             <CircularProgress />
           </Box>
         ) : (
-          <ResultList
-            drink={cocktailList}
-            addFavorite={addFavorite}
-            removeFavorite={removeFavorite}
-            isLoggedIn={session ? true : false}
-            itemDisplay={itemDisplay}
-            seeMoreHandler={seeMoreHandler}
-            session={session}
-            favorites={favorites}
-          />
+          ""
         )}
-
         {cocktailList.length < dataLength ? (
           <Button
             variant="outlined"
