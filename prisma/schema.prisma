@@ -4,7 +4,7 @@
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
 }
 
 generator client {
@@ -96,7 +96,7 @@ model Inventory {
   User           User       @relation(fields: [userId], references: [id])
   userId         String
   ingredient     Ingredient @relation(fields: [nameIngredient], references: [strIngredient])
-  nameIngredient String     
+  nameIngredient String
 
   @@unique([userId, nameIngredient])
 }
