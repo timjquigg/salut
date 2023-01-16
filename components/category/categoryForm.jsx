@@ -9,9 +9,9 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import CategoryDeleteButton from "./categoryDeleteButton";
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const filter = createFilterOptions();
 
@@ -22,9 +22,10 @@ function CategoryForm(props) {
   const [dialogValue, setDialogValue] = useState("");
   // console.log(props.categories);
   const [snackOpen, setSnackOpen] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSnackClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setSnackOpen(false);
@@ -42,7 +43,6 @@ function CategoryForm(props) {
       </IconButton>
     </>
   );
-  
 
   const addCategory = async (category, userId) => {
     const response = await fetch("/api/category", {
@@ -65,10 +65,12 @@ function CategoryForm(props) {
     const newCategories = [...props.categories];
     if (newCategories.includes(dialogValue)) {
       // console.log("Returning, not updating state");
+      setError(true);
       return;
     }
     newCategories.push(dialogValue);
     props.setCategories(newCategories);
+    setSnackOpen(true);
     // console.log("Submitting to update category state");
 
     handleClose();
@@ -134,22 +136,39 @@ function CategoryForm(props) {
             <DialogContentText>
               Type your category and press submit to add it to your list!
             </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              value={dialogValue}
-              onChange={(e) => setDialogValue(e.target.value)}
-              label="Enter category title"
-              type="text"
-              variant="standard"
-            />
+            {error ? (
+              <TextField
+                autoFocus
+                error
+                helperText="This category already exists"
+                margin="dense"
+                id="name"
+                value={dialogValue}
+                onChange={(e) => setDialogValue(e.target.value)}
+                label="Enter category title"
+                type="text"
+                variant="standard"
+              />
+            ) : (
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                value={dialogValue}
+                onChange={(e) => setDialogValue(e.target.value)}
+                label="Enter category title"
+                type="text"
+                variant="standard"
+              />
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button 
+            <Button
               type="submit"
-              onClick={() => {setSnackOpen(true)}}
+              // onClick={() => {
+              //   setSnackOpen(true);
+              // }}
             >
               Submit
             </Button>
