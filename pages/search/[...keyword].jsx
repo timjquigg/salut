@@ -110,6 +110,7 @@ const Result = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
+          width: "100vw",
         }}
       >
         <SearchContainer>

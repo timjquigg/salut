@@ -81,8 +81,8 @@ const UserCocktails = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "340" : "380"}
-          height={matches ? "360" : "430"}
+          width={matches ? "351" : "435"}
+          height={matches ? "375" : "450"}
           quality={35}
           object-fit="cover"
           position="relative"
@@ -125,6 +125,7 @@ const UserCocktails = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          width: "100vw",
         }}
       >
         <Typography
