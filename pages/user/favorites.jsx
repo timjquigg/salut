@@ -113,14 +113,14 @@ const Favorites = () => {
       >
         Your Favorite Recipes
       </Typography>
+      <CategoryForm
+        categories={categories}
+        setCategories={categoryList}
+        filterCocktail={filterCocktail}
+        userId={userId}
+      />
       {recipes.length > 0 ? (
         <>
-          <CategoryForm
-            categories={categories}
-            setCategories={categoryList}
-            filterCocktail={filterCocktail}
-            userId={userId}
-          />
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <ImageList
               sx={{ width: "100%", height: "80%" }}
@@ -159,12 +159,14 @@ const Favorites = () => {
             flexDirection: "column",
             alignItems: "center",
             width: { xs: "80%", s: "90%" },
+            mt: 2,
           }}
         >
           <Typography
             sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
           >
-            You haven&apos;t added any recipes to your favorites.
+            You haven&apos;t added any recipes to your favorites or this
+            category is empty.
             <br />
             <br />
             Please search for recipes first and add to your favorites!
