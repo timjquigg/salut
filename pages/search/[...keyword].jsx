@@ -72,8 +72,6 @@ const Result = () => {
   // const fetcher = (url) => fetch(url).then((res) => res.json());
   const { data, error, isLoading, isValidating } = useSWR(queryURL, fetcher);
 
-  console.log("DATA DRINK", data);
-
   useEffect(() => {
     if (data) {
       setCocktailList(data.drink);
