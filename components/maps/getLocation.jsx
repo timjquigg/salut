@@ -1,8 +1,6 @@
 import { Button, Box } from "@mui/material";
 import { useContext } from "react";
 import { locationContext } from "../../providers/locationProvider";
-import LiquorIcon from '@mui/icons-material/Liquor';
-import NearMeIcon from '@mui/icons-material/NearMe';
 import { NearMe } from "@mui/icons-material";
 
 const styles = {

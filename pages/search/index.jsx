@@ -1,5 +1,3 @@
-// import { getAllIngredients } from "../../lib/search";
-// import { getPopularCocktails } from "../../lib/carousel";
 import KeywordForm from "../../components/search/keywordForm";
 import FilterForm from "../../components/search/filterForm";
 import SearchContainer from "../../components/search/searchContainer";
@@ -14,6 +12,9 @@ import theme from "../../src/theme";
 import CocktailCard from "../../components/cocktailCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
+import fetcher from "../../lib/fetcher";
+import useSWR from "swr";
 
 function Item(props) {
   // console.log(props.item.strDrinkThumb)
@@ -78,17 +79,18 @@ const Search = () => {
     setValue(newValue);
   };
 
+  const { data, error, isLoading, isValidating } = useSWR(
+    `/api/ingredients`,
+    fetcher
+  );
+
   useEffect(() => {
-    async function getIngredients() {
-      const response = await fetch(`/api/ingredients`);
-      const data = await response.json();
-      // console.log("Data HAHAHA:", data);
+    if (data) {
       const { recipes, ingredients } = data;
       setIngredients(ingredients);
       setRecipes(recipes);
     }
-    getIngredients();
-  }, []);
+  }, [data]);
 
   const {
     enteredSearch,

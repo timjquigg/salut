@@ -1,11 +1,10 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import theme from "../../src/theme";
 import SearchIcon from "@mui/icons-material/Search";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import BallotIcon from "@mui/icons-material/Ballot";
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import Link from "next/link";
 
 const InfoChart = (props) => {
@@ -19,7 +18,7 @@ const InfoChart = (props) => {
         // justifyContent: "space-evenly",
         mt: props.mt,
         // pl: { sm: 26, xs: 10 },
-        gap: {lg: 1, md: 3, sm: 5, xs: 1}
+        gap: { lg: 1, md: 3, sm: 5, xs: 1 },
       }}
     >
       <Link href="/search">
@@ -28,11 +27,11 @@ const InfoChart = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: {lg: "150px", md: "120px", xs: "90px"},
-            height: {lg: "160px", md: "140px", xs: "110px"},
+            width: { lg: "150px", md: "120px", xs: "90px" },
+            height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
             backgroundColor: "#fff",
-            pt: 1
+            pt: 1,
           }}
         >
           <SearchIcon
@@ -61,11 +60,11 @@ const InfoChart = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: {lg: "150px", md: "120px", xs: "90px"},
-            height: {lg: "160px", md: "140px", xs: "110px"},
+            width: { lg: "150px", md: "120px", xs: "90px" },
+            height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
             backgroundColor: "#fff",
-            pt: 1
+            pt: 1,
           }}
         >
           <LocalBarIcon
@@ -94,11 +93,11 @@ const InfoChart = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: {lg: "150px", md: "120px", xs: "90px"},
-            height: {lg: "160px", md: "140px", xs: "110px"},
+            width: { lg: "150px", md: "120px", xs: "90px" },
+            height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
             backgroundColor: "#fff",
-            pt: 1
+            pt: 1,
           }}
         >
           <BallotIcon
@@ -127,11 +126,11 @@ const InfoChart = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: {lg: "150px", md: "120px", xs: "90px"},
-            height: {lg: "160px", md: "140px", xs: "110px"},
+            width: { lg: "150px", md: "120px", xs: "90px" },
+            height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
             backgroundColor: "#fff",
-            pt: 1
+            pt: 1,
           }}
         >
           <NoteAddIcon
