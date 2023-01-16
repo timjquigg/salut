@@ -110,7 +110,7 @@ const TutorialStepper = () => {
                     <Button
                       variant="contained"
                       onClick={handleNext}
-                      sx={{ mt: 1, mr: 1 }}
+                      sx={{ mt: 1, mr: 1, color: "#fff" }}
                     >
                       {index === steps.length - 1 ? "Finish" : "Continue"}
                     </Button>

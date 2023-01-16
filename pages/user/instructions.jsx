@@ -27,8 +27,9 @@ export default function Instruction() {
             sx={{
               display: "flex",
               flexDirection: "column",
+              alignItems: {xs: "center", sm: "start"},
               mt: { sm: 18, xs: 14 },
-              ml: 5,
+              ml: {sm: 5, xs: 0},
             }}
           >
             <Typography
@@ -53,7 +54,6 @@ export default function Instruction() {
               <br />
               source of cocktail recipes.
             </Typography>
-          </Box>
           {matches ? (
             <>
               <InfoChart mt={2} />{" "}
@@ -74,6 +74,7 @@ export default function Instruction() {
           ) : (
             ""
           )}
+          </Box>
         </Box>
         <Box
           sx={{
@@ -118,7 +119,7 @@ export default function Instruction() {
               ?
               <br />
               <DoneIcon sx={{ mr: 2 }} />
-              Want to come up with a drink with what is on hand?
+              Want to explore more cocktails based on your favorite ingredient?
               <br />
               <DoneIcon sx={{ mr: 2 }} />
               Looking for inspiration on what cocktail to make?
@@ -127,11 +128,11 @@ export default function Instruction() {
               Categorize and organize cocktail ideas/plans for upcoming events?
               <br />
               <DoneIcon sx={{ mr: 2 }} />
-              Want to explore more cocktails based on your favorite ingredient?
+              Want to save your own cocktail recipes?
               <br />
             </Typography>
-          </Box>
           <InfoChart mt={10} />
+          </Box>
           <Box
             sx={{ display: "flex", width: "100%", justifyContent: "center" }}
           >
