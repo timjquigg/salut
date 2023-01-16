@@ -85,12 +85,13 @@ function User() {
             sx={{
               display: "flex",
               ustifyContent: "center",
-              gap: { md: 5, xs: 2 },
+              gap: { lg: 3, xs: 2 },
               // paddingTop: {md: '6vh', xs: '3vh'},
               height: { md: "200px" },
               flexDirection: { xs: "column", md: "row" },
               justifyContent: "center",
               alignItems: "center",
+              px: 3,
             }}
           >
             <Box sx={{}}>
@@ -100,23 +101,10 @@ function User() {
                   pathname: "/user/cocktails",
                 }}
                 variant="outlined"
-                sx={{ padding: { md: "20px", xs: "20px 8px" } }}
+                sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, textAlign: "center" }}
               >
-                <Image src={"/cocktail1.png"} width={100} height={100} alt="" />
+                <Image src={"/cocktail1.png"} width={50} height={50} alt="" />
                 <Typography sx={{}}>Cocktails you can make</Typography>
-              </Button>
-            </Box>
-            <Box sx={{}}>
-              <Button
-                component={NextLinkComposed}
-                to={{
-                  pathname: "/user/favorites",
-                }}
-                variant="outlined"
-                sx={{ padding: "20px" }}
-              >
-                <Image src={"/cocktail2.png"} width={100} height={100} alt="" />
-                <Typography sx={{}}>Go to your favorites</Typography>
               </Button>
             </Box>
             <Box sx={{}}>
@@ -126,10 +114,49 @@ function User() {
                   pathname: "/user/inventory",
                 }}
                 variant="outlined"
-                sx={{ padding: "20px", marginBottom: { xs: "20px", md: 0 } }}
+                sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, textAlign: "center" }}
               >
-                <Image src={"/cocktail3.png"} width={100} height={100} alt="" />
+                <Image src={"/cocktail2.png"} width={50} height={50} alt="" />
                 <Typography sx={{}}>Go to your inventory</Typography>
+              </Button>
+            </Box>
+            <Box sx={{}}>
+              <Button
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/user/favorites",
+                }}
+                variant="outlined"
+                sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, textAlign: "center" }}
+              >
+                <Image src={"/cocktail3.png"} width={50} height={50} alt="" />
+                <Typography sx={{}}>Go to your favorites</Typography>
+              </Button>
+            </Box>
+            <Box sx={{}}>
+              <Button
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/cocktail/create",
+                }}
+                variant="outlined"
+                sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, textAlign: "center" }}
+              >
+                <Image src={"/cocktail4.png"} width={50} height={50} alt="" />
+                <Typography sx={{}}>Create your own recipe</Typography>
+              </Button>
+            </Box>
+            <Box sx={{}}>
+              <Button
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/user/created",
+                }}
+                variant="outlined"
+                sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, marginBottom: { xs: "20px", md: 0 }, textAlign: "center" }}
+              >
+                <Image src={"/cocktail5.png"} width={50} height={50} alt="" />
+                <Typography sx={{}}>your custom recipes</Typography>
               </Button>
             </Box>
           </Box>

@@ -118,6 +118,17 @@ function NavbarTwo(props) {
                 <ListItemText primary={"INVENTORY"} />
               </ListItemButton>
             </ListItem>
+            <ListItem key={"MakeNow"} disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/user/cocktails",
+                }}
+              >
+                <ListItemText primary={"MAKE IT NOW"} />
+              </ListItemButton>
+            </ListItem>
             <ListItem key={"Favorites"} disablePadding>
               <ListItemButton
                 sx={{ textAlign: "center" }}

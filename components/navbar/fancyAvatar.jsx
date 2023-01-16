@@ -9,8 +9,8 @@ import {
   Dashboard,
   Home,
   NoteAdd,
-  Description,
-  LocalBar
+  LocalBar,
+  Nightlife
 } from "@mui/icons-material";
 
 import {
@@ -106,6 +106,17 @@ export default function FancyAvatar(props) {
               <Liquor fontSize="small" />
             </ListItemIcon>
             <ListItemText>Inventory</ListItemText>
+          </MenuItem>
+          <MenuItem
+            component={NextLinkComposed}
+            to={{
+              pathname: "/user/cocktails",
+            }}
+          >
+            <ListItemIcon>
+              <Nightlife fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Make it now</ListItemText>
           </MenuItem>
           <MenuItem
             component={NextLinkComposed}
