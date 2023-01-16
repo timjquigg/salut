@@ -106,21 +106,31 @@ const Favorites = () => {
       >
         Your Favorite Recipes
       </Typography>
-      <CategoryForm
-        categories={categories}
-        setCategories={categoryList}
-        filterCocktail={filterCocktail}
-        userId={userId}
-      />
       {recipes.length > 0 ? (
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ImageList
-            sx={{ width: "100%", height: "80%" }}
-            cols={matches ? 1 : 3}
+        <>
+          <CategoryForm
+            categories={categories}
+            setCategories={categoryList}
+            filterCocktail={filterCocktail}
+            userId={userId}
+          />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <ImageList
+              sx={{ width: "100%", height: "80%" }}
+              cols={matches ? 1 : 3}
+            >
+              {results}
+            </ImageList>
+          </Box>
+          <Button
+            variant="outlined"
+            size="medium"
+            sx={{ m: 2 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            {results}
-          </ImageList>
-        </Box>
+            Back to top
+          </Button>
+        </>
       ) : isLoading ? (
         <Box
           sx={{
@@ -172,14 +182,6 @@ const Favorites = () => {
             </Button>
           </Box>
       )}
-      <Button
-        variant="outlined"
-        size="medium"
-        sx={{ m: 2 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        Back to top
-      </Button>
     </Box>
   );
 };
