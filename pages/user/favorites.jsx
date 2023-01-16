@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Layout from "../../components/layout";
 import {
   ImageList,
   ImageListItem,
@@ -80,11 +81,12 @@ const Favorites = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "340" : "380"}
-          height={matches ? "360" : "430"}
-          quality={55}
+          width={matches ? "351" : "435"}
+          height={matches ? "375" : "450"}
+          quality={35}
           object-fit="cover"
           position="relative"
+          // layout="responsive"
         />
       </Link>
       <CategoryMenu
@@ -103,134 +105,106 @@ const Favorites = () => {
     </ImageListItem>
   ));
   return (
-    <Box
-      sx={{
-        marginTop: "104px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography
+    <Layout navbarType={2}>
+      <Box
         sx={{
-          fontSize: { sm: "30px", xs: "25px" },
-          fontFamily: theme.typography.fontFamily[0],
-          color: "#022140",
-          margin: "10px",
+          marginTop: "104px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100vw"
         }}
       >
-        Your Favorite Recipes
-      </Typography>
-      <CategoryForm
-        categories={categories}
-        setCategories={categoryList}
-        filterCocktail={filterCocktail}
-        userId={userId}
-        setIsFiltered={setIsFiltered}
-      />
-      {isLoading ? (
-        <Box
+        <Typography
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "center",
-            p: 2,
+            fontSize: { sm: "30px", xs: "25px" },
+            fontFamily: theme.typography.fontFamily[0],
+            color: "#022140",
+            margin: "10px",
           }}
         >
-          <Typography>Please wait while we get your drinks</Typography>
-          <CircularProgress />
-        </Box>
-      ) : (
-        ""
-      )}
-
-      {recipes.length > 0 ? (
-        <>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <ImageList
-              sx={{ width: "100%", height: "80%" }}
-              cols={matches ? 1 : 3}
-            >
-              {results}
-            </ImageList>
-          </Box>
-          {recipes.length < dataLength && !isFiltered ? (
+          Your Favorite Recipes
+        </Typography>
+        <CategoryForm
+          categories={categories}
+          setCategories={categoryList}
+          filterCocktail={filterCocktail}
+          userId={userId}
+        />
+        {recipes.length > 0 ? (
+          <>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <ImageList
+                sx={{ width: "100%", height: "80%" }}
+                cols={matches ? 1 : 3}
+              >
+                {results}
+              </ImageList>
+            </Box>
             <Button
               variant="outlined"
               size="medium"
-              onClick={() => {
-                setNumItemDisplay((prev) => prev + 12);
-              }}
+              sx={{ m: 2 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              See More
+              Back to top
             </Button>
-          ) : (
-            ""
-          )}
-          <Button
-            variant="outlined"
-            size="medium"
-            sx={{ m: 2 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            Back to top
-          </Button>
-        </>
-      ) : isLoading ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "center",
-            p: 2,
-          }}
-        >
-          <LocalBar />
-          <Typography>Please wait while we get your drinks</Typography>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: { xs: "80%", s: "90%" },
-            mt: 2,
-          }}
-        >
-          <Typography
-            sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
-          >
-            You haven&apos;t added any recipes to your favorites or this
-            category is empty.
-            <br />
-            <br />
-            Please search for recipes first and add to your favorites!
-          </Typography>
-
-          <Image
-            src={"/noCocktailToShow.svg"}
-            alt="No Cocktails"
-            width={matches ? 400 : 500}
-            height={matches ? 400 : 500}
-          />
-          <Button
-            variant="outlined"
-            size="medium"
-            sx={{ m: 2 }}
-            component={NextLinkComposed}
-            to={{
-              pathname: "/search",
+          </>
+        ) : isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              p: 2,
             }}
           >
-            Search for recipes
-          </Button>
-        </Box>
-      )}
-    </Box>
+            <LocalBar />
+            <Typography>Please wait while we get your drinks</Typography>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: { xs: "80%", s: "90%" },
+              mt: 2,
+            }}
+          >
+            <Typography
+              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+            >
+              You haven&apos;t added any recipes to your favorites or this
+              category is empty.
+              <br />
+              <br />
+              Please search for recipes first and add to your favorites!
+            </Typography>
+
+              <Image
+                src={"/noCocktailToShow.svg"}
+                alt="No Cocktails"
+                width={matches ? 400 : 500}
+                height={matches ? 400 : 500}
+              />
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{ m: 2 }}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/search",
+                }}
+              >
+                Search for recipes
+              </Button>
+            </Box>
+        )}
+      </Box>
+    </Layout>
   );
 };
 Favorites.auth = true;

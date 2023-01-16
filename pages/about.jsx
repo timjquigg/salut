@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import theme from "../src/theme";
 import Image from "next/image";
+import Layout from "../components/layout";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -13,7 +14,7 @@ function About() {
     backgroundColor: "transparent",
   };
   return (
-    <>
+    <Layout navbarType={1}>
       <Box sx={{ display: "flex", height: "100vh", width: "100vw" }}>
         <Box
           sx={{
@@ -257,7 +258,7 @@ function About() {
           }}
         ></Box>
       </Box>
-    </>
+    </Layout>
   );
 }
 

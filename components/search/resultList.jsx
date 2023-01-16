@@ -56,9 +56,9 @@ const ResultList = (props) => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "340" : "380"}
-          height={matches ? "360" : "430"}
-          quality={55}
+          width={matches ? "351" : "435"}
+          height={matches ? "375" : "450"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />

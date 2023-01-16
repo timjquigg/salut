@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Layout from "../../components/layout";
 import theme from "../../src/theme";
 import DoneIcon from "@mui/icons-material/Done";
 import InfoChart from "../../components/instructions/infoChart";
@@ -11,10 +12,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Instruction() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    <>
-      <Box sx={{ display: "flex", height: "100vh" }}>
+    <Layout navbarType={2}>
+      <Box sx={{ display: "flex", height: "100vh", width: "100vw" }}>
         <Box
           sx={{
             width: { lg: "50%", xs: "100%" },
@@ -27,7 +28,7 @@ export default function Instruction() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              alignItems: {xs: "center", sm: "start"},
+              alignItems: {xs: "center", md: "start"},
               mt: { sm: 18, xs: 14 },
               ml: {sm: 5, xs: 0},
             }}
@@ -78,13 +79,13 @@ export default function Instruction() {
         </Box>
         <Box
           sx={{
-            display: { sm: "flex", xs: "none" },
+            display: { md: "flex", xs: "none" },
             flexDirection: "column",
             alignItems: { lg: "end", xs: "center" },
-            textAlign: { lg: "justify", xs: "center" },
+            // textAlign: { lg: "justify", xs: "center" },
             width: { lg: "50%", xs: "100%" },
             backgroundSize: "cover",
-            backgroundPosition: { sm: "center" },
+            backgroundPosition: { md: "center" },
           }}
         >
           <Box
@@ -101,7 +102,9 @@ export default function Instruction() {
                 color: "#022140",
                 fontSize: { lg: 40, md: 25, sm: 20 },
                 fontFamily: theme.typography.fontFamily[0],
-                lineHeight: { md: "100px", xs: "50px" },
+                lineHeight: { md: "70px", xs: "50px" },
+                textAlign: "center",
+                px: 3
               }}
             >
               Cocktail planning made easier
@@ -112,6 +115,8 @@ export default function Instruction() {
                 lineHeight: { md: "40px", xs: "50px" },
                 fontSize: { lg: 17, md: 15, xs: 13 },
                 fontFamily: theme.typography.fontFamily[1],
+                textAlign: "justify",
+                px: 3
               }}
             >
               <DoneIcon sx={{ mr: 2 }} />
@@ -169,6 +174,6 @@ export default function Instruction() {
         </Typography>
         <TutorialStepper />
       </Box>
-    </>
+    </Layout>
   );
 }

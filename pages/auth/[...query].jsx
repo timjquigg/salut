@@ -2,6 +2,7 @@ import { signIn, getProviders } from "next-auth/react";
 import { Button, Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { Stack } from "@mui/system";
+import Layout from "../../components/layout";
 import Image from "next/image";
 import theme from "../../src/theme";
 
@@ -74,81 +75,83 @@ const Signin = ({ providers, query }) => {
   };
 
   return (
-    <Box
-      sx={{
-        margin: 0,
-        padding: 0,
-        width: "100vw",
-        minHeight: "100vh",
-        display: "flex",
-      }}
-    >
+    <Layout navbarType={1}>
       <Box
         sx={{
-          width: { lg: "50%" },
-          backgroundImage: 'url("../signin.jpeg")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></Box>
-      <Box
-        sx={{
-          width: { lg: "50%", xs: "100%" },
-          backgroundImage: {
-            xs: 'linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("../signin.jpeg")',
-            lg: "none",
-          },
-          backgroundSize: "cover",
-          backgroundPosition: "left",
+          margin: 0,
+          padding: 0,
+          width: "100vw",
+          minHeight: "100vh",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
         }}
       >
-        {query === "signin" && (
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              textAlign: "center",
-              marginTop: "150px",
-              fontFamily: theme.typography.fontFamily[0],
-              marginBottom: "70px",
-            }}
-          >
-            Sign in Options
-          </Typography>
-        )}
-        {query === "signup" && (
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              textAlign: "center",
-              marginTop: "150px",
-              fontFamily: theme.typography.fontFamily[0],
-              marginBottom: "70px",
-            }}
-          >
-            Sign up Options
-          </Typography>
-        )}
-        <Box textAlign="center">
-          <Stack
-            orientation="vertical"
-            sx={{
-              width: { sm: "400px", xs: "380px" },
-              textAlign: "center",
-              alignItems: "center",
-            }}
-            spacing={2}
-          >
-            {providerButtons}
-          </Stack>
-          {error && <SignInError error={error} />}
+        <Box
+          sx={{
+            width: { lg: "50%" },
+            backgroundImage: 'url("../signin.jpeg")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></Box>
+        <Box
+          sx={{
+            width: { lg: "50%", xs: "100%" },
+            backgroundImage: {
+              xs: 'linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("../signin.jpeg")',
+              lg: "none",
+            },
+            backgroundSize: "cover",
+            backgroundPosition: "left",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {query === "signin" && (
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{
+                textAlign: "center",
+                marginTop: "150px",
+                fontFamily: theme.typography.fontFamily[0],
+                marginBottom: "70px",
+              }}
+            >
+              Sign in Options
+            </Typography>
+          )}
+          {query === "signup" && (
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{
+                textAlign: "center",
+                marginTop: "150px",
+                fontFamily: theme.typography.fontFamily[0],
+                marginBottom: "70px",
+              }}
+            >
+              Sign up Options
+            </Typography>
+          )}
+          <Box textAlign="center">
+            <Stack
+              orientation="vertical"
+              sx={{
+                width: { sm: "400px", xs: "380px" },
+                textAlign: "center",
+                alignItems: "center",
+              }}
+              spacing={2}
+            >
+              {providerButtons}
+            </Stack>
+            {error && <SignInError error={error} />}
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 

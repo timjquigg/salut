@@ -13,6 +13,7 @@ import {
   DialogActions,
   CircularProgress,
 } from "@mui/material";
+import Layout from "../../components/layout";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
@@ -80,9 +81,9 @@ const UserCocktails = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "340" : "380"}
-          height={matches ? "360" : "430"}
-          quality={55}
+          width={matches ? "351" : "435"}
+          height={matches ? "375" : "450"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />
@@ -117,24 +118,26 @@ const UserCocktails = () => {
     </ImageListItem>
   ));
   return (
-    <Box
-      sx={{
-        marginTop: "104px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography
+    <Layout navbarType={2}>
+      <Box
         sx={{
-          fontSize: { sm: "30px", xs: "25px" },
-          fontFamily: theme.typography.fontFamily[0],
-          color: "#022140",
-          margin: "10px",
+          marginTop: "104px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100vw",
         }}
       >
-        Personal Recipes
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: { sm: "30px", xs: "25px" },
+            fontFamily: theme.typography.fontFamily[0],
+            color: "#022140",
+            margin: "10px",
+          }}
+        >
+          Personal Recipes
+        </Typography>
 
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -207,7 +210,7 @@ const UserCocktails = () => {
             </Typography>
 
             <Image
-              src={"/noCocktailToShow.svg"}
+              src={"/../public/noCocktailToShow.svg"}
               alt="No Cocktails"
               width={matches ? 400 : 500}
               height={matches ? 400 : 500}
@@ -225,8 +228,9 @@ const UserCocktails = () => {
             </Button>
           </Box>
         )}
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 

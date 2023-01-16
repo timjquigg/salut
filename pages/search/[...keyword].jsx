@@ -16,6 +16,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CircularProgress from "@mui/material/CircularProgress";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
+import Layout from "../../components/layout";
 import useSWR from "swr";
 import fetcher from "../../lib/fetcher";
 
@@ -104,11 +105,12 @@ const Result = () => {
   } = useSearch();
 
   return (
-    <>
+    <Layout navbarType={2}>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
+          width: "100vw",
         }}
       >
         <SearchContainer>
@@ -282,7 +284,7 @@ const Result = () => {
           </Button>
         )}
       </Box>
-    </>
+    </Layout>
   );
 };
 

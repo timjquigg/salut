@@ -4,6 +4,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Box, Typography, Button } from "@mui/material";
+import Layout from "../../components/layout";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -36,8 +37,8 @@ const Cocktails = (props) => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "340" : "380"}
-          height={matches ? "360" : "430"}
+          width={matches ? "351" : "435"}
+          height={matches ? "375" : "450"}
           quality={35}
           object-fit="cover"
           position="relative"
@@ -52,24 +53,26 @@ const Cocktails = (props) => {
     </ImageListItem>
   ));
   return (
-    <Box
-      sx={{
-        marginTop: "104px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography
+    <Layout navbarType={2}>
+      <Box
         sx={{
-          fontSize: { sm: "30px", xs: "25px" },
-          fontFamily: theme.typography.fontFamily[0],
-          color: "#022140",
-          margin: "10px",
+          marginTop: "104px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100vw"
         }}
       >
-        Cocktails You Can Make
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: { sm: "30px", xs: "25px" },
+            fontFamily: theme.typography.fontFamily[0],
+            color: "#022140",
+            margin: "10px",
+          }}
+        >
+          Cocktails You Can Make
+        </Typography>
 
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -136,27 +139,28 @@ const Cocktails = (props) => {
               Please update your inventory, or go to the closest liquor store!
             </Typography>
 
-            <Image
-              src={"/noCocktailToShow.svg"}
-              alt="No Cocktails"
-              width={matches ? 400 : 500}
-              height={matches ? 400 : 500}
-            />
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{ m: 2 }}
-              component={NextLinkComposed}
-              to={{
-                pathname: "/user/inventory",
-              }}
-            >
-              Go to inventory
-            </Button>
-          </Box>
-        )}
+              <Image
+                src={"/noCocktailToShow.svg"}
+                alt="No Cocktails"
+                width={matches ? 400 : 500}
+                height={matches ? 400 : 500}
+              />
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{ m: 2 }}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/user/inventory",
+                }}
+              >
+                Go to inventory
+              </Button>
+            </Box>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
