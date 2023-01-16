@@ -33,11 +33,12 @@ export default function RecipeListItem(props) {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: {xs: "column", sm: "row"}}}>
+    <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" } }}>
       {ingredientError ? (
         <Autocomplete
           value={selectedIngredient || null}
           onChange={(event, newValue) => {
+            props.setHasError(false);
             updateIngredient(newValue);
             if (newValue) {
               setIngredientError(false);
@@ -49,7 +50,7 @@ export default function RecipeListItem(props) {
           }}
           id="controllable-states-demo"
           options={ingredients}
-          sx={{ width: {xs: "90vw", sm: "300px"} }}
+          sx={{ width: { xs: "90vw", sm: "300px" } }}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -64,6 +65,7 @@ export default function RecipeListItem(props) {
         <Autocomplete
           value={selectedIngredient || null}
           onChange={(event, newValue) => {
+            props.setHasError(false);
             updateIngredient(newValue);
             if (!newValue) {
               setIngredientError(true);
@@ -75,43 +77,49 @@ export default function RecipeListItem(props) {
           }}
           id="controllable-states-demo"
           options={ingredients}
-          sx={{width: {xs: "90vw", sm: "300px"}}}
+          sx={{ width: { xs: "90vw", sm: "300px" } }}
           renderInput={(params) => (
             <TextField {...params} label="Add an Ingredient" required />
           )}
         />
       )}
-      <Box sx={{display: "flex"}}>
-      {measurementError ? (
-        <TextField
-          required
-          error
-          helperText="Must Include Measurement"
-          label="Measurement"
-          value={measurement}
-          onChange={(event) => {
-            updateMeasurement(event.target.value);
-            if (measurement) {
-              setMeasurementError(false);
-            }
-          }}
-          sx={{width: {xs: "90vw", sm: "auto"}, pb: 2}}
-        />
-      ) : (
-        <TextField
-          required
-          label="Measurement"
-          value={measurement}
-          onChange={(event) => {
-            updateMeasurement(event.target.value);
-            if (event.target.value === "") {
-              setMeasurementError(true);
-            }
-          }}
-          sx={{width: {xs: "90vw", sm: "auto"}, pb: 2}}
-        />
-      )}
-        <Button variant={id > 0 ? "outlined" : "disabled"} onClick={handleClick} sx={{mb: 2}}>
+      <Box sx={{ display: "flex" }}>
+        {measurementError ? (
+          <TextField
+            required
+            error
+            helperText="Must Include Measurement"
+            label="Measurement"
+            value={measurement}
+            onChange={(event) => {
+              props.setHasError(false);
+              updateMeasurement(event.target.value);
+              if (measurement) {
+                setMeasurementError(false);
+              }
+            }}
+            sx={{ width: { xs: "90vw", sm: "auto" }, pb: 2 }}
+          />
+        ) : (
+          <TextField
+            required
+            label="Measurement"
+            value={measurement}
+            onChange={(event) => {
+              props.setHasError(false);
+              updateMeasurement(event.target.value);
+              if (event.target.value === "") {
+                setMeasurementError(true);
+              }
+            }}
+            sx={{ width: { xs: "90vw", sm: "auto" }, pb: 2 }}
+          />
+        )}
+        <Button
+          variant={id > 0 ? "outlined" : "disabled"}
+          onClick={handleClick}
+          sx={{ mb: 2 }}
+        >
           Remove
         </Button>
       </Box>

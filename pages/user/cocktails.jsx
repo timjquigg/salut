@@ -16,6 +16,12 @@ const Cocktails = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
+  let itemListWidth = matches
+    ? 400
+    : recipes.length > 3
+    ? 1000
+    : recipes.length * 450;
+
   const results = recipes.map((item) => (
     <ImageListItem
       key={item.idDrink}
@@ -30,8 +36,9 @@ const Cocktails = (props) => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={matches ? "340" : "380"}
+          height={matches ? "360" : "430"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />
@@ -65,57 +72,57 @@ const Cocktails = (props) => {
           Cocktails You Can Make
         </Typography>
 
-        <Box
-          sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-        >
-          {results.length > 0 ? (
-            <>
-              <Typography
-                sx={{
-                  marginBottom: "50px",
-                  m: { xs: 2 },
-                  fontSize: { xs: "15px", sm: "18px" },
-                  textAlign: "center",
-                }}
-              >
-                Here are all the cocktails you can make with what you have in your
-                inventory.
-              </Typography>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <ImageList
-                  sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
-                  cols={matches ? 1 : 3}
-                >
-                  {results}
-                </ImageList>
-              </Box>
-              <Button
-                variant="outlined"
-                size="medium"
-                sx={{ m: 2 }}
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
-                Back to top
-              </Button>
-            </>
-          ) : (
-            <Box
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        {results.length > 0 ? (
+          <>
+            <Typography
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                width: { xs: "80%", s: "90%" },
+                marginBottom: "50px",
+                m: { xs: 2 },
+                fontSize: { xs: "15px", sm: "18px" },
+                textAlign: "center",
               }}
             >
-              <Typography
-                sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+              Here are all the cocktails you can make with what you have in your
+              inventory.
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <ImageList
+                sx={{ width: { itemListWidth }, height: "80%" }}
+                cols={matches ? 1 : 3}
               >
-                You don&apos;t have enough items in your inventory to make any
-                cocktail at the moment.
-                <br />
-                <br />
-                Please update your inventory, or go to the closest liquor store!
-              </Typography>
+                {results}
+              </ImageList>
+            </Box>
+            <Button
+              variant="outlined"
+              size="medium"
+              sx={{ m: 2 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Back to top
+            </Button>
+          </>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: { xs: "80%", s: "90%" },
+            }}
+          >
+            <Typography
+              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+            >
+              You don&apos;t have enough items in your inventory to make any
+              cocktail at the moment.
+              <br />
+              <br />
+              Please update your inventory, or go to the closest liquor store!
+            </Typography>
 
               <Image
                 src={"/noCocktailToShow.svg"}

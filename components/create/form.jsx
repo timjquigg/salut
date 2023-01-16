@@ -7,9 +7,13 @@ import AddDirections from "./addDirections";
 import { newCocktailContext } from "../../providers/newCocktailProvider";
 import { useRouter } from "next/router";
 import CocktailTitle from "../detail/cocktailTitle";
+import Alert from "@mui/material/Alert";
 
 export default function Form(props) {
   const router = useRouter();
+  const [hasError, setHasError] = useState(false);
+  const [hasPhotoError, setHasPhotoError] = useState(false);
+  const [isExistingName, setIsExistingName] = useState(false);
   const { title, recipe, photo, directions, userId } =
     useContext(newCocktailContext);
   const error = {
@@ -18,6 +22,15 @@ export default function Form(props) {
     photo: false,
     directions: false,
   };
+
+  function isValidUrl(string) {
+    try {
+      const isValid = new URL(string);
+      return isValid.protocol === "https:" ? true : false;
+    } catch (err) {
+      return false;
+    }
+  }
 
   const submitCocktail = async (userId, title, recipe, photo, directions) => {
     const response = await fetch("/api/createCocktail", {
@@ -33,7 +46,8 @@ export default function Form(props) {
         "Content-Type": "application/json",
       },
     });
-    return router.push("/user/created");
+    // return router.push("/user/created");
+    return response;
   };
 
   const onClick = () => {
@@ -56,6 +70,12 @@ export default function Form(props) {
       console.log("Missing photo link");
       hasError = true;
     }
+
+    if (!isValidUrl(photo)) {
+      error.photo = true;
+      setHasPhotoError(true);
+      console.log("Invalid image source");
+    }
     if (!directions) {
       error.directions = true;
       console.log("Missing instructions");
@@ -63,11 +83,17 @@ export default function Form(props) {
     }
 
     if (Object.values(error).includes(true)) {
+      setHasError(true);
       console.log("there's an error");
       return;
     }
     console.log("Submitting");
-    submitCocktail(userId, title, recipe, photo, directions);
+    submitCocktail(userId, title, recipe, photo, directions).then((res) => {
+      if (res.ok) {
+        router.push("/user/created");
+      }
+      setIsExistingName(true);
+    });
   };
 
   return (
@@ -83,10 +109,19 @@ export default function Form(props) {
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <CocktailTitle cocktailName="Create a Recipe" />
       </Box>
-      <AddTitle />
-      <RecipeList />
-      <AddPhoto />
-      <AddDirections />
+      <AddTitle setHasError={setHasError} />
+      <RecipeList setHasError={setHasError} />
+      <AddPhoto setHasError={setHasError} setHasPhotoError={setHasPhotoError} />
+      <AddDirections setHasError={setHasError} />
+      {isExistingName && (
+        <Alert severity="error">Recipe title already taken.</Alert>
+      )}
+      {hasError && (
+        <Alert severity="error">
+          Error, cannot submit recipe. Please check if the forms are complete.
+        </Alert>
+      )}
+      {hasPhotoError && <Alert severity="error">Invalid Image URL.</Alert>}
       <Button variant="contained" onClick={onClick} sx={{ color: "#fff" }}>
         Submit
       </Button>

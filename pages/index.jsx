@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { NextLinkComposed } from "../src/link";
 import Layout from "../components/layout";
 import InfoChart from "../components/instructions/infoChart";
-import NightlifeIcon from '@mui/icons-material/Nightlife';
+import NightlifeIcon from "@mui/icons-material/Nightlife";
 
 const styles = {
   signupButton: {

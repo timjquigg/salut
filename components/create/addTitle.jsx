@@ -6,6 +6,7 @@ export default function AddTitle(props) {
   const { title, setTitle } = useContext(newCocktailContext);
   const [error, setError] = useState(false);
   const handleChange = (value) => {
+    props.setHasError(false);
     setTitle(value);
     if (value === "") {
       setError(true);

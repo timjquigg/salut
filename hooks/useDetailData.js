@@ -2,7 +2,9 @@ import axios from "axios";
 import { useContext } from "react";
 import { inventoryContext } from "../providers/InventoryProvider";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_VERCEL_ENV
+  ? process.env.NEXT_PUBLIC_VERCEL_URL
+  : process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 export function useLoggedInDetailData(data, user, cocktailId, ingredient) {
   const { updateInventory } = useContext(inventoryContext);

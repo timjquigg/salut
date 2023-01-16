@@ -45,6 +45,12 @@ const Favorites = () => {
     }
   }, [data, session]);
 
+  let itemListWidth = matches
+    ? 400
+    : recipes.length > 3
+    ? 1000
+    : recipes.length * 450;
+
   const categoryList = (categories) => {
     setCategories(categories);
   };
@@ -67,8 +73,9 @@ const Favorites = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={matches ? "340" : "380"}
+          height={matches ? "360" : "430"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />
@@ -108,14 +115,14 @@ const Favorites = () => {
         >
           Your Favorite Recipes
         </Typography>
+        <CategoryForm
+          categories={categories}
+          setCategories={categoryList}
+          filterCocktail={filterCocktail}
+          userId={userId}
+        />
         {recipes.length > 0 ? (
           <>
-            <CategoryForm
-              categories={categories}
-              setCategories={categoryList}
-              filterCocktail={filterCocktail}
-              userId={userId}
-            />
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <ImageList
                 sx={{ width: "100%", height: "80%" }}
@@ -149,21 +156,23 @@ const Favorites = () => {
           </Box>
         ) : (
           <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                width: { xs: "80%", s: "90%" },
-              }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: { xs: "80%", s: "90%" },
+              mt: 2,
+            }}
+          >
+            <Typography
+              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
             >
-              <Typography
-                sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
-              >
-                You haven&apos;t added any recipes to your favorites.
-                <br />
-                <br />
-                Please search for recipes first and add to your favorites! 
-              </Typography>
+              You haven&apos;t added any recipes to your favorites or this
+              category is empty.
+              <br />
+              <br />
+              Please search for recipes first and add to your favorites!
+            </Typography>
 
               <Image
                 src={"/noCocktailToShow.svg"}
