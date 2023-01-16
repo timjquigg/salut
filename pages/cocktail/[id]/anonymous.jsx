@@ -1,9 +1,14 @@
 import NotLoggedinDetail from "../../../components/detail/notLoggedinDetail";
+import Layout from "../../../components/layout";
 
 import { getCocktailDetails } from "../../../lib/details";
 
 function Details(props) {
-  return <NotLoggedinDetail data={props.data} />;
+  return (
+    <Layout navbarType={2}>
+      <NotLoggedinDetail data={props.data} />
+    </Layout>
+  )
 }
 
 export default Details;

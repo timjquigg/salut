@@ -5,6 +5,7 @@ import { getCocktailDetails } from "../../../lib/details";
 import LocationProvider from "../../../providers/locationProvider";
 import LoggedinDetail from "../../../components/detail/loggedinDetail";
 import PageContainer from "../../../components/detail/pageContainer";
+import Layout from "../../../components/layout";
 import fetcher from "../../../lib/fetcher";
 import useSWR from "swr";
 
@@ -33,13 +34,15 @@ function Details(props) {
 
   return (
     <LocationProvider>
-      <PageContainer>
-        <LoggedinDetail
-          data={props.data}
-          favoriteId={favoriteId}
-          categories={categories}
-        />
-      </PageContainer>
+      <Layout navbarType={2}>
+        <PageContainer>
+          <LoggedinDetail
+            data={props.data}
+            favoriteId={favoriteId}
+            categories={categories}
+          />
+        </PageContainer>
+      </Layout>
     </LocationProvider>
   );
 }

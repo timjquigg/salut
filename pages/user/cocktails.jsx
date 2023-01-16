@@ -4,6 +4,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
 import { Box, Typography, Button } from "@mui/material";
+import Layout from "../../components/layout";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -44,98 +45,100 @@ const Cocktails = (props) => {
     </ImageListItem>
   ));
   return (
-    <Box
-      sx={{
-        marginTop: "104px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography
+    <Layout navbarType={2}>
+      <Box
         sx={{
-          fontSize: { sm: "30px", xs: "25px" },
-          fontFamily: theme.typography.fontFamily[0],
-          color: "#022140",
-          margin: "10px",
+          marginTop: "104px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        Cocktails You Can Make
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: { sm: "30px", xs: "25px" },
+            fontFamily: theme.typography.fontFamily[0],
+            color: "#022140",
+            margin: "10px",
+          }}
+        >
+          Cocktails You Can Make
+        </Typography>
 
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        {results.length > 0 ? (
-          <>
-            <Typography
-              sx={{
-                marginBottom: "50px",
-                m: { xs: 2 },
-                fontSize: { xs: "15px", sm: "18px" },
-                textAlign: "center",
-              }}
-            >
-              Here are all the cocktails you can make with what you have in your
-              inventory.
-            </Typography>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <ImageList
-                sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
-                cols={matches ? 1 : 3}
+        <Box
+          sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        >
+          {results.length > 0 ? (
+            <>
+              <Typography
+                sx={{
+                  marginBottom: "50px",
+                  m: { xs: 2 },
+                  fontSize: { xs: "15px", sm: "18px" },
+                  textAlign: "center",
+                }}
               >
-                {results}
-              </ImageList>
-            </Box>
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{ m: 2 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              Back to top
-            </Button>
-          </>
-        ) : (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: { xs: "80%", s: "90%" },
-            }}
-          >
-            <Typography
-              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
-            >
-              You don&apos;t have enough items in your inventory to make any
-              cocktail at the moment.
-              <br />
-              <br />
-              Please update your inventory, or go to the closest liquor store!
-            </Typography>
-
-            <Image
-              src={"/noCocktailToShow.svg"}
-              alt="No Cocktails"
-              width={matches ? 400 : 500}
-              height={matches ? 400 : 500}
-            />
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{ m: 2 }}
-              component={NextLinkComposed}
-              to={{
-                pathname: "/user/inventory",
+                Here are all the cocktails you can make with what you have in your
+                inventory.
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <ImageList
+                  sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
+                  cols={matches ? 1 : 3}
+                >
+                  {results}
+                </ImageList>
+              </Box>
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{ m: 2 }}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                Back to top
+              </Button>
+            </>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: { xs: "80%", s: "90%" },
               }}
             >
-              Go to inventory
-            </Button>
-          </Box>
-        )}
+              <Typography
+                sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+              >
+                You don&apos;t have enough items in your inventory to make any
+                cocktail at the moment.
+                <br />
+                <br />
+                Please update your inventory, or go to the closest liquor store!
+              </Typography>
+
+              <Image
+                src={"/noCocktailToShow.svg"}
+                alt="No Cocktails"
+                width={matches ? 400 : 500}
+                height={matches ? 400 : 500}
+              />
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{ m: 2 }}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/user/inventory",
+                }}
+              >
+                Go to inventory
+              </Button>
+            </Box>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 

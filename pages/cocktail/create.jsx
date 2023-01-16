@@ -4,6 +4,7 @@ import { getIngredients } from "../../lib/inventory";
 import { getCocktailNames } from "../../lib/cocktail";
 import { getUserId } from "../../lib/user";
 import CocktailTitle from "../../components/detail/cocktailTitle";
+import Layout from "../../components/layout";
 import NewCocktailProvider from "../../providers/newCocktailProvider";
 import Form from "../../components/create/form";
 
@@ -15,9 +16,11 @@ function Create(props) {
         cocktails={props.cocktails}
         userId={props.userId}
       >
-        <PageContainer>
-          <Form />
-        </PageContainer>
+        <Layout navbarType={2}>
+          <PageContainer>
+            <Form />
+          </PageContainer>
+        </Layout>
       </NewCocktailProvider>
     </LocationProvider>
   );

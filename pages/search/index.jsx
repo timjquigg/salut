@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
+import Layout from "../../components/layout";
 import Box from "@mui/material/Box";
 import theme from "../../src/theme";
 import CocktailCard from "../../components/cocktailCard";
@@ -128,98 +129,100 @@ const Search = () => {
   let items = recipes;
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <SearchContainer>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "100vw",
-          }}
-        >
-          <Typography
+    <Layout navbarType={2}>
+      <Box sx={{ display: "flex", flexDirection: "column", width: "100vw" }}>
+        <SearchContainer>
+          <Box
             sx={{
-              fontFamily: theme.typography.fontFamily[0],
-              fontSize: { sm: "40px", xs: "35px" },
-              marginTop: { xs: "20px", lg: "none" },
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "100vw",
             }}
           >
-            Look for recipes
-          </Typography>
-          <Box sx={{ width: "100%" }}>
-            <Box
-              sx={{
-                borderBottom: 1,
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="basic tabs example"
-                variant="scrollable"
-                scrollButtons
-                allowScrollButtonsMobile
-              >
-                <Tab label="Search by keywords" {...a11yProps(0)} />
-                <Tab label="Search by ingredients" {...a11yProps(1)} />
-                <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
-              </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-              <KeywordForm
-                enteredSearch={enteredSearch}
-                changeHandler={changeHandler}
-                submitHandler={submitHandler}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <FilterForm
-                options={ingredients}
-                filterKeywords={filterKeywords}
-                inputFilterKeywords={inputFilterKeywords}
-                onChange={changeFilterHandler}
-                onInputChange={changeInputFilterHandler}
-                onClick={submitFilterHandler}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <KeywordForm
-                enteredSearch={enteredSearch}
-                changeHandler={changeHandler}
-                submitHandler={submitNonAlcoholicHandler}
-                nonAlcoholic={true}
-              />
-            </TabPanel>
-          </Box>
-        </Box>
-      </SearchContainer>
-      <Box sx={{ backgroundColor: "rgb(245, 241, 231)" }}>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box sx={{ width: "100%" }}>
             <Typography
               sx={{
-                fontSize: "20px",
-                color: "#022140",
-                textAlign: "center",
                 fontFamily: theme.typography.fontFamily[0],
-                margin: "20px",
+                fontSize: { sm: "40px", xs: "35px" },
+                marginTop: { xs: "20px", lg: "none" },
               }}
             >
-              Popular Cocktails
+              Look for recipes
             </Typography>
-            <Carousel responsive={responsive}>
-              {items.map((item, i) => (
-                <Item key={i} item={item} />
-              ))}
-            </Carousel>
+            <Box sx={{ width: "100%" }}>
+              <Box
+                sx={{
+                  borderBottom: 1,
+                  borderColor: "divider",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                  variant="scrollable"
+                  scrollButtons
+                  allowScrollButtonsMobile
+                >
+                  <Tab label="Search by keywords" {...a11yProps(0)} />
+                  <Tab label="Search by ingredients" {...a11yProps(1)} />
+                  <Tab label="Search Non-Alcoholics" {...a11yProps(2)} />
+                </Tabs>
+              </Box>
+              <TabPanel value={value} index={0}>
+                <KeywordForm
+                  enteredSearch={enteredSearch}
+                  changeHandler={changeHandler}
+                  submitHandler={submitHandler}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <FilterForm
+                  options={ingredients}
+                  filterKeywords={filterKeywords}
+                  inputFilterKeywords={inputFilterKeywords}
+                  onChange={changeFilterHandler}
+                  onInputChange={changeInputFilterHandler}
+                  onClick={submitFilterHandler}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <KeywordForm
+                  enteredSearch={enteredSearch}
+                  changeHandler={changeHandler}
+                  submitHandler={submitNonAlcoholicHandler}
+                  nonAlcoholic={true}
+                />
+              </TabPanel>
+            </Box>
+          </Box>
+        </SearchContainer>
+        <Box sx={{ backgroundColor: "rgb(245, 241, 231)" }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box sx={{ width: "100%" }}>
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  color: "#022140",
+                  textAlign: "center",
+                  fontFamily: theme.typography.fontFamily[0],
+                  margin: "20px",
+                }}
+              >
+                Popular Cocktails
+              </Typography>
+              <Carousel responsive={responsive}>
+                {items.map((item, i) => (
+                  <Item key={i} item={item} />
+                ))}
+              </Carousel>
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 

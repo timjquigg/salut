@@ -13,6 +13,7 @@ import {
   DialogActions,
   CircularProgress,
 } from "@mui/material";
+import Layout from "../../components/layout";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
@@ -110,116 +111,118 @@ const UserCocktails = () => {
     </ImageListItem>
   ));
   return (
-    <Box
-      sx={{
-        marginTop: "104px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography
+    <Layout navbarType={2}>
+      <Box
         sx={{
-          fontSize: { sm: "30px", xs: "25px" },
-          fontFamily: theme.typography.fontFamily[0],
-          color: "#022140",
-          margin: "10px",
+          marginTop: "104px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        Personal Recipes
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: { sm: "30px", xs: "25px" },
+            fontFamily: theme.typography.fontFamily[0],
+            color: "#022140",
+            margin: "10px",
+          }}
+        >
+          Personal Recipes
+        </Typography>
 
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        {results.length > 0 ? (
-          <>
-            <Typography
-              sx={{
-                marginBottom: "50px",
-                m: { xs: 2 },
-                fontSize: { xs: "15px", sm: "18px" },
-                textAlign: "center",
-              }}
-            >
-              Here are all the cocktail recipes that you have created
-            </Typography>
-            <Box
-              sx={{ display: "flex", justifyContent: "center", width: "100%" }}
-            >
-              <ImageList
-                sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
-                cols={matches ? 1 : 3}
+        <Box
+          sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        >
+          {results.length > 0 ? (
+            <>
+              <Typography
+                sx={{
+                  marginBottom: "50px",
+                  m: { xs: 2 },
+                  fontSize: { xs: "15px", sm: "18px" },
+                  textAlign: "center",
+                }}
               >
-                {results}
-              </ImageList>
-            </Box>
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{ m: 2 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              Back to top
-            </Button>
-          </>
-        ) : isLoading ? (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-              p: 2,
-            }}
-          >
-            <LocalBar />
-            <Typography>Please wait while we get your drinks</Typography>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: { xs: "80%", s: "90%" },
-            }}
-          >
-            <Typography
+                Here are all the cocktail recipes that you have created
+              </Typography>
+              <Box
+                sx={{ display: "flex", justifyContent: "center", width: "100%" }}
+              >
+                <ImageList
+                  sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
+                  cols={matches ? 1 : 3}
+                >
+                  {results}
+                </ImageList>
+              </Box>
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{ m: 2 }}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                Back to top
+              </Button>
+            </>
+          ) : isLoading ? (
+            <Box
               sx={{
-                fontSize: { xs: "15px", sm: "18px" },
-                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+                p: 2,
               }}
             >
-              You haven&apos;t made any custom cocktail recipe yet.
-              <br />
-              <br />
-              You can create one or just enjoy browsing our collection of
-              recipes.
-            </Typography>
+              <LocalBar />
+              <Typography>Please wait while we get your drinks</Typography>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: { xs: "80%", s: "90%" },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", sm: "18px" },
+                  textAlign: "center",
+                }}
+              >
+                You haven&apos;t made any custom cocktail recipe yet.
+                <br />
+                <br />
+                You can create one or just enjoy browsing our collection of
+                recipes.
+              </Typography>
 
-            <Image
-              src={"/../public/noCocktailToShow.svg"}
-              alt="No Cocktails"
-              width={matches ? 400 : 500}
-              height={matches ? 400 : 500}
-            />
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{ m: 2 }}
-              component={NextLinkComposed}
-              to={{
-                pathname: "/cocktail/create",
-              }}
-            >
-              Create recipe
-            </Button>
-          </Box>
-        )}
+              <Image
+                src={"/../public/noCocktailToShow.svg"}
+                alt="No Cocktails"
+                width={matches ? 400 : 500}
+                height={matches ? 400 : 500}
+              />
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{ m: 2 }}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/cocktail/create",
+                }}
+              >
+                Create recipe
+              </Button>
+            </Box>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
