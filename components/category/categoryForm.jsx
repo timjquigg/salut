@@ -103,7 +103,13 @@ function CategoryForm(props) {
             toggleDeleteOpen(true);
             setDialogValue("");
           } else {
+            if (newValue === "All favorites") {
+              selectCategoryHandler(newValue);
+              props.setIsFiltered(false);
+              return;
+            }
             selectCategoryHandler(newValue);
+            props.setIsFiltered(true);
           }
         }}
         filterOptions={(options, params) => {
