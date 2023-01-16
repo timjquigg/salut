@@ -62,15 +62,15 @@ const useSearch = () => {
 
   const addFavorite = async (userId, cocktailId) => {
     const payload = { cocktailId, userId };
-    console.log("add:", payload);
-    console.log("/api/favorites");
+    // console.log("add:", payload);
+    // console.log("/api/favorites");
     await axios.post("/api/favorites", payload);
   };
 
   const removeFavorite = async (userId, cocktailId) => {
     const payload = { cocktailId, userId };
-    console.log("delete:", payload);
-    console.log("/api/favorites");
+    // console.log("delete:", payload);
+    // console.log("/api/favorites");
     await axios.delete("/api/favorites", { data: payload });
   };
 

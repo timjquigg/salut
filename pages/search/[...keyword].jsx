@@ -17,6 +17,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CircularProgress from "@mui/material/CircularProgress";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import useSWR from "swr";
+import fetcher from "../../lib/fetcher";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,44 +66,15 @@ const Result = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const errorSize = matches ? 350 : 500;
-  // console.log("SESSION:", session);
   const queryURL = session
     ? `/api/search?userId=${session.user.id}&keywords=${keyword}&count=${numItemDisplay}`
     : `/api/search?keywords=${keyword}&count=${numItemDisplay}`;
-  const fetcher = (url) => fetch(url).then((res) => res.json());
+  // const fetcher = (url) => fetch(url).then((res) => res.json());
   const { data, error, isLoading, isValidating } = useSWR(queryURL, fetcher);
 
   console.log("DATA DRINK", data);
-  // if (data) {
-  // setIngredientList(data.ingredients || []);
-  // setDataLength(data.dataLength || []);
-  // setFavorites(data.favorites || []);
-  // setCocktailList(data.drink || []);
-  // }
 
   useEffect(() => {
-    // async function getCocktailList() {
-    //   if (session) {
-    //     const response = await fetch(
-    //       `/api/search?userId=${session.user.id}&keywords=${keyword}&count=${numItemDisplay}`
-    //     );
-    //     const datas = await response.json();
-    //     // console.log("Data HAHA:", data);
-    //     const { drink, ingredients, favorites, dataLength } = datas;
-    //     // setCocktailList(drink);
-    //     // setIngredientList(ingredients);
-    //     // setDataLength(dataLength);
-    //     // setFavorites(favorites);
-    //   } else {
-    //     const response = await fetch(
-    //       `/api/search?keywords=${keyword}&count=${numItemDisplay}`
-    //     );
-    //     const data = await response.json();
-    //     // console.log("Data HAHA:", data);
-    //     const { drink, ingredients } = data;
-    // if (isLoading) {
-    //   return <p>LOADING</p>;
-    // }
     if (data) {
       setCocktailList(data.drink);
       setIngredientList(data.ingredients);
@@ -111,9 +83,6 @@ const Result = () => {
         setFavorites(data.favorites);
       }
     }
-    //   }
-    // }
-    // getCocktailList();
   }, [data, session]);
 
   const handleChange = (event, newValue) => {

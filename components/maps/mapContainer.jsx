@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Box } from "@mui/system";
-import axios from "axios";
-import { Dialog, Typography } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { locationContext } from "../../providers/locationProvider";
 import Map from "./map";
 import StoreDetails from "./storeDetails";
