@@ -18,6 +18,7 @@ import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
 import fetcher from "../../lib/fetcher";
 import useSWR from "swr";
+import { NextLinkComposed } from "../../src/link";
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState([]);
@@ -135,13 +136,41 @@ const Favorites = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <>
-          {/* No Favorites goes here: */}
-          {/* No Favorites goes here: */}
-          {/* No Favorites goes here: */}
-          {/* No Favorites goes here: */}
-          {/* No Favorites goes here: */}
-        </>
+        <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: { xs: "80%", s: "90%" },
+            }}
+          >
+            <Typography
+              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+            >
+              You haven&apos;t added any recipes to your favorites.
+              <br />
+              <br />
+              Please search for recipes first and add to your favorites! 
+            </Typography>
+
+            <Image
+              src={"/noCocktailToShow.svg"}
+              alt="No Cocktails"
+              width={matches ? 400 : 500}
+              height={matches ? 400 : 500}
+            />
+            <Button
+              variant="outlined"
+              size="medium"
+              sx={{ m: 2 }}
+              component={NextLinkComposed}
+              to={{
+                pathname: "/search",
+              }}
+            >
+              Search for recipes
+            </Button>
+          </Box>
       )}
       <Button
         variant="outlined"
