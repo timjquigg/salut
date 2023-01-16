@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_VERCEL_ENV
+  ? process.env.NEXT_PUBLIC_VERCEL_URL
+  : process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 const useSearch = () => {
   const router = useRouter();
