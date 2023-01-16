@@ -48,7 +48,7 @@ export default function Map() {
       <GoogleMap
         zoom={13}
         center={center}
-        mapContainerStyle={{ width: "70%", height: "100%", padding: "1rem" }}
+        mapContainerStyle={{ width: "100%", height: "100%", padding: "1rem" }}
         clickableIcons={false}
       >
         <MarkerF position={center} title="You are here" />
