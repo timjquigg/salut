@@ -56,12 +56,13 @@ const ResultList = (props) => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={435}
+          height={450}
           quality={35}
-          object-fit="cover"
           position="relative"
-        />
+          layout="intrinsic"
+          object-fit="cover"
+          />
       </Link>
 
       <ImageListItemBar

@@ -81,11 +81,12 @@ const Favorites = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={435}
+          height={450}
           quality={35}
-          object-fit="cover"
           position="relative"
+          layout="intrinsic"
+          object-fit="cover"
           // layout="responsive"
         />
       </Link>
@@ -133,10 +134,11 @@ const Favorites = () => {
         />
         {recipes.length > 0 ? (
           <>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
               <ImageList
                 sx={{ width: "100%", height: "80%" }}
                 cols={matches ? 1 : 3}
+                gap={10}
               >
                 {results}
               </ImageList>

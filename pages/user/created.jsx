@@ -81,11 +81,12 @@ const UserCocktails = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={435}
+          height={450}
           quality={35}
-          object-fit="cover"
           position="relative"
+          layout="intrinsic"
+          object-fit="cover"
         />
       </Link>
 
@@ -155,11 +156,12 @@ const UserCocktails = () => {
               Here are all the cocktail recipes that you have created
             </Typography>
             <Box
-              sx={{ display: "flex", justifyContent: "center", width: "100%" }}
+              sx={{ display: "flex", justifyContent: "center", width: "100%", p: 2 }}
             >
               <ImageList
                 sx={{ width: { itemListWidth }, height: "80%" }}
                 cols={matches ? 1 : 3}
+                gap={10}
               >
                 {results}
               </ImageList>
