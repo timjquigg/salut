@@ -113,7 +113,7 @@ const Favorites = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "100vw"
+          width: "100vw",
         }}
       >
         <Typography
@@ -131,6 +131,7 @@ const Favorites = () => {
           setCategories={categoryList}
           filterCocktail={filterCocktail}
           userId={userId}
+          setIsFiltered={setIsFiltered}
         />
         {recipes.length > 0 ? (
           <>
@@ -186,24 +187,24 @@ const Favorites = () => {
               Please search for recipes first and add to your favorites!
             </Typography>
 
-              <Image
-                src={"/noCocktailToShow.svg"}
-                alt="No Cocktails"
-                width={matches ? 400 : 500}
-                height={matches ? 400 : 500}
-              />
-              <Button
-                variant="outlined"
-                size="medium"
-                sx={{ m: 2 }}
-                component={NextLinkComposed}
-                to={{
-                  pathname: "/search",
-                }}
-              >
-                Search for recipes
-              </Button>
-            </Box>
+            <Image
+              src={"/noCocktailToShow.svg"}
+              alt="No Cocktails"
+              width={matches ? 400 : 500}
+              height={matches ? 400 : 500}
+            />
+            <Button
+              variant="outlined"
+              size="medium"
+              sx={{ m: 2 }}
+              component={NextLinkComposed}
+              to={{
+                pathname: "/search",
+              }}
+            >
+              Search for recipes
+            </Button>
+          </Box>
         )}
       </Box>
     </Layout>
