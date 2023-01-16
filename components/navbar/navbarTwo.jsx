@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { NextLinkComposed } from "../../src/link";
 import { NavButton } from "./navButton";
 import { useSession } from "next-auth/react";
@@ -19,10 +20,26 @@ import FancyAvatar from "./fancyAvatar";
 
 const drawerWidth = 240;
 
-function Navbar(props) {
+// rgba(255,255,255,0.5)
+function NavbarTwo(props) {
   const { data: session, status } = useSession();
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  // const { windowOne } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [navbar, setNavbar] = useState(false)
+  const changeBackground = () => {
+    // console.log(window.scrollY)
+    if (window.scrollY >= 66) {
+      setNavbar(true)
+    } else {
+      setNavbar(false)
+    }
+  }
+  useEffect(() => {
+    changeBackground()
+    // adding the event when scroll change background
+    window.addEventListener("scroll", changeBackground)
+  })
+  
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -164,16 +181,17 @@ function Navbar(props) {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  // const container =
+  //   windowOne !== undefined ? () => windowOne().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
+        // background={navbar ? 'black' : 'transparent'}
         sx={{
-          backgroundColor: "transparent",
+          backgroundColor: navbar ? 'rgba(255,255,255,0.5)' : 'transparent',
           boxShadow: "none",
           paddingTop: "10px",
         }}
@@ -240,7 +258,7 @@ function Navbar(props) {
       </AppBar>
       <Box component="nav">
         <Drawer
-          container={container}
+          container={undefined}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -262,4 +280,4 @@ function Navbar(props) {
   );
 }
 
-export default Navbar;
+export default NavbarTwo;

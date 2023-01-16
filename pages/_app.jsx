@@ -38,15 +38,15 @@ export default function MyApp(props) {
           {Component.auth ? (
             <Auth>
               <InventoryProvider>
-                <Layout>
+                {/* <Layout navbarType={1}> */}
                   <Component {...pageProps} />
-                </Layout>
+                {/* </Layout> */}
               </InventoryProvider>
             </Auth>
           ) : (
-            <Layout>
+            // <Layout navbarType={1}>
               <Component {...pageProps} />
-            </Layout>
+            // </Layout>
           )}
         </SessionProvider>
       </ThemeProvider>

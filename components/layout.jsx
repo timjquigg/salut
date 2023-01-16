@@ -1,10 +1,12 @@
 import React from "react";
 import Navbar from "./navbar/index";
+import NavbarTwo from "./navbar/navbarTwo";
 
-function Layout({ children }) {
+function Layout({ children, navbarType }) {
   return (
     <>
-      <Navbar />
+      {navbarType == 1 && <Navbar />}
+      {navbarType == 2 && <NavbarTwo />}
       <main>{children}</main>
     </>
   );

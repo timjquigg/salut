@@ -4,6 +4,7 @@ import { Paper, Typography } from "@mui/material";
 import theme from "../src/theme";
 import Button from "@mui/material/Button";
 import { NextLinkComposed } from "../src/link";
+import Layout from "../components/layout";
 import InfoChart from "../components/instructions/infoChart";
 import NightlifeIcon from '@mui/icons-material/Nightlife';
 
@@ -21,6 +22,7 @@ const styles = {
 
 export default function Home() {
   return (
+    <Layout navbarType={1}>
       <Box sx={{ display: "flex", height: "100vh" }}>
         <Box
           sx={{
@@ -113,5 +115,6 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
+    </Layout>
   );
 }
