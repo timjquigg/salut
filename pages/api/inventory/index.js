@@ -5,16 +5,20 @@ import {
   getIngredients,
 } from "../../../lib/inventory";
 import { getCocktailsBasedOnInventory } from "../../../lib/cocktail";
+import { ContactSupportOutlined } from "@mui/icons-material";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const { userId } = req.query;
-
-    const { ingredents, categories } = await getIngredients();
+    const { userId, numItemDisplay } = req.query;
+    const { ingredients, categories } = await getIngredients();
     const inventory = await getInventory(userId);
     const recipes = await getCocktailsBasedOnInventory(inventory);
-
-    res.status(200).send({ categories, recipes });
+    const paginateRecipe = recipes.slice(0, numItemDisplay);
+    res.status(200).send({
+      categories,
+      recipes: paginateRecipe,
+      recipeLength: recipes.length,
+    });
     return;
   }
 

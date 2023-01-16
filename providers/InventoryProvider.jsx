@@ -16,19 +16,23 @@ export default function InventoryProvider(props) {
   const [inventory, setInventory] = useState([]);
   const [categories, setCategories] = useState([]);
   const [recipes, setRecipes] = useState([]);
+  const [numItemDisplay, setNumItemDisplay] = useState(12);
+  const [dataLength, setDataLength] = useState(0);
   const userId = session.user.id;
 
   useEffect(() => {
-    const params = new URLSearchParams({ userId });
+    const params = new URLSearchParams({ userId, numItemDisplay });
     Promise.all([
       axios.get(`api/inventory/${userId}`),
       axios.get(`api/inventory?${params}`),
     ]).then((all) => {
+      console.log(all[1]);
       setInventory(all[0].data);
       setCategories(all[1].data.categories);
       setRecipes(all[1].data.recipes);
+      setDataLength(all[1].data.recipeLength);
     });
-  }, [userId]);
+  }, [userId, numItemDisplay]);
   // Shared State object:
 
   const updateInventory = (name) => {
@@ -48,7 +52,14 @@ export default function InventoryProvider(props) {
     return;
   };
 
-  const providerData = { inventory, updateInventory, categories, recipes };
+  const providerData = {
+    inventory,
+    updateInventory,
+    categories,
+    recipes,
+    dataLength,
+    setNumItemDisplay,
+  };
 
   return (
     <inventoryContext.Provider value={providerData}>

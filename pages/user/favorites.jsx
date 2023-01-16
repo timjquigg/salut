@@ -25,30 +25,38 @@ const Favorites = () => {
   const [categories, setCategories] = useState([]);
   const [categoryContents, setCategoryContents] = useState([]);
   const [userId, setUserId] = useState("");
+  const [numItemDisplay, setNumItemDisplay] = useState(12);
+  const [dataLength, setDataLength] = useState(0);
+  const [isFiltered, setIsFiltered] = useState(false);
   const { data: session, status } = useSession();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // console.log(numItemDisplay, isFiltered);
+  // console.log(recipes.length);
+
   const { data, error, isLoading, isValidating } = useSWR(
-    `/api/category?userId=${session.user.id}`,
+    `/api/category?userId=${session.user.id}&count=${numItemDisplay}`,
     fetcher
   );
 
   useEffect(() => {
     if (data) {
-      const { categoryContents, categories, recipes, userId } = data;
+      const { categoryContents, categories, recipes, userId, dataLength } =
+        data;
       setRecipes(recipes);
       setCategories(categories);
       setCategoryContents(categoryContents);
       setUserId(userId);
+      setDataLength(dataLength);
     }
   }, [data, session]);
 
-  let itemListWidth = matches
-    ? 400
-    : recipes.length > 3
-    ? 1000
-    : recipes.length * 450;
+  // let itemListWidth = matches
+  //   ? 400
+  //   : recipes.length > 3
+  //   ? 1000
+  //   : recipes.length * 450;
 
   const categoryList = (categories) => {
     setCategories(categories);
@@ -74,7 +82,7 @@ const Favorites = () => {
           alt={item.strDrink}
           width={matches ? "340" : "380"}
           height={matches ? "360" : "430"}
-          quality={35}
+          quality={55}
           object-fit="cover"
           position="relative"
         />
@@ -118,7 +126,25 @@ const Favorites = () => {
         setCategories={categoryList}
         filterCocktail={filterCocktail}
         userId={userId}
+        setIsFiltered={setIsFiltered}
       />
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            p: 2,
+          }}
+        >
+          <Typography>Please wait while we get your drinks</Typography>
+          <CircularProgress />
+        </Box>
+      ) : (
+        ""
+      )}
+
       {recipes.length > 0 ? (
         <>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -129,6 +155,19 @@ const Favorites = () => {
               {results}
             </ImageList>
           </Box>
+          {recipes.length < dataLength && !isFiltered ? (
+            <Button
+              variant="outlined"
+              size="medium"
+              onClick={() => {
+                setNumItemDisplay((prev) => prev + 12);
+              }}
+            >
+              See More
+            </Button>
+          ) : (
+            ""
+          )}
           <Button
             variant="outlined"
             size="medium"
