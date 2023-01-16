@@ -5,7 +5,7 @@ import SearchContainer from "./searchContainer";
 import IconButton from "@mui/material/IconButton";
 
 const KeywordForm = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}

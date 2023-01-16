@@ -15,13 +15,11 @@ const Cocktails = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // const imagePath = (id) => {
-  //   if (id.includes("/public")) {
-  //     const newId = id.replace("/public", "");
-  //     return newId;
-  //   }
-  //   return id;
-  // };
+  let itemListWidth = matches
+    ? 400
+    : recipes.length > 3
+    ? 1000
+    : recipes.length * 450;
 
   const results = recipes.map((item) => (
     <ImageListItem
@@ -37,8 +35,9 @@ const Cocktails = (props) => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={matches ? "340" : "380"}
+          height={matches ? "360" : "430"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />
@@ -89,7 +88,7 @@ const Cocktails = (props) => {
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <ImageList
-                sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
+                sx={{ width: { itemListWidth }, height: "80%" }}
                 cols={matches ? 1 : 3}
               >
                 {results}

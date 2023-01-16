@@ -41,6 +41,12 @@ const Favorites = () => {
     getCocktailList();
   }, [session]);
 
+  let itemListWidth = matches
+    ? 400
+    : recipes.length > 3
+    ? 1000
+    : recipes.length * 450;
+
   const categoryList = (categories) => {
     setCategories(categories);
   };
@@ -48,14 +54,6 @@ const Favorites = () => {
   const filterCocktail = (cocktails) => {
     setRecipes(cocktails);
   };
-
-  // const imagePath = (id) => {
-  //   if (id.includes("/public")) {
-  //     const newId = id.replace("/public", "");
-  //     return newId;
-  //   }
-  //   return id;
-  // };
 
   const results = recipes.map((item) => (
     <ImageListItem
@@ -71,8 +69,9 @@ const Favorites = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={matches ? "340" : "380"}
+          height={matches ? "360" : "430"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />
@@ -118,7 +117,10 @@ const Favorites = () => {
         userId={userId}
       />
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ImageList sx={{ width: "100%", height: "80%" }} cols={matches ? 1 : 3}>
+        <ImageList
+          sx={{ width: { itemListWidth }, height: "80%" }}
+          cols={matches ? 1 : 3}
+        >
           {results}
         </ImageList>
       </Box>
