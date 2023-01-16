@@ -12,10 +12,11 @@ const InfoChart = (props) => {
     <Box
       sx={{
         width: "100%",
+        px: {sm: 5, xs: 3},
         display: "flex",
-        justifyContent: "space-evenly",
+        // justifyContent: "space-evenly",
         mt: props.mt,
-        pl: { sm: 26, xs: 10 },
+        // pl: { sm: 26, xs: 10 },
       }}
     >
       <Link href="/search">
@@ -24,7 +25,7 @@ const InfoChart = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: "18%",
+            // width: "18%",
             height: "10%",
           }}
         >
@@ -54,7 +55,7 @@ const InfoChart = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: "18%",
+            // width: "18%",
             height: "10%",
           }}
         >
@@ -84,7 +85,7 @@ const InfoChart = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: "18%",
+            // width: "18%",
             height: "10%",
           }}
         >

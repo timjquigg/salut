@@ -44,7 +44,7 @@ export default function Instruction() {
             <Typography
               sx={{
                 color: "#022140",
-                fontSize: { md: 20, sm: 15, xs: 13 },
+                fontSize: { md: 20, sm: 15, xs: 15 },
                 fontFamily: theme.typography.fontFamily[1],
                 pl: 1,
               }}
@@ -103,7 +103,7 @@ export default function Instruction() {
                 lineHeight: { md: "100px", xs: "50px" },
               }}
             >
-              Cocktail planning made easier!
+              Cocktail planning made easier
             </Typography>
             <Typography
               sx={{
@@ -152,7 +152,7 @@ export default function Instruction() {
         </Box>
       </Box>
       <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100vh", pt: {sm: "100px", xs: "50px"} }}
       >
         <Typography
           sx={{
