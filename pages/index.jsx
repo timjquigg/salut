@@ -5,7 +5,7 @@ import theme from "../src/theme";
 import Button from "@mui/material/Button";
 import { NextLinkComposed } from "../src/link";
 import InfoChart from "../components/instructions/infoChart";
-import NightlifeIcon from '@mui/icons-material/Nightlife';
+import NightlifeIcon from "@mui/icons-material/Nightlife";
 
 const styles = {
   signupButton: {
@@ -114,6 +114,7 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
+
       <Box sx={{ display: "flex", height: "100vh" }}>
         <Box
           sx={{
@@ -131,7 +132,15 @@ export default function Home() {
             backgroundPosition: { sm: "center" },
           }}
         >
-          <Box sx={{ paddingTop: { sm: "100px", xs: "120px" }, px: { lg: "5vw" }, display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Box
+            sx={{
+              paddingTop: { sm: "100px", xs: "120px" },
+              px: { lg: "5vw" },
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <Typography
               sx={{
                 color: "#022140",
@@ -148,9 +157,9 @@ export default function Home() {
                 lineHeight: { md: "40px", xs: "40px" },
                 fontSize: { md: 20, xs: 18 },
                 fontFamily: theme.typography.fontFamily[1],
-                px: {xs: 3, sm: 3, lg: 0},
-                py: {lg: 5, xs: 3},
-                textAlign: {xs: "left"},
+                px: { xs: 3, sm: 3, lg: 0 },
+                py: { lg: 5, xs: 3 },
+                textAlign: { xs: "left" },
                 // backgroundColor: {xs: "rgba(255,255,255,0.5)", lg: "none"}
               }}
             >

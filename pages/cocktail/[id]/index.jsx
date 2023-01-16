@@ -5,9 +5,8 @@ import { getCocktailDetails } from "../../../lib/details";
 import LocationProvider from "../../../providers/locationProvider";
 import LoggedinDetail from "../../../components/detail/loggedinDetail";
 import PageContainer from "../../../components/detail/pageContainer";
-import axios from "axios";
-
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+import fetcher from "../../../lib/fetcher";
+import useSWR from "swr";
 
 function Details(props) {
   const { data: session, status } = useSession();
@@ -15,16 +14,22 @@ function Details(props) {
   const [favoriteId, setFavoriteId] = useState();
   const [categories, setCategories] = useState([]);
 
+  const params = new URLSearchParams({
+    userId: session.user.id,
+    cocktailId: props.data.idDrink,
+  });
+  const { data, error, isLoading, isValidating } = useSWR(
+    `/api/favorites?${params}`,
+    fetcher
+  );
+
   useEffect(() => {
-    const params = new URLSearchParams({
-      userId: session.user.id,
-      cocktailId: props.data.idDrink,
-    });
-    axios.get(`/api/favorites?${params}`).then((res) => {
-      setFavoriteId(res.data.favoriteId);
-      setCategories(res.data.categories);
-    });
-  }, [props.data.idDrink, session.user.id]);
+    if (data) {
+      console.log(data);
+      setFavoriteId(data.favoriteId);
+      setCategories(data.categories);
+    }
+  }, [data]);
 
   return (
     <LocationProvider>

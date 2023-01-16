@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Box } from "@mui/system";
-import axios from "axios";
-import { Dialog, Typography } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { locationContext } from "../../providers/locationProvider";
 import Map from "./map";
 import StoreDetails from "./storeDetails";
@@ -17,9 +16,9 @@ function MapContainer() {
       <Box
         sx={{
           width: "100%",
-          height: "60vh",
+          height: {md: "60vh", xs: "80vh"},
           display: "flex",
-          flexDirection: "row",
+          flexDirection: {md:"row", xs: "column"},
           justifyContent: "space-around",
           padding: "1rem",
         }}

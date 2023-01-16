@@ -8,15 +8,17 @@ import {
   Box,
   Button,
   Typography,
+  CircularProgress,
 } from "@mui/material";
+import { LocalBar } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useSession } from "next-auth/react";
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
-import axios from "axios";
-
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+import fetcher from "../../lib/fetcher";
+import useSWR from "swr";
+import { NextLinkComposed } from "../../src/link";
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState([]);
@@ -27,19 +29,20 @@ const Favorites = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const { data, error, isLoading, isValidating } = useSWR(
+    `/api/category?userId=${session.user.id}`,
+    fetcher
+  );
+
   useEffect(() => {
-    async function getCocktailList() {
-      const response = await axios.get(
-        `/api/category?userId=${session.user.id}`
-      );
-      const { categoryContents, categories, recipes, userId } = response.data;
+    if (data) {
+      const { categoryContents, categories, recipes, userId } = data;
       setRecipes(recipes);
       setCategories(categories);
       setCategoryContents(categoryContents);
       setUserId(userId);
     }
-    getCocktailList();
-  }, [session]);
+  }, [data, session]);
 
   let itemListWidth = matches
     ? 400
@@ -110,28 +113,82 @@ const Favorites = () => {
       >
         Your Favorite Recipes
       </Typography>
-      <CategoryForm
-        categories={categories}
-        setCategories={categoryList}
-        filterCocktail={filterCocktail}
-        userId={userId}
-      />
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ImageList
-          sx={{ width: { itemListWidth }, height: "80%" }}
-          cols={matches ? 1 : 3}
+      {recipes.length > 0 ? (
+        <>
+          <CategoryForm
+            categories={categories}
+            setCategories={categoryList}
+            filterCocktail={filterCocktail}
+            userId={userId}
+          />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <ImageList
+              sx={{ width: "100%", height: "80%" }}
+              cols={matches ? 1 : 3}
+            >
+              {results}
+            </ImageList>
+          </Box>
+          <Button
+            variant="outlined"
+            size="medium"
+            sx={{ m: 2 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Back to top
+          </Button>
+        </>
+      ) : isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            p: 2,
+          }}
         >
-          {results}
-        </ImageList>
-      </Box>
-      <Button
-        variant="outlined"
-        size="medium"
-        sx={{ m: 2 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        Back to top
-      </Button>
+          <LocalBar />
+          <Typography>Please wait while we get your drinks</Typography>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: { xs: "80%", s: "90%" },
+          }}
+        >
+          <Typography
+            sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+          >
+            You haven&apos;t added any recipes to your favorites.
+            <br />
+            <br />
+            Please search for recipes first and add to your favorites!
+          </Typography>
+
+          <Image
+            src={"/noCocktailToShow.svg"}
+            alt="No Cocktails"
+            width={matches ? 400 : 500}
+            height={matches ? 400 : 500}
+          />
+          <Button
+            variant="outlined"
+            size="medium"
+            sx={{ m: 2 }}
+            component={NextLinkComposed}
+            to={{
+              pathname: "/search",
+            }}
+          >
+            Search for recipes
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

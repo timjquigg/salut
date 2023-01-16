@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -11,7 +11,7 @@ import { NextLinkComposed } from "../../src/link";
 import Image from "next/image";
 
 const TutorialStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

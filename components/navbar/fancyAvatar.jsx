@@ -71,17 +71,6 @@ export default function FancyAvatar(props) {
             <ListItemText>Home</ListItemText>
           </MenuItem>
 
-          <MenuItem
-            component={NextLinkComposed}
-            to={{
-              pathname: "/user/instructions",
-            }}
-          >
-            <ListItemIcon>
-              <Description fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Get Started</ListItemText>
-          </MenuItem>
 
           <MenuItem
             component={NextLinkComposed}
@@ -127,7 +116,7 @@ export default function FancyAvatar(props) {
             <ListItemIcon>
               <NoteAdd fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Add a Recipe</ListItemText>
+            <ListItemText>Create a Recipe</ListItemText>
           </MenuItem>
 
           <MenuItem
@@ -139,9 +128,8 @@ export default function FancyAvatar(props) {
             <ListItemIcon>
               <LocalBar fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Custom Recipes</ListItemText>
+            <ListItemText>Recipes You Made</ListItemText>
           </MenuItem>
-
           <Divider />
           <MenuItem onClick={() => signOut({ callbackUrl: "/" })}>
             <ListItemIcon>

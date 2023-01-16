@@ -3,7 +3,6 @@ import { TabTable } from "./tabTable";
 
 export function TabPanel(props) {
   const { data, value, index, category, ...other } = props;
-  // console.log('category:', category)
   return (
     <div
       role="tabpanel"

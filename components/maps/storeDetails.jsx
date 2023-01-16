@@ -13,9 +13,9 @@ function StoreDetails() {
   const directionLink = `https://www.google.com/maps/dir/?api=1&destination=${destination}&destination_place_id=${currentStore.place_id}`;
 
   return (
-    <Box sx={{ width: "30%" }}>
+    <Box sx={{ width: {md: "40%", xs: "100%"} }}>
       {Object.keys(currentStore).length > 0 && (
-        <Card sx={{ m: "0.5rem", padding: "0.5rem" }}>
+        <Card sx={{ m: {md: "0.5rem", xs: 0}, padding: "0.5rem" }}>
           <Typography
             variant="h6"
             gutterBottom={true}
@@ -30,15 +30,17 @@ function StoreDetails() {
             {currentStore.opening_hours.open_now ? "Yes" : "No"}
           </Typography>
           <Typography sx={{ fontWeight: "bold" }}>Rating:</Typography>
-          <Rating
-            name="half-rating"
-            value={currentStore.rating}
-            getLabelText={getLabelText}
-            readOnly={true}
-          />
-          <Button variant="outlined" href={directionLink} target="_blank">
-            Get Directions
-          </Button>
+          <Box sx={{display: "flex", flexDirection: "column"}}>
+            <Rating
+              name="half-rating"
+              value={currentStore.rating}
+              getLabelText={getLabelText}
+              readOnly={true}
+            />
+            <Button variant="outlined" href={directionLink} target="_blank" sx={{mt: 3}}>
+              Get Directions
+            </Button>
+          </Box>
         </Card>
       )}
     </Box>
