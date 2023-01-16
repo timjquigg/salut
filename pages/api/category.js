@@ -8,13 +8,22 @@ import {
 
 async function Handler(req, res) {
   if (req.method === "GET") {
-    const { userId } = req.query;
+    // console.log("QUERY:", req.query);
+    const { userId, count } = req.query;
     const categoryContents = await getCategoryContentsByUserClient(userId);
 
     const categoriesByUser = await getAllCategoriesByUserClient(userId);
     const recipes = await getFavoriteByIdClient(userId);
     const categories = categoriesByUser.map((el) => el.name);
-    res.status(200).json({ categoryContents, categories, recipes, userId });
+    const paginateRecipe = recipes.slice(0, count);
+    // console.log(recipes.length);
+    res.status(200).json({
+      categoryContents,
+      categories,
+      recipes: paginateRecipe,
+      userId,
+      dataLength: recipes.length,
+    });
   }
   if (req.method === "POST") {
     const newCategory = await prisma.category.create({

@@ -70,7 +70,7 @@ const Result = () => {
   const queryURL = session
     ? `/api/search?userId=${session.user.id}&keywords=${keyword}&count=${numItemDisplay}`
     : `/api/search?keywords=${keyword}&count=${numItemDisplay}`;
-  // const fetcher = (url) => fetch(url).then((res) => res.json());
+
   const { data, error, isLoading, isValidating } = useSWR(queryURL, fetcher);
 
   useEffect(() => {
@@ -202,13 +202,13 @@ const Result = () => {
             <Typography>Please wait while we get your drinks</Typography>
             <CircularProgress />
           </Box>
-          
         ) : cocktailList.length !== 0 ? (
           <>
             <p>{`Displaying ${
-              cocktailList.length < dataLength ? cocktailList.length : dataLength
+              cocktailList.length < dataLength
+                ? cocktailList.length
+                : dataLength
             } out of ${dataLength} Results`}</p>
-            
           </>
         ) : (
           <Box sx={{}}>

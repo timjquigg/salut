@@ -26,30 +26,38 @@ const Favorites = () => {
   const [categories, setCategories] = useState([]);
   const [categoryContents, setCategoryContents] = useState([]);
   const [userId, setUserId] = useState("");
+  const [numItemDisplay, setNumItemDisplay] = useState(12);
+  const [dataLength, setDataLength] = useState(0);
+  const [isFiltered, setIsFiltered] = useState(false);
   const { data: session, status } = useSession();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // console.log(numItemDisplay, isFiltered);
+  // console.log(recipes.length);
+
   const { data, error, isLoading, isValidating } = useSWR(
-    `/api/category?userId=${session.user.id}`,
+    `/api/category?userId=${session.user.id}&count=${numItemDisplay}`,
     fetcher
   );
 
   useEffect(() => {
     if (data) {
-      const { categoryContents, categories, recipes, userId } = data;
+      const { categoryContents, categories, recipes, userId, dataLength } =
+        data;
       setRecipes(recipes);
       setCategories(categories);
       setCategoryContents(categoryContents);
       setUserId(userId);
+      setDataLength(dataLength);
     }
   }, [data, session]);
 
-  let itemListWidth = matches
-    ? 400
-    : recipes.length > 3
-    ? 1000
-    : recipes.length * 450;
+  // let itemListWidth = matches
+  //   ? 400
+  //   : recipes.length > 3
+  //   ? 1000
+  //   : recipes.length * 450;
 
   const categoryList = (categories) => {
     setCategories(categories);
