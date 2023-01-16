@@ -32,11 +32,12 @@
     "react-dom": "18.2.0",
     "react-material-ui-carousel": "^3.4.2",
     "react-multi-carousel": "^2.8.2",
+    "sharp": "^0.31.3",
     "swr": "^2.0.0"
   },
   "engines": {
     "node": "^16.19",
-    "npm": "7.7.6"
+    "npm": ">7.7.6"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",

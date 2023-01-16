@@ -1,23 +1,27 @@
-// import { getUserId } from "../../lib/user";
-// import { getUserCreatedCocktails } from "../../lib/cocktail";
-import * as React from "react";
 import { useState, useEffect } from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
+import {
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Box,
+  Typography,
+  Button,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContentText,
+  DialogActions,
+  CircularProgress,
+} from "@mui/material";
 import Link from "next/link";
-import { Box, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { NextLinkComposed } from "../../src/link";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
+import { LocalBar, Close } from "@mui/icons-material";
 import { useSession } from "next-auth/react";
+import fetcher from "../../lib/fetcher";
+import useSWR from "swr";
 
 const UserCocktails = () => {
   const [cocktails, setCocktails] = useState([]);
@@ -26,25 +30,15 @@ const UserCocktails = () => {
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const { data: session, status } = useSession();
 
-  const imagePath = (id) => {
-    if (id.includes("/public")) {
-      const newId = id.replace("/public", "");
-      return newId;
-    }
-    return id;
-  };
-
+  const { data, error, isLoading, isValidating } = useSWR(
+    `/api/cocktail?userId=${session.user.id}`,
+    fetcher
+  );
   useEffect(() => {
-    async function getCreatedCocktails() {
-      if (session) {
-        const response = await fetch(`/api/cocktail?userId=${session.user.id}`);
-        const data = await response.json();
-        setCocktails(data.cocktails);
-        // console.log("Data HAHAHAHA:", data.cocktails);
-      }
+    if (data) {
+      setCocktails(data.cocktails);
     }
-    getCreatedCocktails();
-  }, [session]);
+  }, [data, session]);
 
   const deleteCocktail = async (cocktailId) => {
     const response = await fetch("/api/createCocktail", {
@@ -74,7 +68,7 @@ const UserCocktails = () => {
           toggleOpen(true);
         }}
       >
-        <CloseIcon sx={{ color: "white", fontSize: "50px" }} />
+        <Close sx={{ color: "white", fontSize: "50px" }} />
       </IconButton>
       <Link href={`/cocktail/${item.idDrink}`}>
         <Image
@@ -115,7 +109,6 @@ const UserCocktails = () => {
       </Dialog>
     </ImageListItem>
   ));
-  // console.log("results:", results);
   return (
     <Box
       sx={{
@@ -170,6 +163,20 @@ const UserCocktails = () => {
               Back to top
             </Button>
           </>
+        ) : isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              p: 2,
+            }}
+          >
+            <LocalBar />
+            <Typography>Please wait while we get your drinks</Typography>
+            <CircularProgress />
+          </Box>
         ) : (
           <Box
             sx={{
@@ -180,7 +187,10 @@ const UserCocktails = () => {
             }}
           >
             <Typography
-              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+              sx={{
+                fontSize: { xs: "15px", sm: "18px" },
+                textAlign: "center",
+              }}
             >
               You haven&apos;t made any custom cocktail recipe yet.
               <br />
@@ -213,16 +223,6 @@ const UserCocktails = () => {
   );
 };
 
-// export async function getServerSideProps(context) {
-//   const sessionToken = context.req.cookies["next-auth.session-token"];
-//   const userId = await getUserId(sessionToken);
-//   const cocktails = await getUserCreatedCocktails(userId.userId);
-//   // console.log("user:", userId.cocktails);
-//   return {
-//     props: {
-//       cocktails: cocktails,
-//     },
-//   };
-// }
+UserCocktails.auth = true;
 
 export default UserCocktails;

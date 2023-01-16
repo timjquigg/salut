@@ -11,16 +11,8 @@ import "react-multi-carousel/lib/styles.css";
 import Button from "@mui/material/Button";
 import { NextLinkComposed } from "../../src/link";
 import Image from "next/image";
-
-// export async function getServerSideProps(context) {
-//   const sessionToken = context.req.cookies["next-auth.session-token"];
-//   const data = await getCocktailsBasedOnInventory(getUserId(sessionToken));
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
+import fetcher from "../../lib/fetcher";
+import useSWR from "swr";
 
 function Item(props) {
   return (
@@ -63,21 +55,19 @@ function User() {
     },
   };
   const { data: session } = useSession();
-  const [cocktails, setCocktails] = useState([])
+  const [cocktails, setCocktails] = useState([]);
+
+  const { data, error, isLoading, isValidating } = useSWR(
+    `/api/carousel?userId=${session.user.id}`,
+    fetcher
+  );
 
   useEffect(() => {
-    async function getCreatedCocktails() {
-      if (session) {
-        const response = await fetch(`/api/carousel?userId=${session.user.id}`);
-        const data = await response.json();
-        setCocktails(data.cocktails);
-        // console.log("Data BUWHAHAHAHA:", data.cocktails);
-      }
+    if (data) {
+      setCocktails(data.cocktails);
     }
-    getCreatedCocktails();
-  }, [session]);
+  }, [data, session]);
 
-  
   if (session) {
     return (
       <Box

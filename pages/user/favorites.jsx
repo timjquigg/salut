@@ -8,15 +8,16 @@ import {
   Box,
   Button,
   Typography,
+  CircularProgress,
 } from "@mui/material";
+import { LocalBar } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useSession } from "next-auth/react";
 import CategoryForm from "../../components/category/categoryForm";
 import CategoryMenu from "../../components/category/categoryMenu";
-import axios from "axios";
-
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+import fetcher from "../../lib/fetcher";
+import useSWR from "swr";
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState([]);
@@ -27,19 +28,20 @@ const Favorites = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const { data, error, isLoading, isValidating } = useSWR(
+    `/api/category?userId=${session.user.id}`,
+    fetcher
+  );
+
   useEffect(() => {
-    async function getCocktailList() {
-      const response = await axios.get(
-        `/api/category?userId=${session.user.id}`
-      );
-      const { categoryContents, categories, recipes, userId } = response.data;
+    if (data) {
+      const { categoryContents, categories, recipes, userId } = data;
       setRecipes(recipes);
       setCategories(categories);
       setCategoryContents(categoryContents);
       setUserId(userId);
     }
-    getCocktailList();
-  }, [session]);
+  }, [data, session]);
 
   const categoryList = (categories) => {
     setCategories(categories);
@@ -48,14 +50,6 @@ const Favorites = () => {
   const filterCocktail = (cocktails) => {
     setRecipes(cocktails);
   };
-
-  // const imagePath = (id) => {
-  //   if (id.includes("/public")) {
-  //     const newId = id.replace("/public", "");
-  //     return newId;
-  //   }
-  //   return id;
-  // };
 
   const results = recipes.map((item) => (
     <ImageListItem
@@ -117,11 +111,38 @@ const Favorites = () => {
         filterCocktail={filterCocktail}
         userId={userId}
       />
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ImageList sx={{ width: "100%", height: "80%" }} cols={matches ? 1 : 3}>
-          {results}
-        </ImageList>
-      </Box>
+      {recipes.length > 0 ? (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <ImageList
+            sx={{ width: "100%", height: "80%" }}
+            cols={matches ? 1 : 3}
+          >
+            {results}
+          </ImageList>
+        </Box>
+      ) : isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            p: 2,
+          }}
+        >
+          <LocalBar />
+          <Typography>Please wait while we get your drinks</Typography>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
+          {/* No Favorites goes here: */}
+          {/* No Favorites goes here: */}
+          {/* No Favorites goes here: */}
+          {/* No Favorites goes here: */}
+          {/* No Favorites goes here: */}
+        </>
+      )}
       <Button
         variant="outlined"
         size="medium"
