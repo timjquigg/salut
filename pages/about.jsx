@@ -56,7 +56,7 @@ function About() {
                   textAlign: "center",
                 }}
               >
-                Why Salut?
+                About Salut
               </Typography>
               <Typography
                 sx={{

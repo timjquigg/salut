@@ -11,6 +11,8 @@ import "react-multi-carousel/lib/styles.css";
 import Button from "@mui/material/Button";
 import { NextLinkComposed } from "../../src/link";
 import Image from "next/image";
+import { LocalBar } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
 import fetcher from "../../lib/fetcher";
 import useSWR from "swr";
 
@@ -163,6 +165,20 @@ function User() {
                   ))}
                 </Carousel>
               </>
+            ) : isLoading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  p: 2,
+                }}
+              >
+                <LocalBar />
+                <Typography>Please wait while we get your drinks</Typography>
+                <CircularProgress />
+              </Box>
             ) : (
               <Typography sx={{ marginBottom: "50px" }}>
                 Nothing to show - please add more items to your inventory!
