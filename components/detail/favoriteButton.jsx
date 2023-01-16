@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import { ToggleButton } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
@@ -8,6 +8,13 @@ import { styled } from "@mui/material/styles";
 export default function FavoriteButton(props) {
   const { favoriteId, userId, cocktailId } = props;
   const [selected, setSelected] = useState(favoriteId ? true : false);
+
+  useEffect(() => {
+    if (favoriteId) {
+      setSelected(true);
+    }
+  }, [favoriteId]);
+
   const StyledToggleButton = styled(ToggleButton)({
     "&.Mui-selected, &.Mui-selected:hover": {
       color: "transparent",
@@ -28,10 +35,10 @@ export default function FavoriteButton(props) {
         onClick={() => {
           if (!selected) {
             addFavorite(userId, cocktailId);
-            props.setNewLikes(prev => prev + 1)
+            props.setNewLikes((prev) => prev + 1);
           } else {
             removeFavorite(userId, cocktailId);
-            props.setNewLikes(prev => prev - 1)
+            props.setNewLikes((prev) => prev - 1);
           }
         }}
         sx={{
@@ -45,7 +52,7 @@ export default function FavoriteButton(props) {
         {selected ? (
           <Favorite sx={{ color: "red", fontSize: 40 }} />
         ) : (
-          <FavoriteBorder sx={{fontSize: 40 }} />
+          <FavoriteBorder sx={{ fontSize: 40 }} />
         )}
       </StyledToggleButton>
     </Box>
