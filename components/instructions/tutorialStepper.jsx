@@ -99,7 +99,7 @@ const TutorialStepper = () => {
                   <Box
                     sx={{
                       width: { xs: "100%", sm: "70%" },
-                      height: { xs: "200px", sm: "450px" },
+                      height: { xs: "120px", sm: "350px" },
                       position: "relative",
                       overflow: "hidden",
                     }}
@@ -110,7 +110,7 @@ const TutorialStepper = () => {
                     <Button
                       variant="contained"
                       onClick={handleNext}
-                      sx={{ mt: 1, mr: 1 }}
+                      sx={{ mt: 1, mr: 1, color: "#fff" }}
                     >
                       {index === steps.length - 1 ? "Finish" : "Continue"}
                     </Button>
