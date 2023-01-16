@@ -58,7 +58,7 @@ const ResultList = (props) => {
           alt={item.strDrink}
           width={matches ? "340" : "380"}
           height={matches ? "360" : "430"}
-          quality={35}
+          quality={55}
           object-fit="cover"
           position="relative"
         />

@@ -11,7 +11,8 @@ import { NextLinkComposed } from "../../src/link";
 import { inventoryContext } from "../../providers/InventoryProvider";
 
 const Cocktails = (props) => {
-  const { recipes } = useContext(inventoryContext);
+  const { recipes, setNumItemDisplay, dataLength } =
+    useContext(inventoryContext);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -94,6 +95,19 @@ const Cocktails = (props) => {
                 {results}
               </ImageList>
             </Box>
+            {recipes.length < dataLength ? (
+              <Button
+                variant="outlined"
+                size="medium"
+                onClick={() => {
+                  setNumItemDisplay((prev) => prev + 12);
+                }}
+              >
+                See More
+              </Button>
+            ) : (
+              ""
+            )}
             <Button
               variant="outlined"
               size="medium"
