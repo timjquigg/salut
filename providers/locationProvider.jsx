@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_VERCEL_ENV
+  ? process.env.NEXT_PUBLIC_VERCEL_URL
+  : process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 // Create a Context
 export const locationContext = createContext();

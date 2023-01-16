@@ -16,9 +16,9 @@ function MapContainer() {
       <Box
         sx={{
           width: "100%",
-          height: "60vh",
+          height: {md: "60vh", xs: "80vh"},
           display: "flex",
-          flexDirection: "row",
+          flexDirection: {md:"row", xs: "column"},
           justifyContent: "space-around",
           padding: "1rem",
         }}

@@ -3,7 +3,9 @@ import { useSession } from "next-auth/react";
 import { inventoryContext } from "../providers/InventoryProvider";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_VERCEL_ENV
+  ? process.env.NEXT_PUBLIC_VERCEL_URL
+  : process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 export default function useInventoryData(serverInventory, user) {
   const [startingInventory, setStartingInventory] = useState(serverInventory);

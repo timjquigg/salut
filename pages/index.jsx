@@ -21,7 +21,6 @@ const styles = {
 
 export default function Home() {
   return (
-    <Box>
       <Box sx={{ display: "flex", height: "100vh" }}>
         <Box
           sx={{
@@ -114,6 +113,7 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
+
       <Box sx={{ display: "flex", height: "100vh" }}>
         <Box
           sx={{
@@ -187,5 +187,6 @@ export default function Home() {
         ></Box>
       </Box>
     </Box>
+
   );
 }

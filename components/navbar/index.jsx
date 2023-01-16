@@ -65,7 +65,7 @@ function Navbar(props) {
             <ListItemText primary={"ABOUT"} />
           </ListItemButton>
         </ListItem>
-        {/* <ListItem key={"instructions"} disablePadding>
+        <ListItem key={"instructions"} disablePadding>
           <ListItemButton
             sx={{ textAlign: "center" }}
             component={NextLinkComposed}
@@ -73,23 +73,12 @@ function Navbar(props) {
               pathname: "/user/instructions",
             }}
           >
-            <ListItemText primary={"INSTRUCTIONS"} />
+            <ListItemText primary={"HOW IT WORKS"} />
           </ListItemButton>
-        </ListItem> */}
+        </ListItem>
         {status === "authenticated" && (
           <>
             <Divider />
-            <ListItem key={"instructions"} disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                component={NextLinkComposed}
-                to={{
-                  pathname: "/user/instructions",
-                }}
-              >
-                <ListItemText primary={"GET STARTED"} />
-              </ListItemButton>
-            </ListItem>
             <ListItem key={"Dashboard"} disablePadding>
               <ListItemButton
                 sx={{ textAlign: "center" }}
@@ -142,7 +131,7 @@ function Navbar(props) {
                   pathname: "/user/created",
                 }}
               >
-                <ListItemText primary={"CUSTOM RECIPES"} />
+                <ListItemText primary={"RECIPES YOU MADE"} />
               </ListItemButton>
             </ListItem>
             <Divider />
@@ -236,6 +225,9 @@ function Navbar(props) {
             </NavButton>
             <NavButton component={NextLinkComposed} path="/about">
               ABOUT
+            </NavButton>
+            <NavButton component={NextLinkComposed} path="/user/instructions">
+              HOW IT WORKS
             </NavButton>
             {status === "authenticated" && (
               <>

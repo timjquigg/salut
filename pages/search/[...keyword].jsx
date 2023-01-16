@@ -186,10 +186,28 @@ const Result = () => {
           position: "relative",
         }}
       >
-        {cocktailList.length !== 0 ? (
-          <p>{`Displaying ${
-            cocktailList.length < dataLength ? cocktailList.length : dataLength
-          } out of ${dataLength} Results`}</p>
+        {isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              p: 2,
+            }}
+          >
+            <LocalBarIcon />
+            <Typography>Please wait while we get your drinks</Typography>
+            <CircularProgress />
+          </Box>
+          
+        ) : cocktailList.length !== 0 ? (
+          <>
+            <p>{`Displaying ${
+              cocktailList.length < dataLength ? cocktailList.length : dataLength
+            } out of ${dataLength} Results`}</p>
+            
+          </>
         ) : (
           <Box sx={{}}>
             <Typography
@@ -223,7 +241,7 @@ const Result = () => {
             favorites={favorites}
           />
         )}
-        {isLoading ? (
+        {/* {isLoading ? (
           <Box
             sx={{
               display: "flex",
@@ -239,7 +257,7 @@ const Result = () => {
           </Box>
         ) : (
           ""
-        )}
+        )} */}
         {cocktailList.length < dataLength ? (
           <Button
             variant="outlined"

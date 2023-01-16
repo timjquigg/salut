@@ -30,7 +30,7 @@ const InfoChart = (props) => {
             width: { lg: "150px", md: "120px", xs: "90px" },
             height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
-            backgroundColor: "#fff",
+            backgroundColor: "rgba(255, 255, 255, 0.4)",
             pt: 1,
           }}
         >
@@ -63,7 +63,7 @@ const InfoChart = (props) => {
             width: { lg: "150px", md: "120px", xs: "90px" },
             height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
-            backgroundColor: "#fff",
+            backgroundColor: "rgba(255, 255, 255, 0.4)",
             pt: 1,
           }}
         >
@@ -83,7 +83,7 @@ const InfoChart = (props) => {
               textAlign: "center",
             }}
           >
-            Save and categorize cockails
+            Save and categorize recipes
           </Typography>
         </Box>
       </Link>
@@ -96,7 +96,7 @@ const InfoChart = (props) => {
             width: { lg: "150px", md: "120px", xs: "90px" },
             height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
-            backgroundColor: "#fff",
+            backgroundColor: "rgba(255, 255, 255, 0.4)",
             pt: 1,
           }}
         >
@@ -129,7 +129,7 @@ const InfoChart = (props) => {
             width: { lg: "150px", md: "120px", xs: "90px" },
             height: { lg: "160px", md: "140px", xs: "110px" },
             borderRadius: "5px",
-            backgroundColor: "#fff",
+            backgroundColor: "rgba(255, 255, 255, 0.4)",
             pt: 1,
           }}
         >
