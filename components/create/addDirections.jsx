@@ -6,6 +6,7 @@ export default function AddDirections(props) {
   const { directions, setDirections } = useContext(newCocktailContext);
   const [error, setError] = useState(false);
   const handleChange = (value) => {
+    props.setHasError(false);
     setDirections(value);
     if (value === "") {
       setError(true);

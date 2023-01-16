@@ -40,6 +40,12 @@ const UserCocktails = () => {
     }
   }, [data, session]);
 
+  let itemListWidth = matches
+    ? 400
+    : cocktails.length > 3
+    ? 1000
+    : cocktails.length * 450;
+
   const deleteCocktail = async (cocktailId) => {
     const response = await fetch("/api/createCocktail", {
       method: "DELETE",
@@ -74,8 +80,9 @@ const UserCocktails = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={matches ? "340" : "380"}
+          height={matches ? "360" : "430"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />
@@ -148,7 +155,7 @@ const UserCocktails = () => {
               sx={{ display: "flex", justifyContent: "center", width: "100%" }}
             >
               <ImageList
-                sx={{ width: { sm: "90%", sx: "100%" }, height: "80%" }}
+                sx={{ width: { itemListWidth }, height: "80%" }}
                 cols={matches ? 1 : 3}
               >
                 {results}

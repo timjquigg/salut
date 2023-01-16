@@ -23,6 +23,7 @@ async function Handler(req, res) {
     const newCocktail = await prisma.cocktail.create({
       data: ingredientScript,
     });
+
     res.status(200).json({ message: "Cocktail created" });
   }
 

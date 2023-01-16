@@ -44,6 +44,12 @@ const Favorites = () => {
     }
   }, [data, session]);
 
+  let itemListWidth = matches
+    ? 400
+    : recipes.length > 3
+    ? 1000
+    : recipes.length * 450;
+
   const categoryList = (categories) => {
     setCategories(categories);
   };
@@ -66,8 +72,9 @@ const Favorites = () => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "351" : "435"}
-          height={matches ? "375" : "450"}
+          width={matches ? "340" : "380"}
+          height={matches ? "360" : "430"}
+          quality={35}
           object-fit="cover"
           position="relative"
         />
@@ -147,40 +154,40 @@ const Favorites = () => {
         </Box>
       ) : (
         <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: { xs: "80%", s: "90%" },
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: { xs: "80%", s: "90%" },
+          }}
+        >
+          <Typography
+            sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
+          >
+            You haven&apos;t added any recipes to your favorites.
+            <br />
+            <br />
+            Please search for recipes first and add to your favorites!
+          </Typography>
+
+          <Image
+            src={"/noCocktailToShow.svg"}
+            alt="No Cocktails"
+            width={matches ? 400 : 500}
+            height={matches ? 400 : 500}
+          />
+          <Button
+            variant="outlined"
+            size="medium"
+            sx={{ m: 2 }}
+            component={NextLinkComposed}
+            to={{
+              pathname: "/search",
             }}
           >
-            <Typography
-              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
-            >
-              You haven&apos;t added any recipes to your favorites.
-              <br />
-              <br />
-              Please search for recipes first and add to your favorites! 
-            </Typography>
-
-            <Image
-              src={"/noCocktailToShow.svg"}
-              alt="No Cocktails"
-              width={matches ? 400 : 500}
-              height={matches ? 400 : 500}
-            />
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{ m: 2 }}
-              component={NextLinkComposed}
-              to={{
-                pathname: "/search",
-              }}
-            >
-              Search for recipes
-            </Button>
-          </Box>
+            Search for recipes
+          </Button>
+        </Box>
       )}
     </Box>
   );

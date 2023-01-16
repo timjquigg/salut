@@ -6,6 +6,8 @@ export default function AddPhoto(props) {
   const { photo, setPhoto } = useContext(newCocktailContext);
   const [error, setError] = useState(false);
   const handleChange = (value) => {
+    props.setHasError(false);
+    props.setHasPhotoError(false);
     setPhoto(value);
     if (value === "") {
       setError(true);
@@ -21,16 +23,18 @@ export default function AddPhoto(props) {
           required
           error
           helperText="Must Include Photo Link"
-          label="Link to Photo"
+          label="Image URL"
           margin="normal"
+          placeholder="https://"
           value={photo}
           onChange={(e) => handleChange(e.target.value)}
         />
       ) : (
         <TextField
           required
-          label="Link to Photo"
+          label="Image URL"
           margin="normal"
+          placeholder="https://"
           value={photo}
           onChange={(e) => handleChange(e.target.value)}
         />

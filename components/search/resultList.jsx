@@ -17,7 +17,7 @@ const ResultList = (props) => {
   let itemListWidth = matches
     ? 400
     : props.drink.length > 3
-    ? 1375
+    ? 1000
     : props.drink.length * 450;
 
   const errorSize = matches ? 350 : 500;
@@ -56,8 +56,8 @@ const ResultList = (props) => {
         <Image
           src={item.strDrinkThumb}
           alt={item.strDrink}
-          width={matches ? "357" : "451"}
-          height={matches ? "375" : "450"}
+          width={matches ? "340" : "380"}
+          height={matches ? "360" : "430"}
           quality={35}
           object-fit="cover"
           position="relative"

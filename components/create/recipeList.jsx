@@ -14,7 +14,9 @@ export default function RecipeList(props) {
   const numIngredients = recipe.length;
 
   const recipeList = recipe.map((el, index) => {
-    return <RecipeListItem key={index} id={index} />;
+    return (
+      <RecipeListItem key={index} id={index} setHasError={props.setHasError} />
+    );
   });
 
   return (
