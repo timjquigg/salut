@@ -107,7 +107,7 @@ function User() {
                 <Typography sx={{}}>Cocktails you can make</Typography>
               </Button>
             </Box>
-            <Box sx={{}}>
+            <Box>
               <Button
                 component={NextLinkComposed}
                 to={{
@@ -117,10 +117,10 @@ function User() {
                 sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, textAlign: "center" }}
               >
                 <Image src={"/cocktail2.png"} width={50} height={50} alt="" />
-                <Typography sx={{}}>Go to your inventory</Typography>
+                <Typography>Go to your inventory</Typography>
               </Button>
             </Box>
-            <Box sx={{}}>
+            <Box>
               <Button
                 component={NextLinkComposed}
                 to={{
@@ -130,10 +130,10 @@ function User() {
                 sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, textAlign: "center" }}
               >
                 <Image src={"/cocktail3.png"} width={50} height={50} alt="" />
-                <Typography sx={{}}>Go to your favorites</Typography>
+                <Typography>Go to your favorites</Typography>
               </Button>
             </Box>
-            <Box sx={{}}>
+            <Box>
               <Button
                 component={NextLinkComposed}
                 to={{
@@ -143,10 +143,10 @@ function User() {
                 sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, textAlign: "center" }}
               >
                 <Image src={"/cocktail4.png"} width={50} height={50} alt="" />
-                <Typography sx={{}}>Create your own recipe</Typography>
+                <Typography>Create your own recipe</Typography>
               </Button>
             </Box>
-            <Box sx={{}}>
+            <Box>
               <Button
                 component={NextLinkComposed}
                 to={{
@@ -156,7 +156,7 @@ function User() {
                 sx={{ width: {md: "17vw", sm: "40vw", xs: "80vw"}, height: {md: "100px", sm: "100px", xs: "90px"}, marginBottom: { xs: "20px", md: 0 }, textAlign: "center" }}
               >
                 <Image src={"/cocktail5.png"} width={50} height={50} alt="" />
-                <Typography sx={{}}>your custom recipes</Typography>
+                <Typography>your custom recipes</Typography>
               </Button>
             </Box>
           </Box>
