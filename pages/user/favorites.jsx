@@ -20,6 +20,7 @@ import CategoryMenu from "../../components/category/categoryMenu";
 import fetcher from "../../lib/fetcher";
 import useSWR from "swr";
 import { NextLinkComposed } from "../../src/link";
+import ImageWithFallback from "../../src/imageWithFallback";
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState([]);
@@ -78,17 +79,7 @@ const Favorites = () => {
       }}
     >
       <Link href={`/cocktail/${item.idDrink}`}>
-        <Image
-          src={item.strDrinkThumb}
-          alt={item.strDrink}
-          width={435}
-          height={450}
-          quality={35}
-          position="relative"
-          layout="intrinsic"
-          object-fit="cover"
-          // layout="responsive"
-        />
+        <ImageWithFallback src={item.strDrinkThumb} alt={item.strDrink} />
       </Link>
       <CategoryMenu
         categories={categories}
