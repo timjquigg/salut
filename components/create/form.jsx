@@ -55,40 +55,40 @@ export default function Form(props) {
     let hasError = false;
     if (!title) {
       error.title = true;
-      console.log("Missing Cocktail Title");
+      // console.log("Missing Cocktail Title");
       hasError = true;
     }
 
     recipe.forEach((recipe) => {
       if (!recipe.ingredient || !recipe.measurement) {
-        console.log("Missing ingredient/measurement");
+        // console.log("Missing ingredient/measurement");
         error.recipe = true;
       }
     });
 
     if (!photo) {
       error.photo = true;
-      console.log("Missing photo link");
+      // console.log("Missing photo link");
       hasError = true;
     }
 
     if (!isValidUrl(photo)) {
       error.photo = true;
       setHasPhotoError(true);
-      console.log("Invalid image source");
+      // console.log("Invalid image source");
     }
     if (!directions) {
       error.directions = true;
-      console.log("Missing instructions");
+      // console.log("Missing instructions");
       hasError = true;
     }
 
     if (Object.values(error).includes(true)) {
       setHasError(true);
-      console.log("there's an error");
+      // console.log("there's an error");
       return;
     }
-    console.log("Submitting");
+    // console.log("Submitting");
     submitCocktail(userId, title, recipe, photo, directions).then((res) => {
       if (res.ok) {
         router.push("/user/created");

@@ -58,7 +58,6 @@ async function getIngredients() {
   let detailedIngredients = [];
   ingredients = ingredients.data.drinks;
   for (const ingredient of ingredients) {
-    // console.log(ingredients[0]);
     let ingredientDetails = await axios.get(
       `${cocktailUrl}/search.php?i=${ingredient.strIngredient1}`
     );
