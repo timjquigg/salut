@@ -3,7 +3,6 @@ import PageContainer from "../../components/detail/pageContainer";
 import { getIngredients } from "../../lib/inventory";
 import { getCocktailNames } from "../../lib/cocktail";
 import { getUserId } from "../../lib/user";
-import CocktailTitle from "../../components/detail/cocktailTitle";
 import Layout from "../../components/layout";
 import NewCocktailProvider from "../../providers/newCocktailProvider";
 import Form from "../../components/create/form";
@@ -33,7 +32,6 @@ export async function getServerSideProps(context) {
   const userInfo = await getUserId(sessionToken);
   const { ingredients } = await getIngredients();
   const cocktails = await getCocktailNames();
-  // console.log(userInfo.userId);
   return {
     props: {
       ingredients,

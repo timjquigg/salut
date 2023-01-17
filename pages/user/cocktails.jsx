@@ -10,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { NextLinkComposed } from "../../src/link";
 import { inventoryContext } from "../../providers/InventoryProvider";
+import ImageWithFallback from "../../src/imageWithFallback";
 
 const Cocktails = (props) => {
   const { recipes, setNumItemDisplay, dataLength } =
@@ -34,16 +35,7 @@ const Cocktails = (props) => {
       }}
     >
       <Link href={`/cocktail/${item.idDrink}`}>
-        <Image
-          src={item.strDrinkThumb}
-          alt={item.strDrink}
-          width={435}
-          height={450}
-          quality={35}
-          position="relative"
-          layout="intrinsic"
-          object-fit="cover"
-        />
+        <ImageWithFallback src={item.strDrinkThumb} alt={item.strDrink} />
       </Link>
 
       <ImageListItemBar
@@ -61,7 +53,7 @@ const Cocktails = (props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "100vw"
+          width: "100vw",
         }}
       >
         <Typography
@@ -75,71 +67,78 @@ const Cocktails = (props) => {
           Cocktails You Can Make
         </Typography>
 
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        {results.length > 0 ? (
-          <>
-            <Typography
-              sx={{
-                marginBottom: "50px",
-                m: { xs: 2 },
-                fontSize: { xs: "15px", sm: "18px" },
-                textAlign: "center",
-              }}
-            >
-              Here are all the cocktails you can make with what you have in your
-              inventory.
-            </Typography>
-            <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
-              <ImageList
-                sx={{ width: { itemListWidth }, height: "80%" }}
-                cols={matches ? 1 : 3}
-                gap={10}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {results.length > 0 ? (
+            <>
+              <Typography
+                sx={{
+                  marginBottom: "50px",
+                  m: { xs: 2 },
+                  fontSize: { xs: "15px", sm: "18px" },
+                  textAlign: "center",
+                }}
               >
-                {results}
-              </ImageList>
-            </Box>
-            {recipes.length < dataLength ? (
+                Here are all the cocktails you can make with what you have in
+                your inventory.
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+                <ImageList
+                  sx={{ width: { itemListWidth }, height: "80%" }}
+                  cols={matches ? 1 : 3}
+                  gap={10}
+                >
+                  {results}
+                </ImageList>
+              </Box>
+              {recipes.length < dataLength ? (
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  onClick={() => {
+                    setNumItemDisplay((prev) => prev + 12);
+                  }}
+                >
+                  See More
+                </Button>
+              ) : (
+                ""
+              )}
               <Button
                 variant="outlined"
                 size="medium"
-                onClick={() => {
-                  setNumItemDisplay((prev) => prev + 12);
+                sx={{ m: 2 }}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                Back to top
+              </Button>
+            </>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: { xs: "80%", s: "90%" },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", sm: "18px" },
+                  textAlign: "center",
                 }}
               >
-                See More
-              </Button>
-            ) : (
-              ""
-            )}
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{ m: 2 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              Back to top
-            </Button>
-          </>
-        ) : (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: { xs: "80%", s: "90%" },
-            }}
-          >
-            <Typography
-              sx={{ fontSize: { xs: "15px", sm: "18px" }, textAlign: "center" }}
-            >
-              You don&apos;t have enough items in your inventory to make any
-              cocktail at the moment.
-              <br />
-              <br />
-              Please update your inventory, or go to the closest liquor store!
-            </Typography>
+                You don&apos;t have enough items in your inventory to make any
+                cocktail at the moment.
+                <br />
+                <br />
+                Please update your inventory, or go to the closest liquor store!
+              </Typography>
 
               <Image
                 src={"/noCocktailToShow.svg"}
