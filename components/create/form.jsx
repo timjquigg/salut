@@ -1,5 +1,5 @@
-import { Box, Button, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { Box, Button } from "@mui/material";
+import { useContext, useState } from "react";
 import RecipeList from "./recipeList";
 import AddTitle from "./addTitle";
 import AddPhoto from "./addPhoto";
@@ -8,7 +8,6 @@ import { newCocktailContext } from "../../providers/newCocktailProvider";
 import { useRouter } from "next/router";
 import CocktailTitle from "../detail/cocktailTitle";
 import Alert from "@mui/material/Alert";
-import { useSession } from "next-auth/react";
 
 export default function Form(props) {
   const router = useRouter();
@@ -18,7 +17,6 @@ export default function Form(props) {
   const { title, recipe, photo, directions, userId } =
     useContext(newCocktailContext);
 
-  console.log(userId);
   const error = {
     title: false,
     recipe: false,
