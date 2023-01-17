@@ -16,7 +16,7 @@ export default function LocationProvider(props) {
   const [currentStore, setCurrentStore] = useState({});
 
   const getStoreData = (location) => {
-    console.log("Sending to API");
+    // console.log("Sending to API");
     const params = new URLSearchParams(location).toString();
     axios
       .get(`api/map?${params}`)

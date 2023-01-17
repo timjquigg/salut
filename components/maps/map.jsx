@@ -16,7 +16,7 @@ export default function Map() {
   });
 
   const handleClick = (store) => {
-    console.log(store);
+    // console.log(store);
     setCurrentStore(store);
   };
 

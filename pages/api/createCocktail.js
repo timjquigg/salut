@@ -29,7 +29,7 @@ async function Handler(req, res) {
       return script;
     };
     const ingredientScript = makeIngredientScript();
-    console.log(ingredientScript);
+    // console.log(ingredientScript);
     const newCocktail = await prisma.cocktail.create({
       data: ingredientScript,
     });
@@ -38,7 +38,7 @@ async function Handler(req, res) {
   }
 
   if (req.method === "DELETE") {
-    console.log("drinkID", req.body);
+    // console.log("drinkID", req.body);
     const deleteCocktail = await prisma.cocktail.delete({
       where: {
         idDrink: req.body.cocktailId,

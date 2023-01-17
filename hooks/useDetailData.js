@@ -23,15 +23,15 @@ export function useLoggedInDetailData(data, user, cocktailId, ingredient) {
 
   const addFavorite = async (user, cocktailId) => {
     const payload = { cocktailId, userId: user };
-    console.log("add:", payload);
-    console.log("/api/favorites");
+    // console.log("add:", payload);
+    // console.log("/api/favorites");
     await axios.post("/api/favorites", payload);
   };
 
   const removeFavorite = async (user, cocktailId) => {
     const payload = { cocktailId, userId: user };
-    console.log("delete:", payload);
-    console.log("/api/favorites");
+    // console.log("delete:", payload);
+    // console.log("/api/favorites");
     await axios.delete("/api/favorites", { data: payload });
   };
 

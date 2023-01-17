@@ -26,7 +26,7 @@ function Details(props) {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+      // console.log(data);
       setFavoriteId(data.favoriteId);
       setCategories(data.categories);
     }
