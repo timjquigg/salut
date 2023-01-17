@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useContext, useState } from "react";
 import RecipeList from "./recipeList";
 import AddTitle from "./addTitle";
@@ -16,6 +16,7 @@ export default function Form(props) {
   const [isExistingName, setIsExistingName] = useState(false);
   const { title, recipe, photo, directions, userId } =
     useContext(newCocktailContext);
+
   const error = {
     title: false,
     recipe: false,

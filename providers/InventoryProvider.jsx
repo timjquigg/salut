@@ -3,9 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_VERCEL_ENV
-  ? process.env.NEXT_PUBLIC_VERCEL_URL
-  : process.env.NEXT_PUBLIC_SERVER_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 // Create a Context
 export const inventoryContext = createContext();
@@ -26,7 +24,7 @@ export default function InventoryProvider(props) {
       axios.get(`api/inventory/${userId}`),
       axios.get(`api/inventory?${params}`),
     ]).then((all) => {
-      console.log(all[1]);
+      // console.log(all[1]);
       setInventory(all[0].data);
       setCategories(all[1].data.categories);
       setRecipes(all[1].data.recipes);
