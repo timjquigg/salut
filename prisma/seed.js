@@ -8,6 +8,7 @@ async function main() {
   let drinks = await fs.readFile("prisma/drinksData.json", "utf8");
   drinks = JSON.parse(drinks);
   for (const el of drinks) {
+    el.strDrink = makeTitleCase(el.strDrink);
     el.strIngredient1 =
       el.strIngredient1 === null ? null : makeTitleCase(el.strIngredient1);
     el.strIngredient2 =
