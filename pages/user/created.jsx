@@ -23,6 +23,7 @@ import { LocalBar, Close } from "@mui/icons-material";
 import { useSession } from "next-auth/react";
 import fetcher from "../../lib/fetcher";
 import useSWR from "swr";
+import ImageWithFallback from "../../src/imageWithFallback";
 
 const UserCocktails = () => {
   const [cocktails, setCocktails] = useState([]);
@@ -78,16 +79,7 @@ const UserCocktails = () => {
         <Close sx={{ color: "white", fontSize: "50px" }} />
       </IconButton>
       <Link href={`/cocktail/${item.idDrink}`}>
-        <Image
-          src={item.strDrinkThumb}
-          alt={item.strDrink}
-          width={435}
-          height={450}
-          quality={35}
-          position="relative"
-          layout="intrinsic"
-          object-fit="cover"
-        />
+        <ImageWithFallback src={item.strDrinkThumb} alt={item.strDrink} />
       </Link>
 
       <ImageListItemBar

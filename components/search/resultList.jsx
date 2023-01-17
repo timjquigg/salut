@@ -1,15 +1,13 @@
 import * as React from "react";
-import { useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Link from "next/link";
-import { Box, Button, Typography } from "@mui/material";
 import FavIcon from "./favIcon";
 import Image from "next/image";
-import Tooltip from "@mui/material/Tooltip";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import ImageWithFallback from "../../src/imageWithFallback";
 
 const ResultList = (props) => {
   const theme = useTheme();
@@ -53,16 +51,7 @@ const ResultList = (props) => {
       )}
 
       <Link href={`/cocktail/${item.idDrink}`}>
-        <Image
-          src={item.strDrinkThumb}
-          alt={item.strDrink}
-          width={435}
-          height={450}
-          quality={35}
-          position="relative"
-          layout="intrinsic"
-          object-fit="cover"
-          />
+        <ImageWithFallback src={item.strDrinkThumb} alt={item.strDrink} />
       </Link>
 
       <ImageListItemBar
