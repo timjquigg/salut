@@ -25,7 +25,7 @@ export default function AddDirections(props) {
           label="Recipe Directions"
           margin="normal"
           multiline={true}
-          rows={2}
+          minRows={2}
           value={directions}
           onChange={(e) => handleChange(e.target.value)}
         />
@@ -35,7 +35,7 @@ export default function AddDirections(props) {
           label="Recipe Directions"
           margin="normal"
           multiline={true}
-          rows={2}
+          minRows={2}
           value={directions}
           onChange={(e) => handleChange(e.target.value)}
         />
