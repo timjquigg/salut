@@ -135,6 +135,19 @@ const Favorites = () => {
                 {results}
               </ImageList>
             </Box>
+            {recipes.length < dataLength ? (
+              <Button
+                variant="outlined"
+                size="medium"
+                onClick={() => {
+                  setNumItemDisplay((prev) => prev + 12);
+                }}
+              >
+                See More
+              </Button>
+            ) : (
+              ""
+            )}
             <Button
               variant="outlined"
               size="medium"
