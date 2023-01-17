@@ -1,16 +1,33 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import fetcher from "../lib/fetcher";
+import useSWR from "swr";
 
 export const newCocktailContext = createContext();
 
 export default function NewCocktailProvider(props) {
-  const { ingredients, cocktails, userId } = props;
-  const ingredientNames = ingredients.map((el) => el.strIngredient);
-  const cocktailNames = cocktails.map((el) => el.strDrink);
+  const [ingredientNames, setIngredientNames] = useState([]);
+  const [cocktailNames, setCocktailNames] = useState([]);
+  const { data: session, status } = useSession();
+  const userId = session.user.id;
 
   const [recipe, setRecipe] = useState([{ ingredient: "", measurement: "" }]);
   const [directions, setDirections] = useState("");
   const [title, setTitle] = useState("");
   const [photo, setPhoto] = useState("");
+
+  // const { data: ingredients } = useSWR(`/api/ingredients`, fetcher);
+  const { data } = useSWR("/api/createCocktail", fetcher);
+
+  useEffect(() => {
+    if (data) {
+      setIngredientNames(
+        data.ingredients.ingredients.map((el) => el.strIngredient)
+      );
+      setCocktailNames(data.cocktails.map((el) => el.strDrink));
+    }
+    console.log("updated data in provider");
+  }, [data, userId]);
 
   const updateRecipe = (id, ingredient, measurement) => {
     setRecipe((prev) => {
@@ -21,7 +38,7 @@ export default function NewCocktailProvider(props) {
   };
 
   const removeRecipeItem = (id) => {
-    console.log(id);
+    // console.log(id);
     setRecipe((prev) => {
       const newRecipe = [...prev];
       // console.log(newRecipe);
