@@ -226,8 +226,6 @@ const UserCocktails = () => {
               const filteredState = cocktails.filter(
                 (cocktail) => cocktail.idDrink !== selectedCocktail.idDrink
               );
-              console.log(filteredState);
-              console.log(selectedCocktail.idDrink);
               setCocktails(filteredState);
               toggleOpen(false);
             }}
