@@ -32,8 +32,6 @@ const UserCocktails = () => {
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const { data: session, status } = useSession();
   const [selectedCocktail, setSelectedCocktail] = useState({ strDrink: null });
-  console.log(cocktails);
-  console.log("SELECTED", selectedCocktail);
   const { data, error, isLoading, isValidating } = useSWR(
     `/api/cocktail?userId=${session.user.id}`,
     fetcher
