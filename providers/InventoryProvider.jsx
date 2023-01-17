@@ -25,7 +25,7 @@ export default function InventoryProvider(props) {
       axios.get(`api/inventory?${params}`),
     ]).then((all) => {
       // console.log(all[1]);
-      setInventory(all[0].data);
+      setInventory(all[0].data.sort());
       setCategories(all[1].data.categories);
       setRecipes(all[1].data.recipes);
       setDataLength(all[1].data.recipeLength);
@@ -37,14 +37,14 @@ export default function InventoryProvider(props) {
     if (inventory.includes(name)) {
       const payload = { user: userId, additions: "", deletions: name };
       axios.post("api/inventory", payload).then((res) => {
-        setInventory(res.data.inventory);
+        setInventory(res.data.inventory.sort());
         setRecipes(res.data.recipes);
       });
       return;
     }
     const payload = { user: userId, additions: name, deletions: "" };
     axios.post("api/inventory", payload).then((res) => {
-      setInventory(res.data.inventory);
+      setInventory(res.data.inventory.sort());
       setRecipes(res.data.recipes);
     });
     return;

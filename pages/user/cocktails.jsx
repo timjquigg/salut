@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -17,6 +17,10 @@ const Cocktails = (props) => {
     useContext(inventoryContext);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    setNumItemDisplay(12);
+  }, [setNumItemDisplay]);
 
   let itemListWidth = matches
     ? 400
