@@ -56,7 +56,7 @@ const CategoryMenu = (props) => {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch",
+            width: "25ch",
             backgroundColor: "rgba(0, 0, 0, 0.8)",
           },
         }}
