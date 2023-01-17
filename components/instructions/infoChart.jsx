@@ -21,7 +21,7 @@ const InfoChart = (props) => {
         gap: { lg: 1, md: 3, sm: 5, xs: 1 },
       }}
     >
-      <Link href="/search">
+      <Link href="/search" style={{ textDecoration: "none" }}>
         <Box
           sx={{
             display: "flex",
@@ -54,7 +54,7 @@ const InfoChart = (props) => {
           </Typography>
         </Box>
       </Link>
-      <Link href="/user/favorites">
+      <Link href="/user/favorites" style={{ textDecoration: "none" }}>
         <Box
           sx={{
             display: "flex",
@@ -87,7 +87,7 @@ const InfoChart = (props) => {
           </Typography>
         </Box>
       </Link>
-      <Link href="/user/inventory">
+      <Link href="/user/inventory" style={{ textDecoration: "none" }}>
         <Box
           sx={{
             display: "flex",
@@ -120,7 +120,7 @@ const InfoChart = (props) => {
           </Typography>
         </Box>
       </Link>
-      <Link href="/cocktail/create">
+      <Link href="/cocktail/create" style={{ textDecoration: "none" }}>
         <Box
           sx={{
             display: "flex",
