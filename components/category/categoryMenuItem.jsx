@@ -49,7 +49,11 @@ const CategoryMenuItems = (props) => {
   };
 
   return (
-    <MenuItem key={props.category} value={props.value}>
+    <MenuItem
+      style={{ whiteSpace: "normal" }}
+      key={props.category}
+      value={props.value}
+    >
       <CategoryButton
         category={props.category}
         favId={props.favId}
