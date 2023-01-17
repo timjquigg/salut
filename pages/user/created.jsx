@@ -31,7 +31,7 @@ const UserCocktails = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const { data: session, status } = useSession();
-
+  const [selectedCocktail, setSelectedCocktail] = useState({ strDrink: null });
   const { data, error, isLoading, isValidating } = useSWR(
     `/api/cocktail?userId=${session.user.id}`,
     fetcher
@@ -73,6 +73,7 @@ const UserCocktails = () => {
       <IconButton
         sx={{ position: "absolute", top: "5px", right: "5px" }}
         onClick={() => {
+          setSelectedCocktail(item);
           toggleOpen(true);
         }}
       >
@@ -87,27 +88,6 @@ const UserCocktails = () => {
         subtitle={item.strCategory}
         sx={{ marginBottom: "6px" }}
       />
-      <Dialog open={open}>
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContentText sx={{ p: 3 }}>
-          {`You are about to delete this ${item.strDrink}. Once submitted, it cannot be undone. Continue?`}
-        </DialogContentText>
-        <DialogActions>
-          <Button onClick={() => toggleOpen(false)}>Cancel</Button>
-          <Button
-            onClick={() => {
-              deleteCocktail(item.idDrink);
-              const filteredState = cocktails.filter(
-                (cocktail) => cocktail.idDrink !== item.idDrink
-              );
-              setCocktails(filteredState);
-              toggleOpen(false);
-            }}
-          >
-            Continue
-          </Button>
-        </DialogActions>
-      </Dialog>
     </ImageListItem>
   ));
   return (
@@ -233,6 +213,27 @@ const UserCocktails = () => {
           )}
         </Box>
       </Box>
+      <Dialog open={open}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContentText sx={{ p: 3 }}>
+          {`You are about to delete ${selectedCocktail.strDrink}. Once submitted, it cannot be undone. Continue?`}
+        </DialogContentText>
+        <DialogActions>
+          <Button onClick={() => toggleOpen(false)}>Cancel</Button>
+          <Button
+            onClick={() => {
+              deleteCocktail(selectedCocktail.idDrink);
+              const filteredState = cocktails.filter(
+                (cocktail) => cocktail.idDrink !== selectedCocktail.idDrink
+              );
+              setCocktails(filteredState);
+              toggleOpen(false);
+            }}
+          >
+            Continue
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Layout>
   );
 };

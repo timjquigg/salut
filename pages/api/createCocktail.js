@@ -1,6 +1,16 @@
+import { getCocktailNames } from "../../lib/cocktail";
+import { getIngredients } from "../../lib/inventory";
 import prisma from "../../lib/prismadb";
 
 async function Handler(req, res) {
+  if (req.method === "GET") {
+    const cocktails = await getCocktailNames();
+    const ingredients = await getIngredients();
+
+    res.status(200).send({ cocktails, ingredients });
+    return;
+  }
+
   if (req.method === "POST") {
     const { recipe, title, userId, photo, directions } = req.body;
     const makeIngredientScript = () => {
@@ -19,7 +29,7 @@ async function Handler(req, res) {
       return script;
     };
     const ingredientScript = makeIngredientScript();
-
+    // console.log(ingredientScript);
     const newCocktail = await prisma.cocktail.create({
       data: ingredientScript,
     });
@@ -28,7 +38,7 @@ async function Handler(req, res) {
   }
 
   if (req.method === "DELETE") {
-    console.log("drinkID", req.body);
+    // console.log("drinkID", req.body);
     const deleteCocktail = await prisma.cocktail.delete({
       where: {
         idDrink: req.body.cocktailId,
