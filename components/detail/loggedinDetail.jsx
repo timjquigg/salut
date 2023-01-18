@@ -68,7 +68,7 @@ function LoggedinDetail(props) {
           userId={session.user.id}
         ></IngredientsWithInventory>
         <Directions instructions={instructions} />
-        <BottomButtons />
+        <BottomButtons cocktailId={router.query.id} />
       </RightSideContainer>
     </>
   );
