@@ -5,7 +5,10 @@ import theme from "../../src/theme";
 import CopyToClipboardButton from "../copyUrl";
 import GetLocation from "../maps/getLocation";
 
-export default function BottomButtons() {
+export default function BottomButtons(props) {
+  const facebook = `https://www.facebook.com/sharer/sharer.php?u=https://salut-production.up.railway.app/cocktail/${props.cocktailId}`
+  const twitter = `https://twitter.com/intent/tweet?url=https://salut-production.up.railway.app/cocktail/${props.cocktailId}`
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column"}}>
       <GetLocation />
@@ -13,7 +16,7 @@ export default function BottomButtons() {
         <CopyToClipboardButton/>
         <Button
           title="Share on facebook"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+          href={facebook}
           target="_blank"
           rel="noreferrer"
         >
@@ -21,7 +24,7 @@ export default function BottomButtons() {
         </Button>
         <Button
           title="Share on Twitter"
-          href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com"
+          href={twitter}
           target="_blank"
           rel="noreferrer"
         >

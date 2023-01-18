@@ -1,4 +1,5 @@
 import { useNotLoggedInDetailData } from "../../hooks/useDetailData";
+import { useRouter } from "next/router";
 import PageContainer from "./pageContainer";
 import LocationProvider from "../../providers/locationProvider";
 import BottomButtons from "./bottomButtons";
@@ -15,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function NotLoggedinDetail(props) {
   const theme = useTheme();
+  const router = useRouter();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const {
     strDrink: cocktailName,
@@ -50,7 +52,7 @@ function NotLoggedinDetail(props) {
           </Typography>
           <Ingredients ingredients={ingredients} measurement={measurement} />
           <Directions instructions={instructions} />
-          <BottomButtons />
+          <BottomButtons cocktailId={router.query.id} />
         </RightSideContainer>
       </PageContainer>
     </LocationProvider>
