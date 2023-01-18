@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![title](./public/salut_logo.png)
+
+Salut is an interactive cocktail cabinet and your source for cocktail recipes.
+
+- Create your inventory based on the items you have on hand.
+- See what cocktails you can make right now and cocktails you can make with your ingredients.
+- Search for alcoholic and non-alcoholic recipes based on keywords and ingredients.
+- Save as favorite and categorize your cocktails.
+- Create your own cocktail recipe.
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies using the `npm install` command.
+2. Create an .env file following the .env sample provided.
+3. Run `npx prisma migrate dev` to create the tables.
+4. Run `npm run reset` to seed the files to the database.
+5. Start the web server by using `npm run dev` on your terminal.
+6. Visit http://localhost:3000 to start using the app.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Usage and Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Sign-in and tutorial
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Signing-in, the user has the option to use their google account or facebook account to make an account in our website.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+![Auth](./public/Sign%20in.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Once signed-in for the first time, the user will be redirected to our "Getting Started" page. It will show an overview of what our app does and provides tutorials.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![Start](./public/gettingStarted.gif)
 
-## Learn More
+### Searching for Cocktail Recipes:
 
-To learn more about Next.js, take a look at the following resources:
+Searching for recipes, the user can pick three modes:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Search by keywords
+- Search by ingredients
+- Search Non-alcoholic drinks
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Search](./public/searchGIF.gif)
 
-## Deploy on Vercel
+### Setting up inventory:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Ingredients are divided based on their category. The user just has to select the ingredient that they have to their inventory.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Clicking `What can I make?` will display the cocktails you can make right now based on your inventory.
+
+![Inventory](./public/inventoryGIF.gif)
+
+### Creating a recipe:
+
+A user can also create their own recipes and add it to their favorite list.
+
+After creating the recipe, the user will be redirected to their "Created recipes" page to manage the recipes.
+
+![Create](./public/create2GIF.gif)
+
+### Adding cocktails as favorite and categorizing.
+
+As a logged in user: When searching for a recipe, heart icons will appear on the top right screen of each cocktail cards. Clicking the icons will set it as favorite that will be shown on the user's favorite page.
+
+In the Favorite page, the user can also create/delete categories and categorize the cocktails accordingly.
+
+![Favorite](./public/favCatGIF.gif)
+
+### Looking at the drink details
+
+Clicking the drink card will show the details of the chosen drink.
+
+It displays the following:
+
+- Name of the drink
+- Status (if set as favorite or not)
+- Category (if any) the beverage belongs to
+- How many likes the drink has
+- Ingredients and status if ingredient is in the inventory
+- Share to twitter, facebook, and copy to clipboard icons.
+- Find the closest liquor store and get directions.
+
+![Detail](./public/detGIF.gif)
+
+## Dependencies
+
+- NodeJS 16.18.1
+- NPM 8.19.2
+- NextJS 13.1.1
+- ReactJS 18.2.0
+- React Carousel 3.4.2
+- Google Maps API 2.17.1
+- Googe Maps Services 3.3.26
+- MUI 5.11.3
+- Next-Auth 4.18.7
+- Axios 1.2.2
+- Prisma 4.8.1
+- SWR 2.0.0
