@@ -56,6 +56,14 @@ const Signin = ({ providers, query }) => {
           }}
         >
           <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
+            {provider.name === "Email" && (
+              <Image
+                src="/email-svgrepo-com.svg"
+                width="30"
+                height="30"
+                alt=""
+              />
+            )}
             {provider.name === "Google" && (
               <Image
                 src="https://authjs.dev/img/providers/google.svg"
