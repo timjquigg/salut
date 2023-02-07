@@ -82,7 +82,7 @@ const Signin = ({ providers, query }) => {
             )}
             <Box sx={{ marginLeft: { sm: "5rem", xs: "1rem" } }}>
               {query === "signin" ? "Sign in with " : "Sign up with "}
-              {provider.name}
+              {provider.name} {provider.name !== "Email" && " *"}
             </Box>
           </Box>
         </Button>
@@ -217,6 +217,10 @@ const Signin = ({ providers, query }) => {
               spacing={2}
             >
               {providerButtons}
+              <Typography>
+                * Facebook and Google login available for registered testers
+                only
+              </Typography>
             </Stack>
             {error && <SignInError error={error} />}
           </Box>
