@@ -1,53 +1,131 @@
 import { signIn, getProviders } from "next-auth/react";
-import { Button, Box, Typography } from "@mui/material";
+import {
+  Button,
+  Box,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  DialogActions,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { Stack } from "@mui/system";
 import Layout from "../../components/layout";
 import Image from "next/image";
 import theme from "../../src/theme";
+import { Fragment, useState } from "react";
 
 const Signin = ({ providers, query }) => {
-  const clickHandler = async (provider) => {
-    await signIn(provider, { callbackUrl: "/user" });
+  const [showEmail, setShowEmail] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const clickHandler = async (provider, email = null) => {
+    await signIn(provider, { email, callbackUrl: "/user" });
+  };
+
+  const emailClickHandler = () => {
+    setShowEmail(true);
+  };
+
+  const handleChange = (value) => {
+    setEmail(value);
   };
 
   const providerButtons = Object.values(providers).map((provider) => {
     return (
-      <Button
-        key={provider.id}
-        onClick={() => clickHandler(provider.id)}
-        variant="contained"
-        sx={{
-          backgroundColor: "#fff",
-          borderRadius: "5px",
-          width: { xs: "70%", sm: "100%" },
-          "&:hover": {
-            background: "#DCDCDC",
-          },
-        }}
-      >
-        <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
-          {provider.name === "Google" ? (
-            <Image
-              src="https://authjs.dev/img/providers/google.svg"
-              width="30"
-              height="30"
-              alt=""
-            />
-          ) : (
-            <Image
-              src="https://authjs.dev/img/providers/facebook.svg"
-              width="30"
-              height="30"
-              alt=""
-            />
-          )}
-          <Box sx={{ marginLeft: { sm: "5rem", xs: "1rem" } }}>
-            {query === "signin" ? "Sign in with" : "Sign up with"}{" "}
-            {provider.name}
+      <Fragment key={provider.id}>
+        <Button
+          key={provider.id}
+          onClick={
+            provider.name === "Email"
+              ? () => emailClickHandler()
+              : () => clickHandler(provider.id)
+          }
+          variant="contained"
+          sx={{
+            backgroundColor: "#fff",
+            borderRadius: "5px",
+            width: { xs: "70%", sm: "100%" },
+            "&:hover": {
+              background: "#DCDCDC",
+            },
+          }}
+        >
+          <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
+            {provider.name === "Email" && (
+              <Image
+                src="/email-svgrepo-com.svg"
+                width="30"
+                height="30"
+                alt=""
+              />
+            )}
+            {provider.name === "Google" && (
+              <Image
+                src="https://authjs.dev/img/providers/google.svg"
+                width="30"
+                height="30"
+                alt=""
+              />
+            )}
+            {provider.name === "Facebook" && (
+              <Image
+                src="https://authjs.dev/img/providers/facebook.svg"
+                width="30"
+                height="30"
+                alt=""
+              />
+            )}
+            <Box sx={{ marginLeft: { sm: "5rem", xs: "1rem" } }}>
+              {query === "signin" ? "Sign in with " : "Sign up with "}
+              {provider.name} {provider.name !== "Email" && " *"}
+            </Box>
           </Box>
-        </Box>
-      </Button>
+        </Button>
+        {provider.name === "Email" && (
+          <Dialog open={showEmail} onClose={() => setShowEmail(false)}>
+            <DialogTitle>
+              {query === "signin" ? "Sign In" : "Sign Up"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Please provide an e-mail address to{" "}
+                {query === "signin" ? "sign in" : "sign up"} with Salut. You
+                will then receive an e-mail with a link to your signed in
+                dashboard.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+                value={email}
+                onChange={(event) => handleChange(event.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    clickHandler(provider.id, email);
+                  }
+                }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setShowEmail(false)}>Cancel</Button>
+              <Button
+                type="submit"
+                onClick={() => clickHandler(provider.id, email)}
+              >
+                {query === "signin" ? "Sign In" : "Sign Up"}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
+      </Fragment>
     );
   });
 
@@ -146,6 +224,10 @@ const Signin = ({ providers, query }) => {
               spacing={2}
             >
               {providerButtons}
+              <Typography>
+                * Facebook and Google login available for registered testers
+                only
+              </Typography>
             </Stack>
             {error && <SignInError error={error} />}
           </Box>
