@@ -22,8 +22,6 @@ const Signin = ({ providers, query }) => {
   const [email, setEmail] = useState("");
 
   const clickHandler = async (provider, email = null) => {
-    console.log(provider);
-    console.log(email);
     await signIn(provider, { email, callbackUrl: "/user" });
   };
 
@@ -107,12 +105,21 @@ const Signin = ({ providers, query }) => {
                 fullWidth
                 variant="standard"
                 value={email}
-                onChange={() => handleChange(event.target.value)}
+                onChange={(event) => handleChange(event.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    clickHandler(provider.id, email);
+                  }
+                }}
               />
             </DialogContent>
             <DialogActions>
               <Button onClick={() => setShowEmail(false)}>Cancel</Button>
-              <Button onClick={() => clickHandler(provider.id, email)}>
+              <Button
+                type="submit"
+                onClick={() => clickHandler(provider.id, email)}
+              >
                 {query === "signin" ? "Sign In" : "Sign Up"}
               </Button>
             </DialogActions>
