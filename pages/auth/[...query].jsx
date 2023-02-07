@@ -15,7 +15,7 @@ import { Stack } from "@mui/system";
 import Layout from "../../components/layout";
 import Image from "next/image";
 import theme from "../../src/theme";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 const Signin = ({ providers, query }) => {
   const [showEmail, setShowEmail] = useState(false);
@@ -37,9 +37,9 @@ const Signin = ({ providers, query }) => {
 
   const providerButtons = Object.values(providers).map((provider) => {
     return (
-      <fragment key={provider.id}>
+      <Fragment key={provider.id}>
         <Button
-          // key={provider.id}
+          key={provider.id}
           onClick={
             provider.name === "Email"
               ? () => emailClickHandler()
@@ -73,7 +73,7 @@ const Signin = ({ providers, query }) => {
               />
             )}
             <Box sx={{ marginLeft: { sm: "5rem", xs: "1rem" } }}>
-              {query === "signin" ? "Sign in with" : "Sign up with"}{" "}
+              {query === "signin" ? "Sign in with " : "Sign up with "}
               {provider.name}
             </Box>
           </Box>
@@ -110,7 +110,7 @@ const Signin = ({ providers, query }) => {
             </DialogActions>
           </Dialog>
         )}
-      </fragment>
+      </Fragment>
     );
   });
 
